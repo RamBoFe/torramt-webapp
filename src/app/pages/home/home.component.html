@@ -1,0 +1,31 @@
+
+
+<div class="container mt-5">
+  <h1 class="text-center">Recherche de torrent</h1>
+  <form
+      class="md-form form-inline"
+      [formGroup]="searchForm"
+
+  >
+    <input
+       type="text"
+       placeholder="Recherche"
+       id="search"
+       class="form-control ml-auto w-75"
+       mdbInput
+       formControlName="search"
+    >
+    <i
+      class="fa fa-search light-blue-text mr-auto"
+      aria-hidden="true"
+      (click)="onSubmitForm()"
+    ></i>
+  </form>
+</div>
+
+<div class="container-fluid">
+  <ul class="list-group list-group-flush" *ngFor="let torrent of torrents">
+    <li class="list-group-item"></li>
+  </ul>
+</div>
+
