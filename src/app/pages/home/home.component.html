@@ -1,19 +1,16 @@
-
-
 <div class="container mt-5">
   <h1 class="text-center">Recherche de torrent</h1>
   <form
-      class="md-form form-inline"
       [formGroup]="searchForm"
-
+      class="md-form form-inline"
   >
     <input
-       type="text"
-       placeholder="Recherche"
-       id="search"
-       class="form-control ml-auto w-75"
-       mdbInput
-       formControlName="search"
+      mdbInput
+      formControlName="search"
+      id="search"
+      type="text"
+      placeholder="Recherche"
+      class="form-control ml-auto w-75"
     >
     <i
       class="fa fa-search light-blue-text mr-auto"
@@ -23,9 +20,45 @@
   </form>
 </div>
 
-<div class="container-fluid">
-  <ul class="list-group list-group-flush" *ngFor="let torrent of torrents">
-    <li class="list-group-item"></li>
-  </ul>
+<div class="container-fluid mt-5" *ngIf="torrents">
+  <p>Résultats : {{ torrents.length }}</p>
+  <table mdbTable>
+    <tbody>
+      <tr mdbTableCol *ngFor="let torrent of torrents">
+        <td>
+          <p>{{ torrent.title }}</p>
+          <mdb-badge
+            class="mr-1"
+            primary="true"
+            pill="true"
+          >
+            {{ torrent.time | date: 'short' }}
+          </mdb-badge>
+          <mdb-badge
+            class="mr-1"
+            default="true"
+            pill="true"
+          >
+            {{ torrent.size }}
+          </mdb-badge>
+          <mdb-badge
+            success="true"
+            pill="true"
+          >
+            {{ torrent.seeds }}
+          </mdb-badge>
+        </td>
+        <td>
+          <a href="">
+            <mdb-badge
+              default="true"
+              pill="true"
+            >
+              <mdb-icon fas icon="download"></mdb-icon>
+            </mdb-badge>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
-
