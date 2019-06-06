@@ -20,11 +20,26 @@
   </form>
 </div>
 
+<div *ngIf="hasNotifications()"
+    class="alert alert-success alert-dismissible fade show custom-notification"
+    role="alert"
+>
+  <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="closeNotification()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+  {{ notification.message }}
+</div>
+
 <div class="container-fluid mt-5" *ngIf="torrents">
   <p>Résultats : {{ torrents.length }}</p>
   <table mdbTable>
     <tbody>
-      <tr mdbTableCol *ngFor="let torrent of torrents">
+      <tr mdbTableCol *ngFor="let torrent of torrents; let i = index">
         <td>
           <p>{{ torrent.title }}</p>
           <mdb-badge
@@ -49,7 +64,7 @@
           </mdb-badge>
         </td>
         <td>
-          <a href="">
+          <a (click)="addTorrentToDl(i)">
             <mdb-badge
               default="true"
               pill="true"
