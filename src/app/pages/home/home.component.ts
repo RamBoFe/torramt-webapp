@@ -1,32 +1,25 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { YggService } from '../../services/api/torrents/ygg.service';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { YggService } from '../../services/api/torrents/ygg.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+
+export class HomeComponent implements OnInit {
 
   torrents: Array<any>;
-  wordSubscription: Subscription;
   searchForm: FormGroup;
+  notification: Object = {};
 
   constructor(
     private yggService: YggService,
     private formBuilder: FormBuilder
     ) {}
 
-  async ngOnInit() {
-    // this.wordSubscription = this.wordsApiService.wordSubject.subscribe(
-    //   (words: Array<any>) => {
-    //     this.words = words;
-    // });
-
-    // this.wordsApiService.getWords();
-    // this.words = await this.wordsApiService.asyncGetWords();
+  ngOnInit(): void {
     this.initForm();
   }
 
@@ -36,13 +29,21 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  async onSubmitForm() {
+  async onSubmitForm(): Promise<any> {
     const formValue = this.searchForm.value;
-    console.log(formValue);
-    this.torrents = await this.yggService.getSearch(formValue);
+    this.torrents = await this.yggService.getSearch(formValue.search);
   }
 
-  ngOnDestroy(): void {
-    this.wordSubscription.unsubscribe();
+  async addTorrentToDl(i: number): Promise<any> {
+    const infos = await this.yggService.addTorrentToDl(this.torrents[i]);
+    this.notification.message = `Le torrent "${infos.name}" a bien été ajouté au téléchargement.` ;
+  }
+
+  hasNotifications(): boolean {
+    return Object.keys(this.notification).length > 0;
+  }
+
+  closeNotification(): void {
+    this.notification = {};
   }
 }
