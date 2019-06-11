@@ -36,7 +36,12 @@ export class HomeComponent implements OnInit {
 
   async addTorrentToDl(i: number): Promise<any> {
     const infos = await this.yggService.addTorrentToDl(this.torrents[i]);
-    this.notification.message = `Le torrent "${infos.name}" a bien été ajouté au téléchargement.` ;
+    Object.assign(
+      this.notification,
+      {
+        message: `Le torrent "${infos.name}" a bien été ajouté au téléchargement.`
+      }
+    );
   }
 
   hasNotifications(): boolean {
