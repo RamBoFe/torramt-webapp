@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "glouton-webapp": {
+    "torramt-webapp": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,14 +17,15 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/glouton-webapp",
+            "outputPath": "dist/torramt-webapp",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.json"
             ],
             "styles": [
               "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
@@ -64,25 +65,27 @@
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "src/ngsw-config.json"
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "glouton-webapp:build"
+            "browserTarget": "torramt-webapp:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "glouton-webapp:build:production"
+              "browserTarget": "torramt-webapp:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "glouton-webapp:build"
+            "browserTarget": "torramt-webapp:build"
           }
         },
         "test": {
@@ -98,7 +101,8 @@
             "scripts": [],
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.json"
             ]
           }
         },
@@ -117,5 +121,5 @@
       }
     }
   },
-  "defaultProject": "glouton-webapp"
+  "defaultProject": "torramt-webapp"
 }
