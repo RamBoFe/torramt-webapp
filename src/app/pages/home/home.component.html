@@ -35,45 +35,50 @@
   {{ notification.message }}
 </div>
 
-<div class="container-fluid mt-5" *ngIf="torrents">
+<div class="container mt-5" *ngIf="torrents">
   <p>Résultats : {{ torrents.length }}</p>
-  <table mdbTable>
-    <tbody>
-      <tr mdbTableCol *ngFor="let torrent of torrents; let i = index">
-        <td>
-          <p>{{ torrent.title }}</p>
+
+  <ul class="list-group list-group-flush">
+    <li
+      *ngFor="let torrent of torrents; let i = index"
+      class="list-group-item"
+    >
+      <p>{{ torrent.title }}</p>
+      <div class="row">
+        <div class="col-9">
           <mdb-badge
-            class="mr-1"
-            primary="true"
-            pill="true"
+              class="mr-1"
+              primary="true"
+              pill="true"
           >
             {{ torrent.time | date: 'short' }}
           </mdb-badge>
           <mdb-badge
-            class="mr-1"
-            default="true"
-            pill="true"
+              class="mr-1"
+              default="true"
+              pill="true"
           >
             {{ torrent.size }}
           </mdb-badge>
           <mdb-badge
-            success="true"
-            pill="true"
+              success="true"
+              pill="true"
           >
             {{ torrent.seeds }}
           </mdb-badge>
-        </td>
-        <td>
+
+        </div>
+        <div class="col-3 text-right">
           <a (click)="addTorrentToDl(i)">
             <mdb-badge
-              default="true"
-              pill="true"
+                default="true"
+                pill="true"
             >
               <mdb-icon fas icon="download"></mdb-icon>
             </mdb-badge>
           </a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>
