@@ -1,0 +1,57 @@
+<div class="container mt-5">
+  <h1 class="text-center">Torrents de la Seedbox</h1>
+
+  <ul class="list-group list-group-flush mt-5">
+    <li
+      *ngFor="let torrent of torrents"
+      class="list-group-item"
+    >
+      <div class="row">
+        <div class="col-2 align-icons">
+          <a (click)="togglePlayPause(torrent.status, torrent.hashString)">
+            <mdb-badge
+              pill="true"
+              color="teal"
+            >
+              <mdb-icon fas
+               size="2x"
+               [icon]="torrent.status ? 'pause' : 'play'"
+              >
+              </mdb-icon>
+            </mdb-badge>
+          </a>
+          <a (click)="remove(torrent.hashString)">
+            <mdb-badge
+              pill="true"
+              danger="true"
+
+            >
+              <mdb-icon fas
+                icon="trash-alt"
+              >
+              </mdb-icon>
+            </mdb-badge>
+          </a>
+        </div>
+        <div class="col-10">
+          <h6>{{ torrent.name }}</h6>
+          <div class="row">
+            <div class="col-8">
+              {{ torrent.totalSize | fileSize }}
+            </div>
+            <div class="col-4">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">
+              {{ torrent.uploadedEver | fileSize }} (Ratio: {{ torrent.uploadRatio }})
+            </div>
+            <div class="col-4">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </li>
+  </ul>
+</div>

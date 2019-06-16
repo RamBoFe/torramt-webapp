@@ -17,6 +17,9 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { SeedboxComponent } from './pages/seedbox/seedbox.component';
+import { TransmissionService } from './services/api/torrents/management/transmission';
+import {FileSizePipe} from "./pipes/file-size.pipe";
 
 registerLocaleData(localeFr, 'fr');
 
@@ -26,7 +29,9 @@ registerLocaleData(localeFr, 'fr');
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    DefaultComponent
+    DefaultComponent,
+    SeedboxComponent,
+    FileSizePipe
   ],
   imports: [
     BrowserModule,
@@ -40,7 +45,8 @@ registerLocaleData(localeFr, 'fr');
   providers: [
     FormBuilder,
     { provide: LOCALE_ID, useValue: 'fr-FR' },
-    YggService
+    YggService,
+    TransmissionService
   ],
   bootstrap: [AppComponent]
 })
