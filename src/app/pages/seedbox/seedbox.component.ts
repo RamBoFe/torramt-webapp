@@ -14,7 +14,6 @@ export class SeedboxComponent implements OnInit {
 
   async ngOnInit(): Promise<any> {
     this.torrents = await this.getTorrents();
-    console.log(this.torrents);
   }
 
   async getTorrents(): Promise<any> {
@@ -34,7 +33,4 @@ export class SeedboxComponent implements OnInit {
   async remove(hash: String): Promise<any> {
     this.transmission.remove(hash);
   }
-
-
-
 }

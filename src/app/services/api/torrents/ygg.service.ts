@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../../../environments/environment';
 
-const URL = 'http://192.168.0.23:2223/torrents/ygg';
+const URL = `${environment.apiUrl}/torrents/ygg`;
 
 @Injectable()
 export class YggService {

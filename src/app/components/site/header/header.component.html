@@ -1,37 +1,37 @@
-<mdb-navbar SideClass="navbar navbar-1 navbar-dark light-blue" [containerInside]="false">
+<mdb-navbar #navbar SideClass="navbar navbar-1 navbar-dark light-blue" [containerInside]="false">
   <mdb-navbar-brand>
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand"
+      routerLink=""
+    >
       <img src="assets/icons/torramt-32.png">
       Torramt
     </a>
   </mdb-navbar-brand>
 
-  <links>
-    <ul
-      class="navbar-nav mr-auto"
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item"
+      routerLink="/search"
+      routerLinkActive="active"
     >
-      <li
-        class="nav-item"
-        routerLink=""
-        routerLinkActive="active"
-      >
-        <a mdbWavesEffect
-          class="nav-link waves-light" >
-          Recherche
-        </a>
-      </li>
-      <li
-        class="nav-item"
-        routerLink="seedbox"
-        routerLinkActive="active"
-      >
-        <a mdbWavesEffect
-          class="nav-link waves-light"
-        >
-          Seedbox
-        </a>
-      </li>
-    </ul>
-  </links>
-
+      <a class="nav-link waves-light" mdbWavesEffect>
+        <mdb-icon fas icon="search"></mdb-icon>
+      </a>
+    </li>
+    <li class="nav-item"
+      routerLink="/seedbox"
+      routerLinkActive="active"
+    >
+      <a class="nav-link waves-light" mdbWavesEffect>
+        <mdb-icon fas icon="seedling"></mdb-icon>
+      </a>
+    </li>
+    <li class="nav-item"
+      routerLink="/ftp"
+      routerLinkActive="active"
+    >
+      <a class="nav-link waves-light" mdbWavesEffect>
+        <mdb-icon fas icon="download"></mdb-icon>
+      </a>
+    </li>
+  </ul>
 </mdb-navbar>

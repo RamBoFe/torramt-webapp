@@ -1,0 +1,66 @@
+<div class="container mt-5">
+  <h1 class="text-center">Ftp</h1>
+
+<!--  <p>Résultats : {{ files.length }}</p>-->
+  <mdb-breadcrumb>
+    <mdb-breadcrumb-item>
+      <a (click)="move('')">
+        FTP
+      </a>
+    </mdb-breadcrumb-item>
+    <mdb-breadcrumb-item
+      *ngFor="let breadcrumb of breadcrumbs; last as isLast"
+      [ngClass]="{ 'active' : isLast }"
+    >
+      <a (click)="move()">
+        {{ breadcrumb }}
+      </a>
+    </mdb-breadcrumb-item>
+  </mdb-breadcrumb>
+
+
+  <ul class="list-group list-group-flush">
+    <li
+      *ngFor="let file of files; let i = index"
+      class="list-group-item"
+    >
+      <a (click)="move(file.name)">
+        <p>
+          <mdb-icon fas
+            [icon]="file.type === 'd' ? 'folder' : 'file'"
+          >
+          </mdb-icon>
+          {{ file.name }}
+        </p>
+      </a>
+
+      <div class="row">
+        <div class="col-9">
+          <mdb-badge
+            class="mr-1"
+            primary="true"
+            pill="true"
+          >
+            {{ file.modifyTime | date: 'short' }}
+          </mdb-badge>
+          <mdb-badge
+            class="mr-1"
+            info="true"
+            pill="true"
+          >
+            {{ file.size | fileSize }}
+          </mdb-badge>
+        </div>
+        <div class="col-3 text-right">
+          <mdb-badge
+            default="true"
+            pill="true"
+          >
+            <mdb-icon fas icon="download"></mdb-icon>
+          </mdb-badge>
+        </div>
+      </div>
+
+    </li>
+  </ul>
+</div>
