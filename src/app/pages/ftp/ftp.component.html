@@ -24,18 +24,24 @@
       *ngFor="let file of files; let i = index"
       class="list-group-item"
     >
-      <a (click)="move(file.name)">
-        <p>
-          <mdb-icon fas
-            [icon]="file.type === 'd' ? 'folder' : 'file'"
-          >
-          </mdb-icon>
-          {{ file.name }}
-        </p>
-      </a>
-
       <div class="row">
-        <div class="col-9">
+        <div class="col-2">
+          <a (click)="move(file.name)">
+              <mdb-icon fas size="2x"
+                        class="cyan-text pr-3"
+                        [icon]="file.type === 'd' ? 'folder' : 'file'"
+              >
+              </mdb-icon>
+          </a>
+        </div>
+
+
+        <div class="col-8">
+          <p>
+            <a (click)="move(file.name)">
+              {{ file.name }}
+            </a>
+          </p>
           <mdb-badge
             class="mr-1"
             primary="true"
@@ -51,12 +57,14 @@
             {{ file.size | fileSize }}
           </mdb-badge>
         </div>
-        <div class="col-3 text-right">
+        <div class="col-2 text-right">
           <mdb-badge
             default="true"
             pill="true"
           >
-            <mdb-icon fas icon="download"></mdb-icon>
+            <a (click)="transfertToNas(file.name, file.type)">
+              <mdb-icon fas size="2x" class="m-1" icon="download"></mdb-icon>
+            </a>
           </mdb-badge>
         </div>
       </div>
