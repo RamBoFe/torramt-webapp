@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MDBModalRef, MDBModalService } from 'angular-bootstrap-md';
 import { FtpService } from '../../services/api/ftp/ftp.service';
 import { NasService } from '../../services/api/nas/nas.service';
+import { ModalFtpToNasComponent } from '../../components/modals/modal-ftp-to-nas/modal-ftp-to-nas.component';
 
 @Component({
   selector: 'app-ftp',
@@ -27,9 +28,23 @@ export class FtpComponent implements OnInit {
     this.breadcrumbs.push(folder);
   }
 
-  async transfertToNas(folder: string, type: string): Promise<any> {
+  async transfertToNas(folder: string,
+                       destination: string,
+                       createSubFolder: string,
+                       type: string): Promise<any> {
     const path = this.breadcrumbs.join('/');
-    const ok = await this.nasService.transferToNas(`/${path}/${folder}`, type);
-    console.log(ok);
+    await this.nasService.transferToNas(
+      `/${path}/${folder}`,
+      destination,
+      createSubFolder,
+      type);
+  }
+
+  openModalTransfertToNas(path: string, type: string): void {
+    this.modalRef = this.modalService.show(ModalFtpToNasComponent);
+    this.modalRef.content.transfert.subscribe(params => {
+      this.transfertToNas(path, params.destination, params.subFolder, type);
+      this.modalRef.hide();
+    });
   }
 }

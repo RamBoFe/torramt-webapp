@@ -22,6 +22,7 @@ import { SeedboxComponent } from './pages/seedbox/seedbox.component';
 import { FileSizePipe } from './pipes/file-size.pipe';
 import { FtpService } from './services/api/ftp/ftp.service';
 import { TransmissionService } from './services/api/torrents/management/transmission';
+import { ModalFtpToNasComponent } from './components/modals/modal-ftp-to-nas/modal-ftp-to-nas.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -34,7 +35,8 @@ registerLocaleData(localeFr, 'fr');
     DefaultComponent,
     SeedboxComponent,
     FileSizePipe,
-    FtpComponent
+    FtpComponent,
+    ModalFtpToNasComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +54,7 @@ registerLocaleData(localeFr, 'fr');
     TransmissionService,
     FtpService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ModalFtpToNasComponent]
 })
 export class AppModule { }

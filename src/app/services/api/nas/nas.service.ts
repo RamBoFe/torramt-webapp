@@ -8,13 +8,16 @@ const URL = `${environment.apiUrl}/nas`;
   providedIn: 'root'
 })
 export class NasService {
-
   constructor(private http: HttpClient) { }
 
-  async transferToNas(path: string, type: string): Promise<any> {
+  async transferToNas(path: string,
+                      destination: string,
+                      createSubFolder: string,
+                      type: string): Promise<any> {
+
     return this.http
-      .get<Array<any>>(`${URL}/transfert`, {
-        params: { path, type }
+      .get<string>(`${URL}/transfert`, {
+        params: { path, destination, createSubFolder, type }
       })
       .toPromise();
   }
