@@ -17,12 +17,13 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { ModalFtpToNasComponent } from './components/modals/modal-ftp-to-nas/modal-ftp-to-nas.component';
+import { ModalTorrentDetailsComponent } from './components/modals/modal-torrent-details/modal-torrent-details.component';
 import { FtpComponent } from './pages/ftp/ftp.component';
 import { SeedboxComponent } from './pages/seedbox/seedbox.component';
 import { FileSizePipe } from './pipes/file-size.pipe';
 import { FtpService } from './services/api/ftp/ftp.service';
 import { TransmissionService } from './services/api/torrents/management/transmission';
-import { ModalFtpToNasComponent } from './components/modals/modal-ftp-to-nas/modal-ftp-to-nas.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -36,7 +37,8 @@ registerLocaleData(localeFr, 'fr');
     SeedboxComponent,
     FileSizePipe,
     FtpComponent,
-    ModalFtpToNasComponent
+    ModalFtpToNasComponent,
+    ModalTorrentDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +57,9 @@ registerLocaleData(localeFr, 'fr');
     FtpService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ModalFtpToNasComponent]
+  entryComponents: [
+    ModalFtpToNasComponent,
+    ModalTorrentDetailsComponent
+  ]
 })
 export class AppModule { }

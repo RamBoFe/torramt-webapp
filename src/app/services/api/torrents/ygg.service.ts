@@ -24,4 +24,15 @@ export class YggService {
       })
       .toPromise();
   }
+
+  async getTorrentDetails(torrent: object): Promise<any> {
+    const requestOptions: Object = {
+      params: { torrent: JSON.stringify(torrent) },
+      responseType: 'text'
+    };
+
+    return this.http
+      .get<String>(`${URL}/details`,  requestOptions)
+      .toPromise();
+  }
 }

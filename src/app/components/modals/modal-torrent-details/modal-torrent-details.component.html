@@ -1,0 +1,22 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button
+        type="button"
+        class="close pull-right"
+        (click)="modalRef.hide()"
+    >
+      <span>×</span>
+    </button>
+    <h4
+        class="modal-title w-100"
+        id="myModalLabel"
+    >
+      Détails du torrent
+    </h4>
+  </div>
+  <div
+      class="modal-body text-center"
+      [innerHTML]="torrentDetailsHtml"
+  >
+  </div>
+</div>

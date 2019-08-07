@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MDBModalService } from 'angular-bootstrap-md';
+import { ModalTorrentDetailsComponent } from '../../components/modals/modal-torrent-details/modal-torrent-details.component';
 import { YggService } from '../../services/api/torrents/ygg.service';
 
 @Component({
@@ -16,7 +18,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private yggService: YggService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private modalService: MDBModalService
     ) {}
 
   ngOnInit(): void {
@@ -50,5 +53,12 @@ export class HomeComponent implements OnInit {
 
   closeNotification(): void {
     this.notification = {};
+  }
+
+  async openModalTorrentDetails(i: number): Promise<any> {
+    this.modalService.show(ModalTorrentDetailsComponent, {
+      class: 'modal-dialog-scrollable',
+      data: { torrent: this.torrents[i] }
+    });
   }
 }
