@@ -21,8 +21,4 @@ export class ModalTorrentDetailsComponent implements OnInit {
     const torrentDetailsHtml = await this.yggService.getTorrentDetails(this.torrent);
     this.torrentDetailsHtml = this.sanitizerService.bypassSecurityTrustHtml(torrentDetailsHtml);
   }
-
-  // onTorrentDetails() {
-  //
-  // }
 }
