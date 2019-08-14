@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MDBModalRef } from 'angular-bootstrap-md';
-import { YggService } from '../../../services/api/torrents/ygg.service';
+import { TorrentsService } from '../../../services/api/torrents/torrents.service';
 
 @Component({
   selector: 'app-modal-torrent-details',
@@ -13,12 +13,12 @@ export class ModalTorrentDetailsComponent implements OnInit {
   torrent: object;
 
   constructor(public modalRef: MDBModalRef,
-              private yggService: YggService,
+              private torrentsService: TorrentsService,
               private sanitizerService: DomSanitizer
               ) {}
 
   async ngOnInit(): Promise<any> {
-    const torrentDetailsHtml = await this.yggService.getTorrentDetails(this.torrent);
+    const torrentDetailsHtml = await this.torrentsService.getTorrentDetails(this.torrent);
     this.torrentDetailsHtml = this.sanitizerService.bypassSecurityTrustHtml(torrentDetailsHtml);
   }
 }

@@ -11,12 +11,13 @@ import { HomeComponent } from './pages/home/home.component';
 
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { routing } from './app.routing';
-import { YggService } from './services/api/torrents/ygg.service';
+import { TorrentsService } from './services/api/torrents/torrents.service';
 
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { TorrentActiveProvidersComponent } from './components/forms/torrent-active-providers/torrent-active-providers.component';
 import { ModalFtpToNasComponent } from './components/modals/modal-ftp-to-nas/modal-ftp-to-nas.component';
 import { ModalTorrentDetailsComponent } from './components/modals/modal-torrent-details/modal-torrent-details.component';
 import { FtpComponent } from './pages/ftp/ftp.component';
@@ -38,7 +39,8 @@ registerLocaleData(localeFr, 'fr');
     FileSizePipe,
     FtpComponent,
     ModalFtpToNasComponent,
-    ModalTorrentDetailsComponent
+    ModalTorrentDetailsComponent,
+    TorrentActiveProvidersComponent
   ],
   imports: [
     BrowserModule,
@@ -52,14 +54,15 @@ registerLocaleData(localeFr, 'fr');
   providers: [
     FormBuilder,
     { provide: LOCALE_ID, useValue: 'fr-FR' },
-    YggService,
+    TorrentsService,
     TransmissionService,
     FtpService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
     ModalFtpToNasComponent,
-    ModalTorrentDetailsComponent
+    ModalTorrentDetailsComponent,
+    TorrentActiveProvidersComponent
   ]
 })
 export class AppModule { }

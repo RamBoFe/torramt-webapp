@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MDBModalService } from 'angular-bootstrap-md';
 import { ModalTorrentDetailsComponent } from '../../components/modals/modal-torrent-details/modal-torrent-details.component';
-import { YggService } from '../../services/api/torrents/ygg.service';
+import { TorrentsService } from '../../services/api/torrents/torrents.service';
 
 @Component({
   selector: 'app-home',
@@ -17,28 +17,29 @@ export class HomeComponent implements OnInit {
   notification: Object = {};
 
   constructor(
-    private yggService: YggService,
+    private torrentsService: TorrentsService,
     private formBuilder: FormBuilder,
     private modalService: MDBModalService
     ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<any> {
     this.initForm();
   }
 
   initForm(): void {
     this.searchForm = this.formBuilder.group({
-      search: ''
+      searchValue: '',
+      provider: '',
+      category: ''
     });
   }
 
   async onSubmitForm(): Promise<any> {
-    const formValue = this.searchForm.value;
-    this.torrents = await this.yggService.getSearch(formValue.search);
+    this.torrents = await this.torrentsService.getSearch(this.searchForm.value);
   }
 
   async addTorrentToDl(i: number): Promise<any> {
-    const infos = await this.yggService.addTorrentToDl(this.torrents[i]);
+    const infos = await this.torrentsService.addTorrentToDl(this.torrents[i]);
     Object.assign(
       this.notification,
       {

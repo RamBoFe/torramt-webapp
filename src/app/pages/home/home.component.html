@@ -2,37 +2,34 @@
   <h1 class="text-center">Recherche de torrent</h1>
   <form
       [formGroup]="searchForm"
-      class="md-form form-inline"
   >
-    <input
-      mdbInput
-      formControlName="search"
-      id="search"
-      type="text"
-      placeholder="Recherche"
-      class="form-control ml-auto w-75"
+    <div
+      class="md-form"
     >
-    <i
-      class="fa fa-search light-blue-text mr-auto"
-      aria-hidden="true"
-      (click)="onSubmitForm()"
-    ></i>
-  </form>
-</div>
+      <input
+        class="form-control"
+        formControlName="searchValue"
+        id="search"
+        mdbInput
+        placeholder="Recherche"
+        type="text"
+      >
+    </div>
 
-<div *ngIf="hasNotifications()"
-    class="alert alert-success alert-dismissible fade show custom-notification"
-    role="alert"
->
-  <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="closeNotification()"
-  >
-    <span aria-hidden="true">&times;</span>
-  </button>
-  {{ notification.message }}
+    <app-torrent-active-providers [parentForm]="searchForm"></app-torrent-active-providers>
+
+    <div class="text-center">
+      <button mdbBtn mdbWavesEffect
+              type="button"
+              color="primary"
+              outline="true"
+              class="w-50"
+              (click)="onSubmitForm()"
+      >
+        Rechercher
+      </button>
+    </div>
+  </form>
 </div>
 
 <div class="container mt-5" *ngIf="torrents">
@@ -89,4 +86,19 @@
       </div>
     </li>
   </ul>
+</div>
+
+<div *ngIf="hasNotifications()"
+     class="alert alert-success alert-dismissible fade show custom-notification"
+     role="alert"
+>
+  <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="closeNotification()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+  {{ notification.message }}
 </div>

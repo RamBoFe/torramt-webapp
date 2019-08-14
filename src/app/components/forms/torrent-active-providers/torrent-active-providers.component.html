@@ -1,0 +1,57 @@
+<div
+  class="form-group row"
+  [formGroup]="parentForm"
+>
+  <div class="col-6">
+    <div class="row">
+      <div class="col-4">
+        <label
+          for="torrent-providers"
+        >
+          Recherche sur :
+        </label>
+      </div>
+      <div class="col-7">
+        <select
+          id="torrent-providers"
+          class="browser-default custom-select"
+          [formControlName]="'provider'"
+          (change)="updateCategories()"
+        >
+          <option
+            *ngFor="let provider of providers"
+            value="{{ provider.name }}"
+          >
+            {{ provider.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-6">
+    <div class="row">
+      <div class="col-4">
+        <label
+          for="torrent-provider-categories"
+        >
+          Dans :
+        </label>
+      </div>
+      <div class="col-7">
+        <select
+          id="torrent-provider-categories"
+          class="browser-default custom-select"
+          [formControlName]="'category'"
+        >
+          <option
+              *ngFor="let category of categories"
+              value="{{ category }}"
+          >
+            {{ category }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>

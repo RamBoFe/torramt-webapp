@@ -2,17 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 
-const URL = `${environment.apiUrl}/torrents/ygg`;
+const URL = `${environment.apiUrl}/torrents`;
 
 @Injectable()
-export class YggService {
+export class TorrentsService {
 
   constructor(private http: HttpClient) {}
 
-  async getSearch(search: string): Promise<any> {
+  async getSearch(search): Promise<any> {
     return this.http
       .get<Array<any>>(`${URL}/search`, {
-        params: { search }
+        params: { search: JSON.stringify(search) }
       })
       .toPromise();
   }
@@ -33,6 +33,12 @@ export class YggService {
 
     return this.http
       .get<String>(`${URL}/details`,  requestOptions)
+      .toPromise();
+  }
+
+  async getActiveProviders(): Promise<any> {
+    return this.http
+      .get<Array<any>>(`${URL}/providers`)
       .toPromise();
   }
 }
