@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MDBModalService } from 'angular-bootstrap-md';
+import { CollapseComponent, MDBModalService } from 'angular-bootstrap-md';
 import { ModalTorrentDetailsComponent } from '../../components/modals/modal-torrent-details/modal-torrent-details.component';
 import { TorrentsService } from '../../services/api/torrents/torrents.service';
 
@@ -12,9 +12,11 @@ import { TorrentsService } from '../../services/api/torrents/torrents.service';
 
 export class HomeComponent implements OnInit {
 
+  @ViewChild(CollapseComponent) search: CollapseComponent;
   torrents: Array<any>;
   searchForm: FormGroup;
-  notification: Object = {};
+  notification = {};
+  searchAdvanced = false;
 
   constructor(
     private torrentsService: TorrentsService,
@@ -26,7 +28,7 @@ export class HomeComponent implements OnInit {
     this.initForm();
   }
 
-  initForm(): void {
+  async initForm(): Promise<any> {
     this.searchForm = this.formBuilder.group({
       searchValue: '',
       provider: '',
@@ -48,18 +50,23 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  async openModalTorrentDetails(i: number): Promise<any> {
+    this.modalService.show(ModalTorrentDetailsComponent, {
+      class: 'modal-dialog-scrollable',
+      data: { torrent: this.torrents[i] }
+    });
+  }
+
+  showSearchAdvanced(): void {
+    this.search.toggle();
+    this.searchAdvanced = !this.searchAdvanced;
+  }
+
   hasNotifications(): boolean {
     return Object.keys(this.notification).length > 0;
   }
 
   closeNotification(): void {
     this.notification = {};
-  }
-
-  async openModalTorrentDetails(i: number): Promise<any> {
-    this.modalService.show(ModalTorrentDetailsComponent, {
-      class: 'modal-dialog-scrollable',
-      data: { torrent: this.torrents[i] }
-    });
   }
 }

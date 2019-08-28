@@ -17,9 +17,20 @@ export class TorrentActiveProvidersComponent implements OnInit {
 
   async ngOnInit(): Promise<any> {
     this.providers = await this.torrentsService.getActiveProviders();
+    this.setDefaultValues();
   }
 
   updateCategories(): void {
     this.categories = this.providers.find(p => p.name === this.parentForm.get('provider').value).categories;
+  }
+
+  setDefaultValues(): void {
+    const [providerDefault] = this.providers;
+    this.parentForm.get('provider')
+      .setValue(providerDefault.name);
+    this.updateCategories();
+    const [categoryDefault] = this.categories;
+    this.parentForm.get('category')
+      .setValue(categoryDefault);
   }
 }
