@@ -1,7 +1,10 @@
 <div class="container mt-5">
   <h1 class="text-center">Torrents de la Seedbox</h1>
 
-  <ul class="list-group list-group-flush mt-5">
+  <p class="text-right mt-5">
+    Taille totale ftp : {{ totalSize| fileSize }}
+  </p>
+  <ul class="list-group list-group-flush">
     <li
       *ngFor="let torrent of torrents"
       class="list-group-item"

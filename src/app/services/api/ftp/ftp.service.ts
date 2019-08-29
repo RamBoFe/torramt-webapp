@@ -18,4 +18,12 @@ export class FtpService {
       })
       .toPromise();
   }
+
+  async getSize(path): Promise<any> {
+    return this.http
+      .get<Number>(`${URL}/size`, {
+        params: { path }
+      })
+      .toPromise();
+  }
 }

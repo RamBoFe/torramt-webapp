@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FtpService } from '../../services/api/ftp/ftp.service';
 import { TransmissionService } from '../../services/api/torrents/management/transmission';
 
 @Component({
@@ -9,11 +10,16 @@ import { TransmissionService } from '../../services/api/torrents/management/tran
 export class SeedboxComponent implements OnInit {
 
   torrents: Array<Object>;
+  totalSize: Number = 0;
 
-  constructor(private transmission: TransmissionService) { }
+  constructor(
+    private transmission: TransmissionService,
+    private ftp: FtpService
+    ) { }
 
   async ngOnInit(): Promise<any> {
     this.torrents = await this.getTorrents();
+    this.totalSize = await this.ftp.getSize('/RamBoF');
   }
 
   async getTorrents(): Promise<any> {
