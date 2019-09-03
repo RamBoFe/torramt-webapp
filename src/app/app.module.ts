@@ -24,6 +24,7 @@ import { ModalTorrentDetailsComponent } from './components/modals/modal-torrent-
 import { FtpComponent } from './pages/ftp/ftp.component';
 import { SeedboxComponent } from './pages/seedbox/seedbox.component';
 import { FileSizePipe } from './pipes/file-size.pipe';
+import { Percent } from './pipes/percent.pipe';
 import { FtpService } from './services/api/ftp/ftp.service';
 import { TransmissionService } from './services/api/torrents/management/transmission';
 
@@ -41,7 +42,8 @@ registerLocaleData(localeFr, 'fr');
     FtpComponent,
     ModalFtpToNasComponent,
     ModalTorrentDetailsComponent,
-    TorrentActiveProvidersComponent
+    TorrentActiveProvidersComponent,
+    Percent
   ],
   imports: [
     BrowserModule,
