@@ -34,7 +34,7 @@ export class SeedboxComponent implements OnInit {
     return torrents;
   }
 
-  async togglePlayPause(status: Number, hash: String): Promise<any> {
+  async togglePlayPause(status: number, hash: string): Promise<any> {
     if (status) {
       this.transmission.stop(hash);
     } else {
@@ -42,7 +42,7 @@ export class SeedboxComponent implements OnInit {
     }
   }
 
-  async remove(hash: String): Promise<any> {
+  async remove(hash: string): Promise<any> {
     this.transmission.remove(hash);
   }
 }

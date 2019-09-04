@@ -81,11 +81,19 @@
               [style.width.%]="torrent.percentDone | percent"
             ></div>
           </div>
-          <span *ngIf="torrent.percentDone < 1
+
+          <div
+            *ngIf="torrent.percentDone < 1
             && (torrent.status === 4 || torrent.status === 0)"
+            class="row"
           >
-            {{ torrent.percentDone | percent }} %
-          </span>
+            <div class="col-3">
+              {{ torrent.percentDone | percent }} %
+            </div>
+            <div class="col-9 text-right">
+              {{ torrent.downloadedEver | downloadTime: torrent.rateDownload  }}
+            </div>
+          </div>
         </div>
       </div>
     </li>
