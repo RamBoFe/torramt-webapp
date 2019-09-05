@@ -21,6 +21,7 @@ import { environment } from '../environments/environment';
 import { TorrentActiveProvidersComponent } from './components/forms/torrent-active-providers/torrent-active-providers.component';
 import { ModalFtpToNasComponent } from './components/modals/modal-ftp-to-nas/modal-ftp-to-nas.component';
 import { ModalTorrentDetailsComponent } from './components/modals/modal-torrent-details/modal-torrent-details.component';
+import { ModalYesNoComponent } from './components/modals/modal-yes-no/modal-yes-no.component';
 import { FtpComponent } from './pages/ftp/ftp.component';
 import { SeedboxComponent } from './pages/seedbox/seedbox.component';
 import { DownloadTimePipe } from './pipes/download-time.pipe';
@@ -43,6 +44,7 @@ registerLocaleData(localeFr, 'fr');
     FtpComponent,
     ModalFtpToNasComponent,
     ModalTorrentDetailsComponent,
+    ModalYesNoComponent,
     TorrentActiveProvidersComponent,
     PercentPipe,
     DownloadTimePipe
@@ -68,6 +70,7 @@ registerLocaleData(localeFr, 'fr');
   entryComponents: [
     ModalFtpToNasComponent,
     ModalTorrentDetailsComponent,
+    ModalYesNoComponent,
     TorrentActiveProvidersComponent
   ]
 })

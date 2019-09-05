@@ -1,0 +1,52 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button
+      type="button"
+      class="close pull-right"
+      (click)="modalRef.hide()"
+    >
+      ×
+    </button>
+    <h4
+      class="modal-title w-100"
+      id="myModalLabel"
+    >
+      {{ title }}
+    </h4>
+  </div>
+  <div class="modal-body">
+    {{ body }}
+  </div>
+  <div class="modal-footer">
+    <button
+      mdbBtn mdbWavesEffect
+      type="button"
+      color="{{ btnYes.color }}"
+      class="waves-light"
+      [outline]="btnYes.outline"
+      (click)="sendResponse(true)"
+    >
+      <mdb-icon
+          *ngIf="btnYes.icon"
+          fas
+          icon="{{ btnYes.icon }}"
+      ></mdb-icon>
+      {{ btnYes.label }}
+    </button>
+    <button
+      mdbBtn mdbWavesEffect
+      type="button"
+      color="{{ btnNo.color }}"
+      [outline]="btnNo.outline"
+      class="relative waves-light"
+      (click)="sendResponse(false)"
+    >
+      <mdb-icon
+          *ngIf="btnNo.icon"
+          fas
+          icon="{{ btnNo.icon }}"
+      ></mdb-icon>
+      {{ btnNo.label }}
+    </button>
+  </div>
+</div>

@@ -29,7 +29,7 @@
               </mdb-icon>
             </mdb-badge>
           </a>
-          <a (click)="remove(torrent.hashString)">
+          <a (click)="openModalConfirmDel(torrent.hashString, torrent.name)">
             <mdb-badge
               pill="true"
               danger="true"
