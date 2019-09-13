@@ -12,7 +12,7 @@
       *ngFor="let breadcrumb of breadcrumbs; last as isLast"
       [ngClass]="{ 'active' : isLast }"
     >
-      <a (click)="move()">
+      <a (click)="move(breadcrumb)">
         {{ breadcrumb }}
       </a>
     </mdb-breadcrumb-item>
@@ -25,14 +25,16 @@
       class="list-group-item"
     >
       <div class="row">
-        <div class="col-2">
-          <a (click)="move(file.name)">
-              <mdb-icon fas size="2x"
-                        class="cyan-text pr-3"
-                        [icon]="file.type === 'd' ? 'folder' : 'file'"
+        <div class="col-2 d-flex align-self-center">
+          <!--<a (click)="move(file.name)">-->
+              <mdb-icon
+                  fas
+                  size="2x"
+                  class="cyan-text m-auto"
+                  [icon]="file.type === 'd' ? 'folder' : 'file'"
               >
               </mdb-icon>
-          </a>
+          <!--</a>-->
         </div>
 
 
@@ -50,6 +52,7 @@
             {{ file.modifyTime | date: 'short' }}
           </mdb-badge>
           <mdb-badge
+            *ngIf="file.type !== 'd'"
             class="mr-1"
             info="true"
             pill="true"
@@ -57,15 +60,22 @@
             {{ file.size | fileSize }}
           </mdb-badge>
         </div>
-        <div class="col-2 text-right">
-          <mdb-badge
-            default="true"
-            pill="true"
-          >
-            <a (click)="openModalTransfertToNas(file.name, file.type)">
-              <mdb-icon fas size="2x" class="m-1" icon="download"></mdb-icon>
-            </a>
-          </mdb-badge>
+        <div class="col-2 d-flex align-self-center">
+            <button
+              mdbBtn mdbWavesEffect
+              type="button"
+              color="primary"
+              size="sm"
+              class="m-auto"
+              (click)="openModalTransfertToNas(file.name, file.type)"
+            >
+
+              <mdb-icon
+                fas
+                icon="download"
+              >
+              </mdb-icon>
+            </button>
         </div>
       </div>
 
