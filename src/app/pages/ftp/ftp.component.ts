@@ -23,18 +23,16 @@ export class FtpComponent implements OnInit {
   }
 
   async move(folder = ''): Promise<any> {
-    let path = '';
-    const indice = this.breadcrumbs.indexOf(folder);
+    const index = this.breadcrumbs.indexOf(folder);
 
-    if (indice === -1 && folder !== '') {
+    if (index === -1 && folder !== '') {
       this.breadcrumbs.push(folder);
-      path = this.breadcrumbs.join('/');
     } else {
       this.breadcrumbs
-        .splice(indice + 1, this.breadcrumbs.length - indice + 1);
-      path = this.breadcrumbs.join('/');
+        .splice(index + 1, this.breadcrumbs.length - index + 1);
     }
-    this.files = await this.ftpService.getList(`/${path}`);
+
+    this.files = await this.ftpService.getList(`/${this.breadcrumbs.join('/')}`);
   }
 
   async transfertToNas(folder: string,
