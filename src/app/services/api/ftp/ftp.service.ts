@@ -26,4 +26,12 @@ export class FtpService {
       })
       .toPromise();
   }
+
+  async delete(path, type): Promise<any> {
+    return this.http
+      .delete(`${URL}/delete`, {
+        params: { path, type }
+      })
+      .toPromise();
+  }
 }

@@ -1,7 +1,6 @@
 <div class="container mt-5">
   <h1 class="text-center">Ftp</h1>
 
-<!--  <p>Résultats : {{ files.length }}</p>-->
   <mdb-breadcrumb>
     <mdb-breadcrumb-item>
       <a (click)="move('')">
@@ -9,8 +8,8 @@
       </a>
     </mdb-breadcrumb-item>
     <mdb-breadcrumb-item
-      *ngFor="let breadcrumb of breadcrumbs; last as isLast"
-      [ngClass]="{ 'active' : isLast }"
+      *ngFor="let breadcrumb of breadcrumbs; let last = last"
+      [ngClass]="{ 'active' : last }"
     >
       <a (click)="move(breadcrumb)">
         {{ breadcrumb }}
@@ -18,15 +17,13 @@
     </mdb-breadcrumb-item>
   </mdb-breadcrumb>
 
-
   <ul class="list-group list-group-flush">
     <li
-      *ngFor="let file of files; let i = index"
+      *ngFor="let file of files; let first = first; "
       class="list-group-item"
     >
       <div class="row">
         <div class="col-2 d-flex align-self-center">
-          <!--<a (click)="move(file.name)">-->
               <mdb-icon
                   fas
                   size="2x"
@@ -34,9 +31,7 @@
                   [icon]="file.type === 'd' ? 'folder' : 'file'"
               >
               </mdb-icon>
-          <!--</a>-->
         </div>
-
 
         <div class="col-8">
           <p>
@@ -60,25 +55,36 @@
             {{ file.size | fileSize }}
           </mdb-badge>
         </div>
-        <div class="col-2 d-flex align-self-center">
+        <div class="col-2 d-flex align-self-center align-content-around flex-column">
             <button
               mdbBtn mdbWavesEffect
               type="button"
               color="primary"
               size="sm"
-              class="m-auto"
               (click)="openModalTransfertToNas(file.name, file.type)"
             >
-
               <mdb-icon
                 fas
                 icon="download"
               >
               </mdb-icon>
             </button>
+          <button
+              mdbBtn mdbWavesEffect
+              type="button"
+              color="primary"
+              size="sm"
+              outline="true"
+              (click)="openModalConfirmDel(file.name, file.type)"
+            >
+              <mdb-icon
+                fas
+                icon="trash-alt"
+              >
+              </mdb-icon>
+            </button>
         </div>
       </div>
-
     </li>
   </ul>
 </div>

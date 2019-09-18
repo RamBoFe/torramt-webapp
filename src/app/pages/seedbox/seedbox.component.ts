@@ -33,21 +33,19 @@ export class SeedboxComponent implements OnInit {
   }
 
   async getTorrents(): Promise<any> {
-    const torrents = await this.transmission.getTorrents();
-
-    return torrents;
+    return this.transmission.getTorrents();
   }
 
   async togglePlayPause(status: number, hash: string): Promise<any> {
     if (status) {
-      this.transmission.stop(hash);
+      await this.transmission.stop(hash);
     } else {
-      this.transmission.start(hash);
+      await this.transmission.start(hash);
     }
   }
 
   async remove(hash: string): Promise<any> {
-    this.transmission.remove(hash);
+    await this.transmission.remove(hash);
   }
 
   openModalConfirmDel(hash: string, name: string): void {
