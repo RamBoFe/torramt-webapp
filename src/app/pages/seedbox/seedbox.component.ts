@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MDBModalRef, MDBModalService } from 'angular-bootstrap-md';
-import { interval } from 'rxjs';
+import { interval, Observable, Subscription } from 'rxjs';
 import { ModalYesNoComponent } from '../../components/modals/modal-yes-no/modal-yes-no.component';
 import { FtpService } from '../../services/api/ftp/ftp.service';
 import { TransmissionService } from '../../services/api/torrents/management/transmission';
@@ -10,12 +10,15 @@ import { TransmissionService } from '../../services/api/torrents/management/tran
   templateUrl: './seedbox.component.html',
   styleUrls: ['./seedbox.component.scss']
 })
-export class SeedboxComponent implements OnInit {
+export class SeedboxComponent implements OnInit, OnDestroy {
 
-  torrents: Array<any>;
-  totalSize: Number = 0;
-  totalTorrents: Number = 0;
-  modalRef: MDBModalRef;
+  private torrents: Array<any>;
+  private totalSize: Number = 0;
+  private totalTorrents: Number = 0;
+  private modalRef: MDBModalRef;
+
+  private interval: Observable<number> = interval(2500);
+  private subscriptionInterval: Subscription;
 
   constructor(
     private transmission: TransmissionService,
@@ -26,10 +29,8 @@ export class SeedboxComponent implements OnInit {
   async ngOnInit(): Promise<any> {
     this.torrents = await this.getTorrents();
     this.totalTorrents = this.torrents.length;
+    this.subscriptionInterval = this.interval.subscribe(async () => this.torrents = await this.getTorrents());
     this.totalSize = await this.ftp.getSize('/RamBoF');
-
-    interval(2500)
-      .subscribe(async () => this.torrents = await this.getTorrents());
   }
 
   async getTorrents(): Promise<any> {
@@ -71,6 +72,10 @@ export class SeedboxComponent implements OnInit {
         this.remove(hash);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptionInterval.unsubscribe();
   }
 
 }
