@@ -1,34 +1,65 @@
 <div class="modal-content">
-  <div class="modal-header">
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">×</span>
-    </button>
-    <h4 class="modal-title w-100" id="myModalLabel">Transfert des fichiers vers le Nas</h4>
-  </div>
-  <div class="modal-body">
 
-    <label for="basic-url">Répertoire de destination :</label>
-    <select id="basic-url" class="browser-default custom-select"
-    [(ngModel)]="selectedDest"
+  <div class="modal-header">
+    <button
+      type="button"
+      class="close pull-right"
+      (click)="modalRef.hide()"
     >
-      <option *ngFor="let destDir of destinations" value="{{ destDir.name }}">{{ destDir.alias }}</option>
+      <span>×</span>
+    </button>
+    <h4
+      id="myModalLabel"
+      class="modal-title w-100"
+    >
+      Transfert des fichiers vers le Nas
+    </h4>
+  </div>
+
+  <div class="modal-body">
+    <label for="basic-url">Répertoire de destination :</label>
+    <select
+      id="basic-url"
+      class="browser-default custom-select"
+      [(ngModel)]="selectedDest"
+    >
+      <option
+        *ngFor="let destDir of destinations"
+        value="{{ destDir.name }}"
+      >
+        {{ destDir.alias }}
+      </option>
     </select>
     <label for="create-folder">Création d'un sous répertoire si besoin</label>
-    <input mdbInput
-           type="text"
-           class="form-control"
-           id="create-folder"
-           [(ngModel)]="subFolder"
+    <input
+      mdbInput
+      type="text"
+      class="form-control"
+      id="create-folder"
+      [(ngModel)]="subFolder"
     >
   </div>
   <div class="modal-footer">
-    <button type="button" mdbBtn color="success" class="waves-light" aria-label="Close"
-            (click)="onTransfertoNas()" mdbWavesEffect>
-      <mdb-icon fas icon="download"></mdb-icon>
+    <button
+      mdbBtn
+      type="button"
+      color="success"
+      class="waves-light"
+      (click)="onTransfertoNas()" mdbWavesEffect
+    >
+      <mdb-icon
+        fas
+        icon="download"
+      ></mdb-icon>
       Transférer
     </button>
-    <button type="button" mdbBtn color="success" outline="true" class="relative waves-light" mdbWavesEffect
-            (click)="modalRef.hide()"
+    <button
+      mdbWavesEffect mdbBtn
+      type="button"
+      color="success"
+      outline="true"
+      class="relative waves-light"
+      (click)="modalRef.hide()"
     >
       Annuler
     </button>

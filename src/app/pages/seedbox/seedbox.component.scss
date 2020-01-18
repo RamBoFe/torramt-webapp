@@ -6,15 +6,19 @@
         word-wrap: break-word;
       }
     }
-    .align-icons {
+    .align-icons, .icon-actions {
       display: flex;
-      justify-content: space-around;
-      align-items: center;
       flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     .custom-progress {
       height: 5px;
     }
   }
+  button {
+    border-radius: 20px;
+  }
+
 }
