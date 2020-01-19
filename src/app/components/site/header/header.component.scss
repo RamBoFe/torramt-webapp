@@ -1,3 +1,9 @@
+@import "../../../../assets/scss/variables";
+
+.navbar {
+  max-height: $navbar-height;
+}
+
 .navbar-nav {
   flex-direction: row;
 }
