@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MDBModalRef, MDBModalService } from 'angular-bootstrap-md';
+import { ToastrService } from 'ngx-toastr';
 import { interval, Observable, Subscription } from 'rxjs';
 import { ModalFtpToNasComponent } from '../../components/modals/modal-ftp-to-nas/modal-ftp-to-nas.component';
 import { ModalYesNoComponent } from '../../components/modals/modal-yes-no/modal-yes-no.component';
@@ -27,7 +28,8 @@ export class SeedboxComponent implements OnInit, OnDestroy {
     private transmission: TransmissionService,
     private ftp: FtpService,
     private nasService: NasService,
-    private modalService: MDBModalService
+    private modalService: MDBModalService,
+    private toastr: ToastrService
     ) { }
 
   async ngOnInit(): Promise<any> {
@@ -51,6 +53,7 @@ export class SeedboxComponent implements OnInit, OnDestroy {
 
   async remove(hash: string): Promise<any> {
     await this.transmission.remove(hash);
+    this.toastr.success('Le torrent a bien été supprimé de la seedbox.', 'Suppression d\'un torrent de la seedbox');
   }
 
   openModalTransfertToNas(path: string, type: string): void {
@@ -58,6 +61,7 @@ export class SeedboxComponent implements OnInit, OnDestroy {
     this.modalRef.content.transfert.subscribe(async params => {
       this.modalRef.hide();
       await this.nasService.transferToNas(`/${TAG_SEEDBOX}/${path}`, params.destination, params.subFolder, type);
+      this.toastr.success('Le transfert du torrent vers le Nas a débuté.', 'Transfert du torrent');
     });
   }
 

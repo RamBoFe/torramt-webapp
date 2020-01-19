@@ -24,15 +24,14 @@
     >
       <div class="row">
         <div class="col-2 d-flex align-self-center">
-              <mdb-icon
-                  fas
-                  size="2x"
-                  class="cyan-text m-auto"
-                  [icon]="file.type === 'd' ? 'folder' : 'file'"
-              >
-              </mdb-icon>
+          <mdb-icon
+            fas
+            size="2x"
+            class="cyan-text m-auto"
+            [icon]="file.type === 'd' ? 'folder' : 'file'"
+          >
+          </mdb-icon>
         </div>
-
         <div class="col-8">
           <p>
             <a (click)="move(file.name)">
@@ -55,7 +54,7 @@
             {{ file.size | fileSize }}
           </mdb-badge>
         </div>
-        <div class="col-2 d-flex align-self-center align-content-around flex-column">
+        <div class="col-2 align-icons">
             <button
               mdbBtn mdbWavesEffect
               type="button"

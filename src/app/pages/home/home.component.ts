@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CollapseComponent, MDBModalService } from 'angular-bootstrap-md';
+import { ToastrService } from 'ngx-toastr';
 import { ModalTorrentDetailsComponent } from '../../components/modals/modal-torrent-details/modal-torrent-details.component';
 import { TorrentsService } from '../../services/api/torrents/torrents.service';
 
@@ -15,13 +16,13 @@ export class HomeComponent implements OnInit {
   @ViewChild(CollapseComponent) search: CollapseComponent;
   torrents: Array<any>;
   searchForm: FormGroup;
-  notification = {};
   searchAdvanced = false;
 
   constructor(
     private torrentsService: TorrentsService,
     private formBuilder: FormBuilder,
-    private modalService: MDBModalService
+    private modalService: MDBModalService,
+    private toastr: ToastrService
     ) {}
 
   async ngOnInit(): Promise<any> {
@@ -42,17 +43,12 @@ export class HomeComponent implements OnInit {
 
   async addTorrentToDl(i: number): Promise<any> {
     const infos = await this.torrentsService.addTorrentToDl(this.torrents[i]);
-    Object.assign(
-      this.notification,
-      {
-        message: `Le torrent "${infos.name}" a bien été ajouté au téléchargement.`
-      }
-    );
+    this.toastr.success (`Le torrent "${infos.name}" a bien été ajouté au téléchargement.`, 'Torrent ajouté !');
   }
 
   async openModalTorrentDetails(i: number): Promise<any> {
     this.modalService.show(ModalTorrentDetailsComponent, {
-      class: 'modal-dialog-scrollable',
+      class: 'modal-dialog-scrollable modal-lg',
       data: { torrent: this.torrents[i] }
     });
   }
@@ -60,13 +56,5 @@ export class HomeComponent implements OnInit {
   showSearchAdvanced(): void {
     this.search.toggle();
     this.searchAdvanced = !this.searchAdvanced;
-  }
-
-  hasNotifications(): boolean {
-    return Object.keys(this.notification).length > 0;
-  }
-
-  closeNotification(): void {
-    this.notification = {};
   }
 }

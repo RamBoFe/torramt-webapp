@@ -8,6 +8,13 @@
       button {
         border-radius: 20px;
       }
+      .align-icons {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
     }
   }
 
