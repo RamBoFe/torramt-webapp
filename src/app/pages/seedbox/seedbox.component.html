@@ -16,7 +16,7 @@
       class="list-group-item"
     >
       <div class="row">
-        <div class="col-10 small d-flex flex-column">
+        <div class="col-10 d-flex flex-column">
           <h6>{{ torrent.name }}</h6>
           <div class="row">
             <div class="col">
@@ -25,18 +25,18 @@
                   default="true"
                   pill="true"
                 >
+                  <mdb-icon
+                    fas
+                    icon="arrow-down"
+                  ></mdb-icon>
                   <ng-template
                     [ngIf]="torrent.percentDone === 1 && torrent.status !== 4"
                     [ngIfElse]="downloadedInfos"
                   >
-                    <mdb-icon
-                      fas
-                      icon="arrow-down"
-                    ></mdb-icon>
-                    {{ torrent.totalSize | fileSize }} ({{  torrent.rateDownload |fileSize }}/s)
+                    {{ torrent.totalSize | fileSize }} ({{  torrent.rateDownload | fileSize }}/s)
                   </ng-template>
                   <ng-template #downloadedInfos>
-                    {{ torrent.downloadedEver | fileSize }} sur {{ torrent.totalSize | fileSize }}
+                    {{ torrent.downloadedEver | fileSize }} sur {{ torrent.totalSize | fileSize }} ({{  torrent.rateDownload | fileSize }}/s)
                   </ng-template>
                 </mdb-badge>
               </span>
@@ -54,13 +54,19 @@
                 </mdb-badge>
               </span>
             </div>
-            <div class="col text-right ">
+            <div class="col text-left text-sm-right">
               <mdb-badge
-                class=""
+                class="mr-1"
                 info="true"
                 pill="true"
               >
                 Ratio: {{ torrent.uploadRatio | number: '1.0-2' }}
+              </mdb-badge>
+              <mdb-badge
+                info="true"
+                pill="true"
+              >
+                Date : {{ torrent.doneDate * 1000 | date }}
               </mdb-badge>
             </div>
 
@@ -84,7 +90,7 @@
               ></div>
             </div>
 
-            <div class="row">
+            <div class="row small">
               <div class="col-3">
                 {{ torrent.percentDone | percent }} %
               </div>
@@ -95,6 +101,20 @@
           </div>
         </div>
         <div class="col-2 icon-actions">
+          <button
+            mdbBtn mdbWavesEffect
+            type="button"
+            color="primary"
+            size="sm"
+            (click)="openModalTransfertToNas(torrent.name, torrent.files.length > 1 ? 'd' : '-')"
+          >
+            <mdb-icon
+              fas
+              icon="download"
+            >
+            </mdb-icon>
+          </button>
+
           <button
             mdbBtn mdbWavesEffect
             type="button"
