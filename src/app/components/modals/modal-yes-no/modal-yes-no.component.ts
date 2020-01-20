@@ -12,13 +12,13 @@ export class ModalYesNoComponent {
   response: Subject<any> = new Subject();
   title: string;
   body: string;
-  btnYes: object = {
+  btnYes = {
     label: 'Oui',
     color: 'primary',
     outline: false,
     icon: undefined
   };
-  btnNo: object = {
+  btnNo = {
     label: 'Non',
     color: 'primary',
     outline: true,
@@ -29,6 +29,10 @@ export class ModalYesNoComponent {
 
   sendResponse(response: boolean): void {
     this.response.next(response);
+    this.hideModal();
+  }
+
+  hideModal(): void {
     this.modalRef.hide();
   }
 }

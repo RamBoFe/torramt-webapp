@@ -16,9 +16,9 @@ import { TransmissionService } from '../../services/api/torrents/management/tran
 
 export class SeedboxComponent implements OnInit, OnDestroy {
 
-  private torrents: Array<any>;
-  private totalSize: Number = 0;
-  private totalTorrents: Number = 0;
+  torrents: Array<any>;
+  totalSize: Number = 0;
+  totalTorrents: Number = 0;
   private modalRef: MDBModalRef;
 
   private interval: Observable<number> = interval(2500);
