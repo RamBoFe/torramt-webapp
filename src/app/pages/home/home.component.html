@@ -70,12 +70,16 @@
     >
       <div class="row">
         <div class="col-9">
-          <p>{{ torrent.title }}</p>
+          <h6>{{ torrent.title }}</h6>
           <mdb-badge
             class="mr-1"
             primary="true"
             pill="true"
           >
+            <mdb-icon
+              fas
+              icon="calendar-alt"
+            ></mdb-icon>
             {{ torrent.time | date: 'short' }}
           </mdb-badge>
           <mdb-badge
@@ -83,12 +87,20 @@
             default="true"
             pill="true"
           >
+            <mdb-icon
+              fas
+              icon="file"
+            ></mdb-icon>
             {{ torrent.size }}
           </mdb-badge>
           <mdb-badge
             success="true"
             pill="true"
           >
+            <mdb-icon
+              fas
+              icon="seedling"
+            ></mdb-icon>
             {{ torrent.seeds }}
           </mdb-badge>
         </div>

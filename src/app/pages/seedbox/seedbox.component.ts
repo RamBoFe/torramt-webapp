@@ -17,7 +17,7 @@ import { TransmissionService } from '../../services/api/torrents/management/tran
 export class SeedboxComponent implements OnInit, OnDestroy {
 
   torrents: Array<any>;
-  totalSize: Number = 0;
+  ftpSizeTorrents: Number = 0;
   totalTorrents: Number = 0;
   private modalRef: MDBModalRef;
 
@@ -36,7 +36,7 @@ export class SeedboxComponent implements OnInit, OnDestroy {
     this.torrents = await this.getTorrents();
     this.totalTorrents = this.torrents.length;
     this.subscriptionInterval = this.interval.subscribe(async () => this.torrents = await this.getTorrents());
-    this.totalSize = await this.ftp.getSize(`/${TAG_SEEDBOX}`);
+    this.ftpSizeTorrents = await this.ftp.getSize(`/${TAG_SEEDBOX}`);
   }
 
   async getTorrents(): Promise<any> {

@@ -6,7 +6,7 @@
       Torrents : {{ totalTorrents }}
     </div>
     <div class="col-6 text-right">
-      Taille sur ftp : {{ totalSize | fileSize }}
+      Taille sur ftp : {{ ftpSizeTorrents | fileSize }}
     </div>
   </div>
 
@@ -19,9 +19,8 @@
         <div class="col-10 d-flex flex-column">
           <h6>{{ torrent.name }}</h6>
           <div class="row">
-            <div class="col">
-              <span class="mr-1">
-                <mdb-badge
+            <div class="col-6">
+              <mdb-badge
                   default="true"
                   pill="true"
                 >
@@ -39,39 +38,64 @@
                     {{ torrent.downloadedEver | fileSize }} sur {{ torrent.totalSize | fileSize }} ({{  torrent.rateDownload | fileSize }}/s)
                   </ng-template>
                 </mdb-badge>
-              </span>
-
-              <span class="mr-1">
-                <mdb-badge
-                  class=""
-                  danger="true"
-                  pill="true"
+            </div>
+            <div class="col-6 text-right">
+              <mdb-badge
+                danger="true"
+                pill="true"
+              >
+                <ng-template
+                  [ngIf]="torrent.percentDone === 1 && torrent.status !== 4"
+                  [ngIfElse]="emptyBadge"
                 >
                   <mdb-icon
                     fas icon="arrow-up"
                   ></mdb-icon>
                   {{ torrent.uploadedEver | fileSize }} ({{ torrent.rateUpload |fileSize }}/s)
-                </mdb-badge>
-              </span>
-            </div>
-            <div class="col text-left text-sm-right">
-              <mdb-badge
-                class="mr-1"
-                info="true"
-                pill="true"
-              >
-                Ratio: {{ torrent.uploadRatio | number: '1.0-2' }}
+                </ng-template>
               </mdb-badge>
-              <mdb-badge
-                info="true"
-                pill="true"
-              >
-                Date : {{ torrent.doneDate * 1000 | date }}
-              </mdb-badge>
-            </div>
 
+            </div>
           </div>
+          <div class="row">
+            <div class="col">
+              <mdb-badge
+                info="true"
+                pill="true"
+              >
+                <ng-template
+                  [ngIf]="torrent.percentDone === 1 && torrent.status !== 4"
+                  [ngIfElse]="emptyBadge"
+                >
+                  <mdb-icon
+                    far
+                    icon="calendar-alt"
+                  ></mdb-icon>
+                  {{ torrent.doneDate * 1000 | date: 'dd/MM/yyyy' }}
+                </ng-template>
+              </mdb-badge>
 
+            </div>
+            <div
+              class="col text-right"
+            >
+              <mdb-badge
+                info="true"
+                pill="true"
+              >
+                <ng-template
+                  [ngIf]="torrent.percentDone === 1 && torrent.status !== 4"
+                  [ngIfElse]="emptyBadge"
+                >
+                  <mdb-icon
+                    fas
+                    icon="divide"
+                  ></mdb-icon>
+                    {{ torrent.uploadRatio | number: '1.0-2' }}
+                </ng-template>
+              </mdb-badge>
+            </div>
+          </div>
           <div
             *ngIf="torrent.percentDone < 1
             && (torrent.status === 4 || torrent.status === 0)"
@@ -148,3 +172,7 @@
     </li>
   </ul>
 </div>
+
+<ng-template #emptyBadge>
+  -
+</ng-template>
