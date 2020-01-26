@@ -4,6 +4,7 @@ import { CollapseComponent, MDBModalService } from 'angular-bootstrap-md';
 import { ToastrService } from 'ngx-toastr';
 import { ModalTorrentDetailsComponent } from '../../components/modals/modal-torrent-details/modal-torrent-details.component';
 import { TorrentsService } from '../../services/api/torrents/torrents.service';
+import {TorrentsSortService} from "../../services/api/torrents/torrents-filter.service";
 
 @Component({
   selector: 'app-home',
@@ -17,12 +18,14 @@ export class HomeComponent implements OnInit {
   torrents: Array<any>;
   searchForm: FormGroup;
   searchAdvanced = false;
+  torrentsSort;
 
   constructor(
     private torrentsService: TorrentsService,
     private formBuilder: FormBuilder,
     private modalService: MDBModalService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private torrentsSortService: TorrentsSortService
     ) {}
 
   async ngOnInit(): Promise<any> {
@@ -38,7 +41,10 @@ export class HomeComponent implements OnInit {
   }
 
   async onSubmitForm(): Promise<any> {
-    this.torrents = await this.torrentsService.getSearch(this.searchForm.value);
+    const torrents = await this.torrentsService.getSearch(this.searchForm.value);
+    this.torrents = torrents;
+    console.log(this.torrentsSortService.sort());
+    // this.torrents = this.torrentsSortService.sort();
   }
 
   async addTorrentToDl(i: number): Promise<any> {
