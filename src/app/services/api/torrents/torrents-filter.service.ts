@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { parse as parseTorrentTitle, addHandler } from 'parse-torrent-title';
+import { addHandler, parse as parseTorrentTitle } from 'parse-torrent-title';
 
 @Injectable({
   providedIn: 'root'
@@ -7,12 +7,22 @@ import { parse as parseTorrentTitle, addHandler } from 'parse-torrent-title';
 export class TorrentsSortService {
 
   private bestMatchCriteria = {
-    resolution: '2160p',
-    codec: 'x265',
-    language: 'vff',
-    color: '10bit',
-    rip: '4klight',
-    image: 'hdr'
+    resolution: [
+      { criteria: '2160p', weight: 2 },
+      { criteria: '1080p', weight: 1 },
+      { criteria: '720p', weight: 0.5 }
+      ],
+    codec: [
+      { criteria: 'x265', weight: 2 },
+      { criteria: 'x264', weight: 1 }
+    ],
+    language: [
+      {criteria: 'vff', weight: 5},
+      {criteria: 'vo', weight: 2}
+    ],
+    color: [{ criteria: '10bit', weight: 0.5 }],
+    image: [{ criteria: 'hdr', weight: 0.5 }],
+    rip: [{ criteria: '4klight', weight: 0.5}]
   };
 
   constructor() {
