@@ -43,8 +43,8 @@ export class HomeComponent implements OnInit {
   async onSubmitForm(): Promise<any> {
     const torrents = await this.torrentsService.getSearch(this.searchForm.value);
     this.torrents = torrents;
-    console.log(this.torrentsSortService.sort());
-    // this.torrents = this.torrentsSortService.sort();
+    // console.log(this.torrentsSortService.sort());
+    this.torrents = this.torrentsSortService.sort([]);
   }
 
   async addTorrentToDl(i: number): Promise<any> {

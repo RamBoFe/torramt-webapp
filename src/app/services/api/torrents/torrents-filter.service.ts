@@ -18,7 +18,9 @@ export class TorrentsSortService {
     ],
     language: [
       {criteria: 'vff', weight: 5},
-      {criteria: 'vo', weight: 2}
+      {criteria: 'truefrench', weight: 5},
+      {criteria: 'en', weight: 2},
+      {criteria: 'multi', weight: 2}
     ],
     color: [{ criteria: '10bit', weight: 0.5 }],
     image: [{ criteria: 'hdr', weight: 0.5 }],
@@ -31,9 +33,26 @@ export class TorrentsSortService {
     addHandler('image', /hdr/i);
   }
 
+
+  torrentsTest = [
+    { name: 'Scary Stories To Tell In The Dark (2019) MULTi VFF 2160p 10bit 4KLight HDR Bluray x265 AC3 5.1 - XANDER.mkv' },
+    { name: 'Vaiana.2016.TRUEFRENCH.BluRay.1080.x265.HEVC.DTS-HRA-STARLIGHTER.mkv' },
+    { name: 'Rambo Last Blood 2019 MULTI VFQ+EN 1080p WEBRip x264 POW' },
+    { name: 'La.Cite.De.La.Peur.1994.FRENCH.1080p.WEB.H264-SiGeRiS.mkv' },
+    { name: 'Retour Vers le Futur (1985) MULTi VFF 1080p 10bit HDLight BluRay x265 HE-AAC 5.1 - QTZ (Back To The Future).mkv' },
+    { name: 'Joker 2019 MULTi vfq 2160p 10bit HDR BluRay 8CH x265 HEVC-Dabs' },
+    { name: 'See.S01E05.MULTi.1080p.WEB-DL.AC3.x265-STEGNER.mkv' },
+    { name: 'Le Seigneur des anneaux - La Communauté de l\'anneau (version longue) (2001) [1080p BluRay] [FR(VFF)-EN] [x265 10-bit AC3] [GWEN].mkv' },
+  ]
+
   sort(torrents: Array<object>, mode = 'bestMatch'): Array<object> {
-    const ok = parseTorrentTitle('Scary Stories To Tell In The Dark (2019) MULTi VFF 2160p 10bit 4KLight HDR Bluray x265 AC3 5.1 - XANDER.mkv');
     // const ok = parseTorrentTitle('Vaiana.2016.TRUEFRENCH.BluRay.216p.x265.HEVC.DTS-HRA-STARLIGHTER.mkv');
+
+    const ok = this.torrentsTest.map(torrent =>
+      parseTorrentTitle(torrent.name)
+    );
+
+
     console.log(ok);
 
     return [{ coucou: 'coucou' }];
