@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { addHandler, parse as parseTorrentTitle } from 'parse-torrent-title';
+import {pureArrayDef} from "@angular/core/src/view";
 
 @Injectable({
   providedIn: 'root'
@@ -7,30 +8,32 @@ import { addHandler, parse as parseTorrentTitle } from 'parse-torrent-title';
 export class TorrentsSortService {
 
   private bestMatchCriterion = [
+
     {
-      resolution: [
-        { criteria: '2160p', weight: 2 },
-        { criteria: '1080p', weight: 1 },
-        { criteria: '720p', weight: 0.5 }
+      criteriaName: 'resolution',
+      values: [
+        ['2160p', 2],
+        ['1080p', 1],
+        ['720p', 0.5]
       ]
     },
-    {
-      codec: [
-        { criteria: 'x265', weight: 2 },
-        { criteria: 'x264', weight: 1 }
-      ]
-    },
-    {
-     language: [
-        { criteria: 'vff', weight: 5},
-        { criteria: 'truefrench', weight: 5},
-        { criteria: 'en', weight: 2},
-        { criteria: 'multi', weight: 2}
-      ]
-    },
-    { color: [{ criteria: '10bit', weight: 0.5 }] },
-    { image: [{ criteria: 'hdr', weight: 0.5 }] },
-    { rip: [{ criteria: '4klight', weight: 0.5}] }
+    // {
+    //   codec: [
+    //     { criteria: 'x265', weight: 2 },
+    //     { criteria: 'x264', weight: 1 }
+    //   ]
+    // },
+    // {
+    //  language: [
+    //     { criteria: 'vff', weight: 5},
+    //     { criteria: 'truefrench', weight: 5},
+    //     { criteria: 'en', weight: 2},
+    //     { criteria: 'multi', weight: 2}
+    //   ]
+    // },
+    // { color: [{ criteria: '10bit', weight: 0.5 }] },
+    // { image: [{ criteria: 'hdr', weight: 0.5 }] },
+    // { rip: [{ criteria: '4klight', weight: 0.5}] }
 ];
 
   constructor() {
@@ -51,19 +54,33 @@ export class TorrentsSortService {
     { name: 'Le Seigneur des anneaux - La Communauté de l\'anneau (version longue) (2001) [1080p BluRay] [FR(VFF)-EN] [x265 10-bit AC3] [GWEN].mkv' },
   ]
 
-  sort(torrents: Array<object>, mode = 'bestMatch') {
+  sort(torrents: Array<object>, mode = 'bestMatch'): Array<any> {
     // const ok = parseTorrentTitle('Vaiana.2016.TRUEFRENCH.BluRay.216p.x265.HEVC.DTS-HRA-STARLIGHTER.mkv');
 
     const ok = this.torrentsTest.map(torrent => {
         const parseDatas = parseTorrentTitle(torrent.name);
+
+
+
         this.bestMatchCriterion.map(criteria => {
           console.log(criteria);
+          console.log(parseDatas.hasOwnProperty(criteria.criteriaName));
+          if (parseDatas.hasOwnProperty(criteria.criteriaName)) {
+            console.log(parseDatas[criteria.criteriaName]);
+
+            const criteriaValue = criteria.values.find(element => parseDatas[criteria.criteriaName] === element[0]);
+            console.log(criteriaValue[1]);
+
+          }
+
         });
+
+
 
         return parseDatas;
       });
 
-    console.log(ok);
+    // console.log(ok);
 
     return [{ coucou: 'coucou' }];
       }
