@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CollapseComponent, MDBModalService } from 'angular-bootstrap-md';
 import { ToastrService } from 'ngx-toastr';
+import { Torrent } from '../../common/torrent/torrent.interface';
 import { ModalTorrentDetailsComponent } from '../../components/modals/modal-torrent-details/modal-torrent-details.component';
 import { TorrentsService } from '../../services/api/torrents/torrents.service';
-import {TorrentsSortService} from "../../services/api/torrents/torrents-filter.service";
+import { TorrentsSortService } from '../../services/sort/torrents-sort.service';
 
 @Component({
   selector: 'app-home',
@@ -15,10 +16,9 @@ import {TorrentsSortService} from "../../services/api/torrents/torrents-filter.s
 export class HomeComponent implements OnInit {
 
   @ViewChild(CollapseComponent) search: CollapseComponent;
-  torrents: Array<any>;
+  torrents: Array<Torrent>;
   searchForm: FormGroup;
   searchAdvanced = false;
-  torrentsSort;
 
   constructor(
     private torrentsService: TorrentsService,
@@ -42,9 +42,7 @@ export class HomeComponent implements OnInit {
 
   async onSubmitForm(): Promise<any> {
     const torrents = await this.torrentsService.getSearch(this.searchForm.value);
-    this.torrents = torrents;
-    // console.log(this.torrentsSortService.sort());
-    this.torrents = this.torrentsSortService.sort([]);
+    this.torrents = this.torrentsSortService.sortByBestMatch(torrents);
   }
 
   async addTorrentToDl(i: number): Promise<any> {
