@@ -35,7 +35,7 @@ export class SeedboxComponent implements OnInit, OnDestroy {
   async ngOnInit(): Promise<any> {
     this.torrents = await this.getTorrents();
     this.totalTorrents = this.torrents.length;
-    // this.subscriptionInterval = this.interval.subscribe(async () => this.torrents = await this.getTorrents());
+    this.subscriptionInterval = this.interval.subscribe(async () => this.torrents = await this.getTorrents());
     this.ftpSizeTorrents = await this.ftp.getSize(`/${TAG_SEEDBOX}`);
   }
 

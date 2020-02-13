@@ -61,9 +61,34 @@
   *ngIf="torrents"
   class="container mt-5"
 >
-  <p>Résultats : {{ torrents.length }}</p>
+  <div class="row">
+    <div class="col-sm col-12 d-flex">
+      <p class="my-auto mx-auto mx-sm-0">
+        Résultats : {{ torrents.length }}
+      </p>
+    </div>
+    <div class="col-sm col-12">
+      <select
+        class="browser-default custom-select"
+        (change)="onChangeSort($event)"
+      >
+        <option value="bestmatch">
+          Tier par : Pertinence
+        </option>
+        <option value="asc">
+          Tier par : A-Z
+        </option>
+        <option value="desc">
+          Tier par : Z-A
+        </option>
+        <option value="seeds">
+          Tier par : Popularité
+        </option>
+      </select>
+    </div>
+  </div>
 
-  <ul class="list-group list-group-flush">
+  <ul class="list-group list-group-flush mt-2">
     <li
       *ngFor="let torrent of torrents; let i = index"
       class="list-group-item"

@@ -46,4 +46,16 @@ export class TorrentsSortService {
     .sort((torrentA, torrentB) => torrentA.weight < torrentB.weight ? 1 : -1)
     .map(sortedTorrent => sortedTorrent.torrent);
   }
+
+  sortByAsc(torrents: Array<Torrent>): Array<any> {
+    return torrents.sort((torrentA, torrentB) => torrentA.title > torrentB.title ? 1 : -1);
+  }
+
+  sortByDesc(torrents: Array<Torrent>): Array<any> {
+    return torrents.sort((torrentA, torrentB) => torrentA.title < torrentB.title ? 1 : -1);
+  }
+
+  sortBySeeds(torrents: Array<Torrent>): Array<any> {
+    return torrents.sort((torrentA, torrentB) => torrentA.seeds < torrentB.seeds ? 1 : -1);
+  }
 }

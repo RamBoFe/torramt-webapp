@@ -32,10 +32,10 @@
                     [ngIf]="torrent.percentDone === 1 && torrent.status !== 4"
                     [ngIfElse]="downloadedInfos"
                   >
-                    {{ torrent.totalSize | fileSize }} ({{  torrent.rateDownload | fileSize }}/s)
+                    {{ torrent.totalSize | fileSize }} {{  torrent.rateDownload | fileSize }}/s)
                   </ng-template>
                   <ng-template #downloadedInfos>
-                    {{ torrent.downloadedEver | fileSize }} sur {{ torrent.totalSize | fileSize }} ({{  torrent.rateDownload | fileSize }}/s)
+                    {{ torrent.downloadedEver | fileSize }} sur {{ torrent.totalSize | fileSize }} {{  torrent.rateDownload | fileSize }}/s)
                   </ng-template>
                 </mdb-badge>
             </div>
@@ -119,7 +119,7 @@
                 {{ torrent.percentDone | percent }} %
               </div>
               <div class="col-9 text-right">
-                {{ torrent.downloadedEver | downloadTime: torrent.rateDownload  }}
+                {{ torrent.downloadedEver | downloadTime: torrent.rateDownloa }}}
               </div>
             </div>
           </div>

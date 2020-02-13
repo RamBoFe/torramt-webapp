@@ -57,6 +57,26 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  onChangeSort(event: any): void {
+    switch (event.target.value) {
+      case 'asc':
+        this.torrents = this.torrentsSortService.sortByAsc(this.torrents);
+        break;
+
+     case 'desc':
+       this.torrents = this.torrentsSortService.sortByDesc(this.torrents);
+       break;
+
+     case 'seeds':
+       this.torrents = this.torrentsSortService.sortBySeeds(this.torrents);
+       break;
+
+      default:
+        this.torrents = this.torrentsSortService.sortByBestMatch(this.torrents);
+        break;
+    }
+  }
+
   showSearchAdvanced(): void {
     this.search.toggle();
     this.searchAdvanced = !this.searchAdvanced;
