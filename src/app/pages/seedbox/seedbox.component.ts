@@ -91,6 +91,6 @@ export class SeedboxComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // this.subscriptionInterval.unsubscribe();
+    this.subscriptionInterval.unsubscribe();
   }
 }
