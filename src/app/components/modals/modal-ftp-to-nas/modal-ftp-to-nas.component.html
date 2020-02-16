@@ -8,18 +8,17 @@
     >
       <span>×</span>
     </button>
-    <h4
-      id="myModalLabel"
-      class="modal-title w-100"
-    >
-      Transfert des fichiers vers le Nas
+    <h4 class="modal-title w-100">
+      Transfert du torrent "{{ torrentName }}" vers le Nas ?
     </h4>
   </div>
 
   <div class="modal-body">
-    <label for="basic-url">Répertoire de destination :</label>
+    <label for="destinationPath">
+      Répertoire de destination :
+    </label>
     <select
-      id="basic-url"
+      id="destinationPath"
       class="browser-default custom-select"
       [(ngModel)]="selectedDest"
     >
@@ -30,15 +29,41 @@
         {{ destDir.alias }}
       </option>
     </select>
-    <label for="create-folder">Création d'un sous répertoire si besoin</label>
-    <input
-      mdbInput
-      type="text"
-      class="form-control"
-      id="create-folder"
-      [(ngModel)]="subFolder"
-    >
+
+    <small
+      *ngIf="subFolder"
+      class="form-text text-muted">
+      Le torrent sera sauvegardé sous le répertoire suivant :<br /> {{ subFolder }}
+    </small>
+
+    <div class="mt-2 text-right">
+      <mdb-icon
+        fas
+        class="blue-text"
+        [icon]="moreOptionsCollapsed ? 'chevron-down' : 'chevron-up'"
+      ></mdb-icon>
+      <a
+        class="small"
+        (click)="showMoreOptions()"
+      >
+        Plus d'options...
+      </a>
+    </div>
+
+    <div mdbCollapse>
+      <label for="create-folder">
+        Création d'un sous répertoire si besoin :
+      </label>
+      <input
+        mdbInput
+        type="text"
+        class="form-control"
+        id="create-folder"
+        [(ngModel)]="subFolder"
+      >
+    </div>
   </div>
+
   <div class="modal-footer">
     <button
       mdbBtn
@@ -64,4 +89,5 @@
       Annuler
     </button>
   </div>
+
 </div>

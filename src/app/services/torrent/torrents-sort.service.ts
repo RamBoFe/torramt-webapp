@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { addHandler, parse } from 'parse-torrent-title';
 import {
   criterionCodec,
   criterionColor,
@@ -10,6 +9,7 @@ import {
 } from '../../common/sort/sort.criterion';
 import { CriterionSort } from '../../common/sort/sort.interface';
 import { Torrent } from '../../common/torrent/torrent.interface';
+import { TorrentParseTitleService } from './torrent-parse-title.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,15 +25,11 @@ export class TorrentsSortService {
     criterionRip
 ];
 
-  constructor() {
-    addHandler('color', /10bit/i);
-    addHandler('rip', /4klight/i);
-    addHandler('image', /hdr/i);
-  }
+  constructor(private torrentParseTittle: TorrentParseTitleService) {}
 
   sortByBestMatch(torrents: Array<Torrent>): Array<any> {
     return torrents.map(torrent => {
-      const parseTorrentTitle = parse(torrent.title);
+      const parseTorrentTitle = this.torrentParseTittle.parse(torrent.title);
       const weight = this.bestMatchCriterion.map((criteria: CriterionSort): number =>
         parseTorrentTitle.hasOwnProperty(criteria.name) ?
           criteria.terms.has(parseTorrentTitle[criteria.name]) ?

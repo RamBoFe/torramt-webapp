@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Torrent } from '../../common/torrent/torrent.interface';
 import { ModalTorrentDetailsComponent } from '../../components/modals/modal-torrent-details/modal-torrent-details.component';
 import { TorrentsService } from '../../services/api/torrents/torrents.service';
-import { TorrentsSortService } from '../../services/sort/torrents-sort.service';
+import { TorrentsSortService } from '../../services/torrent/torrents-sort.service';
 
 @Component({
   selector: 'app-home',

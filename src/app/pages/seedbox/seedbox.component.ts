@@ -17,10 +17,10 @@ import { TransmissionService } from '../../services/api/torrents/management/tran
 export class SeedboxComponent implements OnInit, OnDestroy {
 
   torrents: Array<any>;
-  ftpSizeTorrents: Number = 0;
-  totalTorrents: Number = 0;
-  private modalRef: MDBModalRef;
+  ftpSizeTorrents = 0;
+  totalTorrents = 0;
 
+  private modalRef: MDBModalRef;
   private interval: Observable<number> = interval(2500);
   private subscriptionInterval: Subscription;
 
@@ -57,7 +57,7 @@ export class SeedboxComponent implements OnInit, OnDestroy {
   }
 
   openModalTransfertToNas(path: string, type: string): void {
-    this.modalRef = this.modalService.show(ModalFtpToNasComponent);
+    this.modalRef = this.modalService.show(ModalFtpToNasComponent, { data: {torrentName: path} });
     this.modalRef.content.transfert.subscribe(async params => {
       this.modalRef.hide();
       await this.nasService.transferToNas(`/${TAG_SEEDBOX}/${path}`, params.destination, params.subFolder, type);
