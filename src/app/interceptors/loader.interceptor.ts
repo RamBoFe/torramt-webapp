@@ -37,7 +37,7 @@ export class LoaderInterceptor implements HttpInterceptor {
         .subscribe(
           event => {
             if (event instanceof HttpResponse) {
-              this.removeRequest(req);
+              // this.removeRequest(req);
               observer.next(event);
               console.log('requete OK');
             }
@@ -46,15 +46,17 @@ export class LoaderInterceptor implements HttpInterceptor {
             alert('error returned');
             this.removeRequest(req);
             observer.error(err);
+            console.log('requete ERROR');
           },
           () => {
             this.removeRequest(req);
             observer.complete();
+            console.log('requete COMPLETE');
           });
       // remove request from queue when cancelled
 
       return () => {
-        this.removeRequest(req);
+        // this.removeRequest(req);
         subscription.unsubscribe();
       };
     });
