@@ -31,9 +31,11 @@ export class TorrentsSortService {
     return torrents.map(torrent => {
       const parseTorrentTitle = this.torrentParseTittle.parse(torrent.title);
       const weight = this.bestMatchCriterion.map((criteria: CriterionSort): number =>
-        parseTorrentTitle.hasOwnProperty(criteria.name) ?
-          criteria.terms.has(parseTorrentTitle[criteria.name]) ?
-            criteria.terms.get(parseTorrentTitle[criteria.name]) : 0 : 0
+        parseTorrentTitle.hasOwnProperty(criteria.name)
+          ? criteria.terms.has(parseTorrentTitle[criteria.name])
+            ? criteria.terms.get(parseTorrentTitle[criteria.name])
+            : 0
+          : 0
       )
       .reduce((torrentWeightTotal, torrentWeight) => torrentWeightTotal + torrentWeight);
 
@@ -53,5 +55,13 @@ export class TorrentsSortService {
 
   sortBySeeds(torrents: Array<Torrent>): Array<any> {
     return torrents.sort((torrentA, torrentB) => torrentA.seeds < torrentB.seeds ? 1 : -1);
+  }
+
+  sortByDateDesc(torrents: Array<Torrent>): Array<any> {
+    return torrents.sort((torrentA, torrentB) => torrentA.time < torrentB.time ? 1 : -1);
+  }
+
+  sortByDateAsc(torrents: Array<Torrent>): Array<any> {
+    return torrents.sort((torrentA, torrentB) => torrentA.time > torrentB.time ? 1 : -1);
   }
 }

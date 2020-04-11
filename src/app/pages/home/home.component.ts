@@ -16,6 +16,7 @@ import { TorrentsSortService } from '../../services/torrent/torrents-sort.servic
 export class HomeComponent implements OnInit {
 
   @ViewChild(CollapseComponent) search: CollapseComponent;
+
   torrents: Array<Torrent>;
   searchForm: FormGroup;
   searchAdvanced = false;
@@ -63,13 +64,21 @@ export class HomeComponent implements OnInit {
         this.torrents = this.torrentsSortService.sortByAsc(this.torrents);
         break;
 
-     case 'desc':
+      case 'desc':
        this.torrents = this.torrentsSortService.sortByDesc(this.torrents);
        break;
 
-     case 'seeds':
+      case 'seeds':
        this.torrents = this.torrentsSortService.sortBySeeds(this.torrents);
        break;
+
+      case 'dateAsc':
+       this.torrents = this.torrentsSortService.sortByDateAsc(this.torrents);
+       break;
+
+      case 'dateDesc':
+        this.torrents = this.torrentsSortService.sortByDateDesc(this.torrents);
+        break;
 
       default:
         this.torrents = this.torrentsSortService.sortByBestMatch(this.torrents);
