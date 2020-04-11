@@ -1,6 +1,9 @@
 <div class="container mt-5">
   <h1 class="text-center">Torrents de la Seedbox</h1>
 
+  <!--
+    Information sur les torrents
+  -->
   <div class="row mt-5">
     <div class="col-6">
       Torrents : {{ totalTorrents }}
@@ -10,14 +13,18 @@
     </div>
   </div>
 
+  <!--
+    Liste des torrents
+  -->
   <ul class="list-group list-group-flush">
     <li
       *ngFor="let torrent of torrents"
       class="list-group-item"
     >
       <div class="row">
-        <div class="col-10 d-flex flex-column">
+        <div class="col-sm-10 col-12 d-flex flex-column">
           <h6>{{ torrent.name }}</h6>
+
           <div class="row">
             <div class="col-6">
               <mdb-badge
@@ -57,7 +64,9 @@
 
             </div>
           </div>
+
           <div class="row">
+
             <div class="col">
               <mdb-badge
                 info="true"
@@ -74,11 +83,9 @@
                   {{ torrent.doneDate * 1000 | date: 'dd/MM/yyyy' }}
                 </ng-template>
               </mdb-badge>
-
             </div>
-            <div
-              class="col text-right"
-            >
+
+            <div class="col text-right">
               <mdb-badge
                 info="true"
                 pill="true"
@@ -115,26 +122,32 @@
             </div>
 
             <div class="row small">
-              <div class="col-3">
+              <div class="col-4">
                 {{ torrent.percentDone | percent }} %
               </div>
-              <div class="col-9 text-right">
-                {{ torrent.downloadedEver | downloadTime: torrent.rateDownloa }}}
+              <div class="col-8 text-right">
+                {{ torrent.downloadedEver | downloadTime: torrent.rateDownload }}
               </div>
             </div>
           </div>
         </div>
-        <div class="col-2 icon-actions">
+
+        <!--
+          Icones d'actions
+        -->
+        <div class="col-sm-2 col-12 flex-row flex-sm-column mt-2 icon-actions">
           <button
-            mdbBtn mdbWavesEffect
-            type="button"
-            color="primary"
-            size="sm"
-            (click)="openModalTransfertToNas(torrent.name, torrent.files.length > 1 ? 'd' : '-')"
+              mdbBtn mdbWavesEffect
+              type="button"
+              color="primary"
+              size="sm"
+              outline="true"
+              class="order-sm-3"
+              (click)="openModalConfirmDel(torrent.hashString, torrent.name)"
           >
             <mdb-icon
-              fas
-              icon="download"
+                fas
+                icon="trash-alt"
             >
             </mdb-icon>
           </button>
@@ -145,6 +158,7 @@
             color="primary"
             size="sm"
             outline="true"
+            class="order-sm-2"
             (click)="togglePlayPause(torrent.status, torrent.hashString)"
           >
             <mdb-icon
@@ -155,16 +169,17 @@
           </button>
 
           <button
-            mdbBtn mdbWavesEffect
-            type="button"
-            color="primary"
-            size="sm"
-            outline="true"
-            (click)="openModalConfirmDel(torrent.hashString, torrent.name)"
+              *ngIf="torrent.percentDone === 1"
+              mdbBtn mdbWavesEffect
+              type="button"
+              color="primary"
+              size="sm"
+              class="order-sm-1"
+              (click)="openModalTransfertToNas(torrent.name, torrent.files.length > 1 ? 'd' : '-')"
           >
             <mdb-icon
-              fas
-              icon="trash-alt"
+                fas
+                icon="download"
             >
             </mdb-icon>
           </button>

@@ -6,10 +6,9 @@
         word-wrap: break-word;
       }
     }
-    .align-icons, .icon-actions {
+    .icon-actions {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      justify-content: space-around;
       align-items: center;
     }
 
