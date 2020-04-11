@@ -17,6 +17,7 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { ToastrModule } from 'ngx-toastr';
 import { environment } from '../environments/environment';
 import { TorrentActiveProvidersComponent } from './components/forms/torrent-active-providers/torrent-active-providers.component';
 import { ModalFtpToNasComponent } from './components/modals/modal-ftp-to-nas/modal-ftp-to-nas.component';
@@ -58,7 +59,8 @@ registerLocaleData(localeFr, 'fr');
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ToastrModule.forRoot()
   ],
   providers: [
     FormBuilder,

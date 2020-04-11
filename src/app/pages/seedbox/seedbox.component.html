@@ -1,101 +1,194 @@
 <div class="container mt-5">
   <h1 class="text-center">Torrents de la Seedbox</h1>
 
+  <!--
+    Information sur les torrents
+  -->
   <div class="row mt-5">
     <div class="col-6">
       Torrents : {{ totalTorrents }}
     </div>
     <div class="col-6 text-right">
-      Taille sur ftp : {{ totalSize | fileSize }}
+      Taille sur ftp : {{ ftpSizeTorrents | fileSize }}
     </div>
   </div>
 
+  <!--
+    Liste des torrents
+  -->
   <ul class="list-group list-group-flush">
     <li
       *ngFor="let torrent of torrents"
       class="list-group-item"
     >
       <div class="row">
-        <div class="col-2 align-icons">
-          <a (click)="togglePlayPause(torrent.status, torrent.hashString)">
-            <mdb-badge
-              pill="true"
-              color="teal"
-            >
-              <mdb-icon fas
-               size="2x"
-               [icon]="torrent.status ? 'pause' : 'play'"
-              >
-              </mdb-icon>
-            </mdb-badge>
-          </a>
-          <a (click)="openModalConfirmDel(torrent.hashString, torrent.name)">
-            <mdb-badge
-              pill="true"
-              danger="true"
-            >
-              <mdb-icon fas
-                icon="trash-alt"
-              >
-              </mdb-icon>
-            </mdb-badge>
-          </a>
-        </div>
-        <div class="col-10 small">
+        <div class="col-sm-10 col-12 d-flex flex-column">
           <h6>{{ torrent.name }}</h6>
+
           <div class="row">
-            <div class="col-7">
-              <ng-template
-                [ngIf]="torrent.percentDone === 1 && torrent.status !== 4"
-                [ngIfElse]="downloadedInfos"
+            <div class="col-6">
+              <mdb-badge
+                  default="true"
+                  pill="true"
+                >
+                  <mdb-icon
+                    fas
+                    icon="arrow-down"
+                  ></mdb-icon>
+                  <ng-template
+                    [ngIf]="torrent.percentDone === 1 && torrent.status !== 4"
+                    [ngIfElse]="downloadedInfos"
+                  >
+                    {{ torrent.totalSize | fileSize }} {{  torrent.rateDownload | fileSize }}/s)
+                  </ng-template>
+                  <ng-template #downloadedInfos>
+                    {{ torrent.downloadedEver | fileSize }} sur {{ torrent.totalSize | fileSize }} {{  torrent.rateDownload | fileSize }}/s)
+                  </ng-template>
+                </mdb-badge>
+            </div>
+            <div class="col-6 text-right">
+              <mdb-badge
+                danger="true"
+                pill="true"
               >
-                {{ torrent.totalSize | fileSize }}
-              </ng-template>
-              <ng-template #downloadedInfos>
-                {{ torrent.downloadedEver | fileSize }} sur {{ torrent.totalSize | fileSize }}
-              </ng-template>
+                <ng-template
+                  [ngIf]="torrent.percentDone === 1 && torrent.status !== 4"
+                  [ngIfElse]="emptyBadge"
+                >
+                  <mdb-icon
+                    fas icon="arrow-up"
+                  ></mdb-icon>
+                  {{ torrent.uploadedEver | fileSize }} ({{ torrent.rateUpload |fileSize }}/s)
+                </ng-template>
+              </mdb-badge>
+
             </div>
-            <div class="col-5 text-right">
-              {{ torrent.rateDownload |fileSize }}/s
-              <mdb-icon fas icon="arrow-down" class="text-success"></mdb-icon>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-7">
-              {{ torrent.uploadedEver | fileSize }} (Ratio: {{ torrent.uploadRatio | number: '1.0-2' }})
-            </div>
-            <div class="col-5 text-right">
-              {{ torrent.rateUpload |fileSize }}/s
-              <mdb-icon fas icon="arrow-up" class="text-danger"></mdb-icon>
-            </div>
-          </div>
-          <div class="progress custom-progress">
-            <div
-              class="progress-bar"
-              [ngClass]="{
-                'bg-success': torrent.status === 6,
-                'bg-info': torrent.status === 4,
-                'bg-light': torrent.status === 0
-              }"
-              role="progressbar"
-              [style.width.%]="torrent.percentDone | percent"
-            ></div>
           </div>
 
+          <div class="row">
+
+            <div class="col">
+              <mdb-badge
+                info="true"
+                pill="true"
+              >
+                <ng-template
+                  [ngIf]="torrent.percentDone === 1 && torrent.status !== 4"
+                  [ngIfElse]="emptyBadge"
+                >
+                  <mdb-icon
+                    far
+                    icon="calendar-alt"
+                  ></mdb-icon>
+                  {{ torrent.doneDate * 1000 | date: 'dd/MM/yyyy' }}
+                </ng-template>
+              </mdb-badge>
+            </div>
+
+            <div class="col text-right">
+              <mdb-badge
+                info="true"
+                pill="true"
+              >
+                <ng-template
+                  [ngIf]="torrent.percentDone === 1 && torrent.status !== 4"
+                  [ngIfElse]="emptyBadge"
+                >
+                  <mdb-icon
+                    fas
+                    icon="divide"
+                  ></mdb-icon>
+                    {{ torrent.uploadRatio | number: '1.0-2' }}
+                </ng-template>
+              </mdb-badge>
+            </div>
+          </div>
           <div
             *ngIf="torrent.percentDone < 1
             && (torrent.status === 4 || torrent.status === 0)"
-            class="row"
+            class="mt-auto pt-1"
           >
-            <div class="col-3">
-              {{ torrent.percentDone | percent }} %
+            <div class="progress custom-progress">
+              <div
+                class="progress-bar"
+                [ngClass]="{
+                  'bg-success': torrent.status === 6,
+                  'bg-info': torrent.status === 4,
+                  'bg-light': torrent.status === 0
+                }"
+                role="progressbar"
+                [style.width.%]="torrent.percentDone | percent"
+              ></div>
             </div>
-            <div class="col-9 text-right">
-              {{ torrent.downloadedEver | downloadTime: torrent.rateDownload  }}
+
+            <div class="row small">
+              <div class="col-4">
+                {{ torrent.percentDone | percent }} %
+              </div>
+              <div class="col-8 text-right">
+                {{ torrent.downloadedEver | downloadTime: torrent.rateDownload }}
+              </div>
             </div>
           </div>
+        </div>
+
+        <!--
+          Icones d'actions
+        -->
+        <div class="col-sm-2 col-12 flex-row flex-sm-column mt-sm-0 mt-2 icon-actions">
+          <button
+              mdbBtn mdbWavesEffect
+              type="button"
+              color="primary"
+              size="sm"
+              outline="true"
+              class="order-sm-3"
+              (click)="openModalConfirmDel(torrent.hashString, torrent.name)"
+          >
+            <mdb-icon
+                fas
+                icon="trash-alt"
+            >
+            </mdb-icon>
+          </button>
+
+          <button
+            mdbBtn mdbWavesEffect
+            type="button"
+            color="primary"
+            size="sm"
+            outline="true"
+            class="order-sm-2"
+            (click)="togglePlayPause(torrent.status, torrent.hashString)"
+          >
+            <mdb-icon
+              fas
+              [icon]="torrent.status ? 'pause' : 'play'"
+            >
+            </mdb-icon>
+          </button>
+
+          <button
+              *ngIf="torrent.percentDone === 1"
+              mdbBtn mdbWavesEffect
+              type="button"
+              color="primary"
+              size="sm"
+              class="order-sm-1"
+              (click)="openModalTransfertToNas(torrent.name, torrent.files.length > 1 ? 'd' : '-')"
+          >
+            <mdb-icon
+                fas
+                icon="download"
+            >
+            </mdb-icon>
+          </button>
         </div>
       </div>
     </li>
   </ul>
 </div>
+
+<ng-template #emptyBadge>
+  -
+</ng-template>

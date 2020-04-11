@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://rambof.synology.me:2223'
+  apiUrl: 'https://rambof.synology.me:2223'
 };

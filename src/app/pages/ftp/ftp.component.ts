@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MDBModalRef, MDBModalService } from 'angular-bootstrap-md';
+import { ToastrService } from 'ngx-toastr';
 import { ModalFtpToNasComponent } from '../../components/modals/modal-ftp-to-nas/modal-ftp-to-nas.component';
 import { ModalYesNoComponent } from '../../components/modals/modal-yes-no/modal-yes-no.component';
 import { FtpService } from '../../services/api/ftp/ftp.service';
@@ -17,7 +18,8 @@ export class FtpComponent implements OnInit {
 
   constructor(private ftpService: FtpService,
               private nasService: NasService,
-              private modalService: MDBModalService) { }
+              private modalService: MDBModalService,
+              private toastr: ToastrService) { }
 
   async ngOnInit(): Promise<any> {
     this.files = await this.ftpService.getList();
@@ -36,27 +38,18 @@ export class FtpComponent implements OnInit {
     this.files = await this.ftpService.getList(`/${this.breadcrumbs.join('/')}`);
   }
 
-  async transfertToNas(folder: string,
-                       destination: string,
-                       createSubFolder: string,
-                       type: string): Promise<any> {
-    const path = this.breadcrumbs.join('/');
-    await this.nasService.transferToNas(
-      `/${path}/${folder}`,
-      destination,
-      createSubFolder,
-      type);
-  }
-
   async delete(path, type): Promise<any> {
     await this.ftpService.delete(path, type);
+    this.toastr.success('Le torrent a bien été supprimé du ftp.', 'Suppression d\'un torrent du ftp');
   }
 
-  openModalTransfertToNas(path: string, type: string): void {
+  openModalTransfertToNas(folder: string, type: string): void {
     this.modalRef = this.modalService.show(ModalFtpToNasComponent);
-    this.modalRef.content.transfert.subscribe(params => {
-      this.transfertToNas(path, params.destination, params.subFolder, type);
+    this.modalRef.content.transfert.subscribe(async params => {
       this.modalRef.hide();
+      const path = this.breadcrumbs.join('/');
+      await this.nasService.transferToNas(`/${path}/${folder}`, params.destination, params.subFolder, type);
+      this.toastr.success('Le transfert du torrent vers le Nas a débuté.', 'Transfert du torrent');
     });
   }
 

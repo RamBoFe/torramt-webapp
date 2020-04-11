@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MDBModalRef } from 'angular-bootstrap-md';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { CollapseComponent, MDBModalRef } from 'angular-bootstrap-md';
 import { Subject } from 'rxjs';
+import { TorrentParseTitleService } from '../../../services/torrent/torrent-parse-title.service';
 
 interface Destination {
   name: string;
@@ -15,14 +16,19 @@ interface Destination {
 
 export class ModalFtpToNasComponent implements OnInit {
 
+  @ViewChild(CollapseComponent) moreOptions: CollapseComponent;
+
   transfert: Subject<any> = new Subject();
   destinations: Array<Destination>;
   selectedDest;
   subFolder = '';
+  torrentName: string;
+  moreOptionsCollapsed = false;
 
-  constructor(public modalRef: MDBModalRef) {}
+  constructor(public modalRef: MDBModalRef, private torrentParseTittle: TorrentParseTitleService) {}
 
   ngOnInit(): void {
+    this.subFolder = this.torrentParseTittle.formatForScrapper(this.torrentName);
     this.destinations = [
       { name: 'video', alias: 'Films'},
       { name: 'serie', alias: 'Séries' },
@@ -40,4 +46,8 @@ export class ModalFtpToNasComponent implements OnInit {
     );
   }
 
+  showMoreOptions(): void {
+    this.moreOptions.toggle();
+    this.moreOptionsCollapsed = !this.moreOptionsCollapsed;
+  }
 }
