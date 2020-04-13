@@ -1,7 +1,7 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/site/footer/footer.component';
@@ -20,9 +20,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { ToastrModule } from 'ngx-toastr';
 import { environment } from '../environments/environment';
 import { TorrentActiveProvidersComponent } from './components/forms/torrent-active-providers/torrent-active-providers.component';
+import { LoaderComponent } from './components/loader/loader.component';
 import { ModalFtpToNasComponent } from './components/modals/modal-ftp-to-nas/modal-ftp-to-nas.component';
 import { ModalTorrentDetailsComponent } from './components/modals/modal-torrent-details/modal-torrent-details.component';
 import { ModalYesNoComponent } from './components/modals/modal-yes-no/modal-yes-no.component';
+import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { FtpComponent } from './pages/ftp/ftp.component';
 import { SeedboxComponent } from './pages/seedbox/seedbox.component';
 import { DownloadTimePipe } from './pipes/download-time.pipe';
@@ -48,7 +50,8 @@ registerLocaleData(localeFr, 'fr');
     ModalYesNoComponent,
     TorrentActiveProvidersComponent,
     PercentPipe,
-    DownloadTimePipe
+    DownloadTimePipe,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -63,10 +66,18 @@ registerLocaleData(localeFr, 'fr');
   ],
   providers: [
     FormBuilder,
-    { provide: LOCALE_ID, useValue: 'fr-FR' },
     TorrentsService,
     TransmissionService,
-    FtpService
+    FtpService,
+    {
+      provide: LOCALE_ID,
+      useValue: 'fr-FR'
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent],
   entryComponents: [

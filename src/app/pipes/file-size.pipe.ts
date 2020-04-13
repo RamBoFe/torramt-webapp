@@ -3,7 +3,9 @@ import filesize from 'filesize';
 
 @Pipe({name: 'fileSize'})
 export class FileSizePipe implements PipeTransform {
-  transform(value: number): string {
-    return filesize(value);
+  transform(value: number, decimal?: number): string {
+    if (value) {
+      return filesize(value, { round: decimal });
+    }
   }
 }

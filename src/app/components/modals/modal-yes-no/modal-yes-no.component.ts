@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MDBModalRef } from 'angular-bootstrap-md';
 import { Subject } from 'rxjs';
+import { LoaderService } from '../../../services/loader.service';
 
 @Component({
   selector: 'app-modal-yes-no',
@@ -10,6 +11,7 @@ import { Subject } from 'rxjs';
 
 export class ModalYesNoComponent {
   response: Subject<any> = new Subject();
+  isLoading: Subject<boolean> = this.loaderService.isLoading;
   title: string;
   body: string;
   btnYes = {
@@ -25,11 +27,11 @@ export class ModalYesNoComponent {
     icon: undefined
   };
 
-  constructor(private modalRef: MDBModalRef) {}
+  constructor(private modalRef: MDBModalRef, private loaderService: LoaderService) {}
 
   sendResponse(response: boolean): void {
     this.response.next(response);
-    this.hideModal();
+    // this.hideModal();
   }
 
   hideModal(): void {

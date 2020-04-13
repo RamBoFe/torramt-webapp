@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CollapseComponent, MDBModalRef } from 'angular-bootstrap-md';
 import { Subject } from 'rxjs';
+import { LoaderService } from '../../../services/loader.service';
 import { TorrentParseTitleService } from '../../../services/torrent/torrent-parse-title.service';
 
 interface Destination {
@@ -24,8 +25,9 @@ export class ModalFtpToNasComponent implements OnInit {
   subFolder = '';
   torrentName: string;
   moreOptionsCollapsed = false;
+  isLoading: Subject<boolean> = this.loaderService.isLoading;
 
-  constructor(public modalRef: MDBModalRef, private torrentParseTittle: TorrentParseTitleService) {}
+  constructor(public modalRef: MDBModalRef, private torrentParseTittle: TorrentParseTitleService, private loaderService: LoaderService) {}
 
   ngOnInit(): void {
     this.subFolder = this.torrentParseTittle.formatForScrapper(this.torrentName);

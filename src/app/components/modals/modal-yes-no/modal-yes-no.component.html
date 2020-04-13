@@ -1,4 +1,5 @@
 <div class="modal-content">
+
   <div class="modal-header">
     <button
       type="button"
@@ -14,9 +15,11 @@
       {{ title }}
     </h4>
   </div>
+
   <div class="modal-body">
     {{ body }}
   </div>
+
   <div class="modal-footer">
     <button
       mdbBtn mdbWavesEffect
@@ -26,13 +29,21 @@
       [outline]="btnYes.outline"
       (click)="sendResponse(true)"
     >
-      <mdb-icon
+      <app-loader
+          *ngIf="isLoading | async; else iconYes"
+          htmlType="inline"
+          color="text-white"
+      ></app-loader>
+      <ng-template #iconYes>
+        <mdb-icon
           *ngIf="btnYes.icon"
           fas
           icon="{{ btnYes.icon }}"
-      ></mdb-icon>
+        ></mdb-icon>
+      </ng-template>
       {{ btnYes.label }}
     </button>
+
     <button
       mdbBtn mdbWavesEffect
       type="button"
@@ -48,5 +59,6 @@
       ></mdb-icon>
       {{ btnNo.label }}
     </button>
+
   </div>
 </div>

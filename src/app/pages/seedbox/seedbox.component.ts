@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MDBModalRef, MDBModalService } from 'angular-bootstrap-md';
 import { ToastrService } from 'ngx-toastr';
-import { interval, Observable, Subscription } from 'rxjs';
+import { interval, Observable, Subject, Subscription } from 'rxjs';
 import { ModalFtpToNasComponent } from '../../components/modals/modal-ftp-to-nas/modal-ftp-to-nas.component';
 import { ModalYesNoComponent } from '../../components/modals/modal-yes-no/modal-yes-no.component';
 import { FtpService } from '../../services/api/ftp/ftp.service';
 import { NasService, TAG_SEEDBOX } from '../../services/api/nas/nas.service';
 import { TransmissionService } from '../../services/api/torrents/management/transmission';
+import { LoaderService } from '../../services/loader.service';
 
 @Component({
   selector: 'app-seedbox',
@@ -17,8 +18,9 @@ import { TransmissionService } from '../../services/api/torrents/management/tran
 export class SeedboxComponent implements OnInit, OnDestroy {
 
   torrents: Array<any>;
-  ftpSizeTorrents = 0;
+  ftpSizeTorrents: number;
   totalTorrents = 0;
+  isLoading: Subject<boolean> = this.loaderService.isLoading;
 
   private modalRef: MDBModalRef;
   private interval: Observable<number> = interval(2500);
@@ -29,14 +31,15 @@ export class SeedboxComponent implements OnInit, OnDestroy {
     private ftp: FtpService,
     private nasService: NasService,
     private modalService: MDBModalService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private loaderService: LoaderService
     ) { }
 
   async ngOnInit(): Promise<any> {
     this.torrents = await this.getTorrents();
     this.totalTorrents = this.torrents.length;
-    this.subscriptionInterval = this.interval.subscribe(async () => this.torrents = await this.getTorrents());
     this.ftpSizeTorrents = await this.ftp.getSize(`/${TAG_SEEDBOX}`);
+    this.subscriptionInterval = this.interval.subscribe(async () => this.torrents = await this.getTorrents());
   }
 
   async getTorrents(): Promise<any> {
@@ -53,14 +56,15 @@ export class SeedboxComponent implements OnInit, OnDestroy {
 
   async remove(hash: string): Promise<any> {
     await this.transmission.remove(hash);
+    this.modalRef.hide();
     this.toastr.success('Le torrent a bien été supprimé de la seedbox.', 'Suppression d\'un torrent de la seedbox');
   }
 
   openModalTransfertToNas(path: string, type: string): void {
     this.modalRef = this.modalService.show(ModalFtpToNasComponent, { data: {torrentName: path} });
     this.modalRef.content.transfert.subscribe(async params => {
-      this.modalRef.hide();
       await this.nasService.transferToNas(`/${TAG_SEEDBOX}/${path}`, params.destination, params.subFolder, type);
+      this.modalRef.hide();
       this.toastr.success('Le transfert du torrent vers le Nas a débuté.', 'Transfert du torrent');
     });
   }
