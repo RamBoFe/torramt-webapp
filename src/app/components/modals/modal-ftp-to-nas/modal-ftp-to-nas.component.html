@@ -72,12 +72,20 @@
       class="waves-light"
       (click)="onTransfertoNas()" mdbWavesEffect
     >
-      <mdb-icon
-        fas
-        icon="download"
-      ></mdb-icon>
+      <app-loader
+        *ngIf="isLoading | async; else iconDl"
+        htmlType="inline"
+        color="text-white"
+      ></app-loader>
+      <ng-template #iconDl>
+        <mdb-icon
+            fas
+            icon="download"
+        ></mdb-icon>
+      </ng-template>
       Transférer
     </button>
+
     <button
       mdbWavesEffect mdbBtn
       type="button"

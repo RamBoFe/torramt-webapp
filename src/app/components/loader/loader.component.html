@@ -1,0 +1,8 @@
+<div
+    *ngIf="htmlType === 'block'; else inline"
+  [class]="getBlockClasses()"
+></div>
+
+<ng-template #inline>
+  <span [class]="getInlineClasses()"></span>
+</ng-template>

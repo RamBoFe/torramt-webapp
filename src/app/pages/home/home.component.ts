@@ -2,9 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CollapseComponent, MDBModalService } from 'angular-bootstrap-md';
 import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
 import { Torrent } from '../../common/torrent/torrent.interface';
 import { ModalTorrentDetailsComponent } from '../../components/modals/modal-torrent-details/modal-torrent-details.component';
 import { TorrentsService } from '../../services/api/torrents/torrents.service';
+import { LoaderService } from '../../services/loader.service';
 import { TorrentsSortService } from '../../services/torrent/torrents-sort.service';
 
 @Component({
@@ -20,13 +22,15 @@ export class HomeComponent implements OnInit {
   torrents: Array<Torrent>;
   searchForm: FormGroup;
   searchAdvanced = false;
+  isLoading: Subject<boolean> = this.loaderService.isLoading;
 
   constructor(
     private torrentsService: TorrentsService,
     private formBuilder: FormBuilder,
     private modalService: MDBModalService,
     private toastr: ToastrService,
-    private torrentsSortService: TorrentsSortService
+    private torrentsSortService: TorrentsSortService,
+    private loaderService: LoaderService
     ) {}
 
   async ngOnInit(): Promise<any> {
