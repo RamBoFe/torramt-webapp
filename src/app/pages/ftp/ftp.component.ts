@@ -44,7 +44,7 @@ export class FtpComponent implements OnInit {
   }
 
   openModalTransfertToNas(folder: string, type: string): void {
-    this.modalRef = this.modalService.show(ModalFtpToNasComponent);
+    this.modalRef = this.modalService.show(ModalFtpToNasComponent, { data: { torrentName: folder } });
     this.modalRef.content.transfert.subscribe(async params => {
       this.modalRef.hide();
       const path = this.breadcrumbs.join('/');
@@ -56,12 +56,12 @@ export class FtpComponent implements OnInit {
   openModalConfirmDel(fileName: string, fileType: string): void {
     this.modalRef = this.modalService.show(ModalYesNoComponent, {
       data: {
-        title: fileType === 'd' ?
-          `Suppression du dossier "${fileName}" ?` :
-          `Suppression du fichier "${fileName}" ?`,
-        body: fileType === 'd' ?
-          'Voulez-vous vraiment supprimer ce dossier ? (Les sous-dossiers seront également supprimés) ?' :
-          'Voulez-vous vraiment supprimer ce fichier ?',
+        title: fileType === 'd'
+          ? `Suppression du dossier "${fileName}" ?`
+          : `Suppression du fichier "${fileName}" ?`,
+        body: fileType === 'd'
+          ? 'Voulez-vous vraiment supprimer ce dossier ? (Les sous-dossiers seront également supprimés) ?'
+          : 'Voulez-vous vraiment supprimer ce fichier ?',
         btnYes: {
           label: 'Supprimer',
           color: 'danger',
