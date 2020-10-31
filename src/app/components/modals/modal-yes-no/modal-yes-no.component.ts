@@ -27,11 +27,14 @@ export class ModalYesNoComponent {
     icon: undefined
   };
 
-  constructor(private modalRef: MDBModalRef, private loaderService: LoaderService) {}
+  constructor(
+    private modalRef: MDBModalRef,
+    private loaderService: LoaderService
+  ) {}
 
   sendResponse(response: boolean): void {
     this.response.next(response);
-    // this.hideModal();
+    this.hideModal();
   }
 
   hideModal(): void {
