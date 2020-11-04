@@ -2,16 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 
-const URL = `${environment.apiUrl}/torrents`;
-
 @Injectable()
 export class TorrentsService {
+
+  readonly URL = `${environment.apiUrl}/torrents`;
 
   constructor(private http: HttpClient) {}
 
   async getSearch(search): Promise<any> {
     return this.http
-      .get<Array<any>>(`${URL}/search`, {
+      .get<Array<any>>(`${this.URL}/search`, {
         params: { search: JSON.stringify(search) }
       })
       .toPromise();
@@ -19,7 +19,7 @@ export class TorrentsService {
 
   async addTorrentToDl(torrent: object): Promise<any> {
     return this.http
-      .get<Object>(`${URL}/dl`, {
+      .get<Object>(`${this.URL}/dl`, {
         params: { torrent: JSON.stringify(torrent) }
       })
       .toPromise();
@@ -32,13 +32,13 @@ export class TorrentsService {
     };
 
     return this.http
-      .get<String>(`${URL}/details`,  requestOptions)
+      .get<String>(`${this.URL}/details`,  requestOptions)
       .toPromise();
   }
 
   async getActiveProviders(): Promise<any> {
     return this.http
-      .get<Array<any>>(`${URL}/providers`)
+      .get<Array<any>>(`${this.URL}/providers`)
       .toPromise();
   }
 }

@@ -11,7 +11,8 @@ import { LoaderService } from '../../../services/loader.service';
 
 export class ModalYesNoComponent {
   response: Subject<any> = new Subject();
-  isLoading: Subject<boolean> = this.loaderService.isLoading;
+  // isLoading: Subject<boolean> = this.loaderService.isLoading;
+  isLoading = false;
   title: string;
   body: string;
   btnYes = {

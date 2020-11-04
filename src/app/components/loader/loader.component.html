@@ -1,8 +1,15 @@
-<div
+<ng-container *ngIf="show; else ngcontent">
+  <div
     *ngIf="htmlType === 'block'; else inline"
-  [class]="getBlockClasses()"
-></div>
+    [class]="blockClasses"
+  ></div>
 
-<ng-template #inline>
-  <span [class]="getInlineClasses()"></span>
+  <ng-template #inline>
+    <span [class]="inlineClasses"></span>
+  </ng-template>
+</ng-container>
+
+<ng-template #ngcontent>
+  <ng-content></ng-content>
 </ng-template>
+

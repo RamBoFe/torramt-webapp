@@ -1,6 +1,6 @@
 <div class="container mt-5">
 
-  <h1 class="text-center">Recherche de torrent</h1>
+  <h1 class="text-center">Recherche</h1>
   <form
       [formGroup]="searchForm"
   >
@@ -59,11 +59,9 @@
 </div>
 
 <app-loader
-  *ngIf="isLoading | async; else listTorrentSearch"
+  [name]="'search'"
   class="d-flex justify-content-center mt-5"
-></app-loader>
-
-<ng-template #listTorrentSearch>
+>
   <div
     *ngIf="torrents"
     class="container mt-5"
@@ -100,10 +98,6 @@
         </select>
       </div>
     </div>
-
-
-
-
 
     <ul class="list-group list-group-flush mt-2">
       <li
@@ -170,14 +164,22 @@
               class="order-sm-1"
               (click)="addTorrentToDl(i)"
             >
-              <mdb-icon
-                fas
-                icon="plus"
-              ></mdb-icon>
+              <app-loader
+                [name]="'dl'"
+                [htmlType]="'inline'"
+                [color]="'text-white'"
+              >
+                <span>
+                  <mdb-icon
+                    fas
+                    icon="plus"
+                  ></mdb-icon>
+                </span>
+              </app-loader>
             </button>
           </div>
         </div>
       </li>
     </ul>
   </div>
-</ng-template>
+</app-loader>

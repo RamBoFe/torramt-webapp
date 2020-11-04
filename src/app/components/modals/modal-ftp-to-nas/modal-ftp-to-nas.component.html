@@ -73,7 +73,7 @@
       (click)="onTransfertoNas()" mdbWavesEffect
     >
       <app-loader
-        *ngIf="isLoading | async; else iconDl"
+        *ngIf="isLoading; else iconDl"
         htmlType="inline"
         color="text-white"
       ></app-loader>

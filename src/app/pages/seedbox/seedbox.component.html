@@ -1,5 +1,5 @@
 <div class="container mt-5">
-  <h1 class="text-center">Torrents de la Seedbox</h1>
+  <h1 class="text-center">Seedbox</h1>
 
     <!--
       Information sur les torrents
@@ -18,7 +18,7 @@
       <div class="col-7 text-right">
         Taille sur ftp :
         <app-loader
-            *ngIf="isLoading | async; else sizeTorrents"
+            *ngIf="isLoading; else sizeTorrents"
             htmlType="inline"
         ></app-loader>
         <ng-template #sizeTorrents>

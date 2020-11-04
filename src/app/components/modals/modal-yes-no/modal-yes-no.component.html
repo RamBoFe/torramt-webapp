@@ -30,7 +30,7 @@
       (click)="sendResponse(true)"
     >
       <app-loader
-          *ngIf="isLoading | async; else iconYes"
+          *ngIf="isLoading; else iconYes"
           htmlType="inline"
           color="text-white"
       ></app-loader>

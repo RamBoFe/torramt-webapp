@@ -22,22 +22,20 @@ export class HomeComponent implements OnInit {
   torrents: Array<Torrent>;
   searchForm: FormGroup;
   searchAdvanced = false;
-  isLoading: Subject<boolean> = this.loaderService.isLoading;
 
   constructor(
     private torrentsService: TorrentsService,
     private formBuilder: FormBuilder,
     private modalService: MDBModalService,
     private toastr: ToastrService,
-    private torrentsSortService: TorrentsSortService,
-    private loaderService: LoaderService
+    private torrentsSortService: TorrentsSortService
     ) {}
 
-  async ngOnInit(): Promise<any> {
+  ngOnInit(): void {
     this.initForm();
   }
 
-  async initForm(): Promise<any> {
+  initForm(): void {
     this.searchForm = this.formBuilder.group({
       searchValue: '',
       provider: '',

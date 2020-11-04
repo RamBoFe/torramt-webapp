@@ -20,7 +20,8 @@ export class SeedboxComponent implements OnInit, OnDestroy {
   torrents: Array<any>;
   ftpSizeTorrents: number;
   totalTorrents = 0;
-  isLoading: Subject<boolean> = this.loaderService.isLoading;
+  // isLoading: Subject<boolean> = this.loaderService.isLoading;
+  isLoading = false;
 
   private modalRef: MDBModalRef;
   private interval: Observable<number> = interval(2500);
