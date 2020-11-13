@@ -6,6 +6,8 @@ import { environment } from '../../../../environments/environment';
 export class TorrentsService {
 
   readonly URL = `${environment.apiUrl}/torrents`;
+  readonly SEARCH = `${this.URL}/search`;
+  readonly DL = `${this.URL}/dl`;
 
   constructor(private http: HttpClient) {}
 

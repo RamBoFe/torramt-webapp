@@ -10,7 +10,11 @@ export class LoaderInterceptor implements HttpInterceptor {
   constructor(public loaderService: LoaderService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.loaderService.show(req.url);
+    this.loaderService.show(req.url, req.params);
+
+    console.log(req.params.has('search'));
+
+    console.log(req);
 
     return next.handle(req)
       .pipe(finalize(() => this.loaderService.hide()));

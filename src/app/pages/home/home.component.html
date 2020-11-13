@@ -58,10 +58,10 @@
   </form>
 </div>
 
-<app-loader
-  [name]="'search'"
-  class="d-flex justify-content-center mt-5"
->
+<!--<app-loader-->
+<!--  [name]="'search'"-->
+<!--  class="d-flex justify-content-center mt-5"-->
+<!--&gt;-->
   <div
     *ngIf="torrents"
     class="container mt-5"
@@ -165,7 +165,8 @@
               (click)="addTorrentToDl(i)"
             >
               <app-loader
-                [name]="'dl'"
+                [name]="'add_torrent_' + torrent.id"
+                [endPoint]="{ url: torrentsService.DL, param: { key: 'torrent', value: torrent, keyId: 'id'} }"
                 [htmlType]="'inline'"
                 [color]="'text-white'"
               >
@@ -182,4 +183,4 @@
       </li>
     </ul>
   </div>
-</app-loader>
+<!--</app-loader>-->

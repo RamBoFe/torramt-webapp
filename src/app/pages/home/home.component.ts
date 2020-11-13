@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   searchAdvanced = false;
 
   constructor(
-    private torrentsService: TorrentsService,
+    public torrentsService: TorrentsService,
     private formBuilder: FormBuilder,
     private modalService: MDBModalService,
     private toastr: ToastrService,
