@@ -1,9 +1,7 @@
 <div class="container mt-5">
 
   <h1 class="text-center">Recherche</h1>
-  <form
-      [formGroup]="searchForm"
-  >
+  <form [formGroup]="searchForm">
     <div class="row md-form">
       <div class="col-12">
         <input
@@ -58,10 +56,11 @@
   </form>
 </div>
 
-<!--<app-loader-->
-<!--  [name]="'search'"-->
-<!--  class="d-flex justify-content-center mt-5"-->
-<!--&gt;-->
+<app-loader
+  [name]="'search'"
+  [endPoint]="{ url: torrentsService.END_POINT_SEARCH }"
+  class="d-flex justify-content-center mt-5"
+>
   <div
     *ngIf="torrents"
     class="container mt-5"
@@ -166,7 +165,7 @@
             >
               <app-loader
                 [name]="'add_torrent_' + torrent.id"
-                [endPoint]="{ url: torrentsService.DL, param: { key: 'torrent', value: torrent, keyId: 'id'} }"
+                [endPoint]="{ url: torrentsService.END_POINT_DL, param: { key: 'torrent', value: torrent } }"
                 [htmlType]="'inline'"
                 [color]="'text-white'"
               >
@@ -183,4 +182,4 @@
       </li>
     </ul>
   </div>
-<!--</app-loader>-->
+</app-loader>

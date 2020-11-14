@@ -7,14 +7,10 @@ import { LoaderService } from '../services/loader.service';
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
 
-  constructor(public loaderService: LoaderService) { }
+  constructor(private readonly loaderService: LoaderService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.loaderService.show(req.url, req.params);
-
-    console.log(req.params.has('search'));
-
-    console.log(req);
+    this.loaderService.show(req);
 
     return next.handle(req)
       .pipe(finalize(() => this.loaderService.hide()));

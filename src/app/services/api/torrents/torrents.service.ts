@@ -5,15 +5,17 @@ import { environment } from '../../../../environments/environment';
 @Injectable()
 export class TorrentsService {
 
-  readonly URL = `${environment.apiUrl}/torrents`;
-  readonly SEARCH = `${this.URL}/search`;
-  readonly DL = `${this.URL}/dl`;
+  readonly END_POINT_TORRENTS = `${environment.apiUrl}/torrents`;
+  readonly END_POINT_SEARCH = `${this.END_POINT_TORRENTS}/search`;
+  readonly END_POINT_DL = `${this.END_POINT_TORRENTS}/dl`;
+  readonly END_POINT_PROVIDERS = `${this.END_POINT_TORRENTS}/providers`;
+  readonly END_POINT_DETAILS = `${this.END_POINT_TORRENTS}/details`;
 
   constructor(private http: HttpClient) {}
 
   async getSearch(search): Promise<any> {
     return this.http
-      .get<Array<any>>(`${this.URL}/search`, {
+      .get<Array<any>>(`${this.END_POINT_SEARCH}`, {
         params: { search: JSON.stringify(search) }
       })
       .toPromise();
@@ -21,7 +23,7 @@ export class TorrentsService {
 
   async addTorrentToDl(torrent: object): Promise<any> {
     return this.http
-      .get<Object>(`${this.URL}/dl`, {
+      .get<Object>(`${this.END_POINT_DL}`, {
         params: { torrent: JSON.stringify(torrent) }
       })
       .toPromise();
@@ -34,13 +36,13 @@ export class TorrentsService {
     };
 
     return this.http
-      .get<String>(`${this.URL}/details`,  requestOptions)
+      .get<String>(`${this.END_POINT_DETAILS}`,  requestOptions)
       .toPromise();
   }
 
   async getActiveProviders(): Promise<any> {
     return this.http
-      .get<Array<any>>(`${this.URL}/providers`)
+      .get<Array<any>>(`${this.END_POINT_PROVIDERS}`)
       .toPromise();
   }
 }

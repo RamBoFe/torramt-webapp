@@ -3,6 +3,6 @@ export interface EndPointInterface {
   param?: {
     key: string;
     value: string | object;
-    keyId: string;
+    keyId?: string;
   };
 }
