@@ -6,7 +6,6 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/site/footer/footer.component';
 import { HeaderComponent } from './components/site/header/header.component';
-import { DefaultComponent } from './layouts/default/default.component';
 import { HomeComponent } from './pages/home/home.component';
 
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -41,7 +40,6 @@ registerLocaleData(localeFr, 'fr');
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    DefaultComponent,
     SeedboxComponent,
     FileSizePipe,
     FtpComponent,
