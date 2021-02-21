@@ -1,8 +1,10 @@
 <ng-container *ngIf="show; else ngcontent">
   <div
-    *ngIf="htmlType === 'block'; else inline"
-    [class]="blockClasses"
-  ></div>
+      *ngIf="htmlType === 'block'; else inline"
+      [class]="'d-flex justify-content-' + align"
+  >
+    <div [class]="blockClasses"></div>
+  </div>
 
   <ng-template #inline>
     <span [class]="inlineClasses"></span>
@@ -12,4 +14,3 @@
 <ng-template #ngcontent>
   <ng-content></ng-content>
 </ng-template>
-

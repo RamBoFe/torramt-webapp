@@ -8,22 +8,23 @@
       <div class="col-5">
         Torrents :
         <app-loader
-            *ngIf="totalTorrents === 0; else _totalTorrents"
             htmlType="inline"
-        ></app-loader>
-        <ng-template #_totalTorrents>
-           {{ totalTorrents }}
-        </ng-template>
+            [name]="'seedboxListTorrents'"
+            [endPoint]="{ url: transmission.END_POINT_SEEDBOX }"
+            [once]="true"
+        >
+          {{ totalTorrents }}
+        </app-loader>
       </div>
       <div class="col-7 text-right">
         Taille sur ftp :
         <app-loader
-            *ngIf="isLoading; else sizeTorrents"
-            htmlType="inline"
-        ></app-loader>
-        <ng-template #sizeTorrents>
+          htmlType="inline"
+          [name]="'ftpSize'"
+          [endPoint]="{ url: ftp.END_POINT_SIZE }"
+        >
           {{ ftpSizeTorrents | fileSize: 0 }}
-        </ng-template>
+        </app-loader>
       </div>
     </div>
 
@@ -31,11 +32,12 @@
       Liste des torrents
     -->
   <app-loader
-    *ngIf="totalTorrents === 0; else listTorrents"
-    class="d-flex justify-content-center"
-  ></app-loader>
-  <ng-template #listTorrents>
-    <ul class="list-group list-group-flush">
+    [name]="'seedboxListTorrents'"
+    [endPoint]="{ url: transmission.END_POINT_SEEDBOX }"
+    [once]="true"
+    [align]="'center'"
+  >
+    <ul class="list-group list-group-flush justify-content-around">
       <li
         *ngFor="let torrent of torrents"
         class="list-group-item"
@@ -206,7 +208,7 @@
         </div>
       </li>
     </ul>
-  </ng-template>
+  </app-loader>
 </div>
 
 <ng-template #emptyBadge>

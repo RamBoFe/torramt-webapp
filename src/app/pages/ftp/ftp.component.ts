@@ -16,16 +16,16 @@ export class FtpComponent implements OnInit {
   breadcrumbs: Array<string> = [];
   modalRef: MDBModalRef;
 
-  constructor(private ftpService: FtpService,
+  constructor(public ftpService: FtpService,
               private nasService: NasService,
               private modalService: MDBModalService,
               private toastr: ToastrService) { }
 
-  async ngOnInit(): Promise<any> {
-    this.files = await this.ftpService.getList();
+  async ngOnInit(): Promise<void> {
+    setTimeout(async () => this.files = await this.ftpService.getList());
   }
 
-  async move(folder = ''): Promise<any> {
+  async move(folder = ''): Promise<void> {
     const index = this.breadcrumbs.indexOf(folder);
 
     if (index === -1 && folder !== '') {
@@ -38,7 +38,7 @@ export class FtpComponent implements OnInit {
     this.files = await this.ftpService.getList(`/${this.breadcrumbs.join('/')}`);
   }
 
-  async delete(path, type): Promise<any> {
+  async delete(path, type): Promise<void> {
     await this.ftpService.delete(path, type);
     this.toastr.success('Le torrent a bien été supprimé du ftp.', 'Suppression d\'un torrent du ftp');
   }

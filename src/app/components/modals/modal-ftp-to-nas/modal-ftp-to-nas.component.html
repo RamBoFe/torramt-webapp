@@ -73,16 +73,18 @@
       (click)="onTransfertoNas()" mdbWavesEffect
     >
       <app-loader
-        *ngIf="isLoading; else iconDl"
         htmlType="inline"
         color="text-white"
-      ></app-loader>
-      <ng-template #iconDl>
-        <mdb-icon
-            fas
-            icon="download"
-        ></mdb-icon>
-      </ng-template>
+        [name]="'transfertNas'"
+        [endPoint]="{ url: nasService.END_POINT_TRANSFERT }"
+      >
+        <span>
+          <mdb-icon
+              fas
+              icon="download"
+          ></mdb-icon>
+        </span>
+      </app-loader>
       Transférer
     </button>
 

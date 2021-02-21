@@ -13,8 +13,10 @@ export class LoaderComponent implements OnInit {
   @Input() color = 'text-primary';
   @Input() name: string = undefined;
   @Input() endPoint: EndPointInterface = undefined;
+  @Input() once = false;
+  @Input() align: 'start' | 'center' | 'end' = 'start';
 
-  show = false;
+  show = true;
   type = 'spinner-grow';
   blockClasses = '';
   inlineClasses = '';
@@ -41,14 +43,19 @@ export class LoaderComponent implements OnInit {
   }
 
   private subscribeToLoaderService(): void {
-    let url = this.endPoint.url;
+    if (this.name && this.endPoint) {
+      let url = this.endPoint.url;
 
-    if (this.endPoint.param) {
-      const json = JSON.stringify(this.endPoint.param.value);
-      const param = encodeURI(`${this.endPoint.param.key}=${json}`);
-      url = `${this.endPoint.url}?${param}`;
+      if (this.endPoint.param) {
+        const json = JSON.stringify(this.endPoint.param.value);
+        const param = encodeURI(`${this.endPoint.param.key}=${json}`);
+        url = `${this.endPoint.url}?${param}`;
+      }
+
+      this.loaderService.loaders.set(url, this.name);
+      if (this.once) {
+        this.loaderService.once.set(this.name, false);
+      }
     }
-
-    this.loaderService.loaders.set(url, this.name);
   }
 }

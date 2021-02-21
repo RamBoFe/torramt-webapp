@@ -5,30 +5,33 @@ import { environment } from '../../../../../environments/environment';
 @Injectable()
 export class TransmissionService {
 
-  readonly URL = `${environment.apiUrl}/torrents/management/transmission`;
+  readonly END_POINT_SEEDBOX = `${environment.apiUrl}/torrents/management/transmission`;
+  readonly END_POINT_START = `${this.END_POINT_SEEDBOX}/start`;
+  readonly END_POINT_STOP = `${this.END_POINT_SEEDBOX}/stop`;
+  readonly END_POINT_REMOVE = `${this.END_POINT_SEEDBOX}/remove`;
 
   constructor(private http: HttpClient) {}
 
   async getTorrents(): Promise<any> {
     return this.http
-      .get<Array<any>>(`${this.URL}`)
+      .get<Array<any>>(`${this.END_POINT_SEEDBOX}`)
       .toPromise();
   }
 
   async start(hash: String): Promise<any> {
     return this.http
-      .get<Array<any>>(`${this.URL}/start/${hash}`)
+      .get<Array<any>>(`${this.END_POINT_START}/${hash}`)
       .toPromise();
   }
 
   async stop(hash: String): Promise<any> {
     return this.http
-      .get<Array<any>>(`${this.URL}/stop/${hash}`)
+      .get<Array<any>>(`${this.END_POINT_STOP}/${hash}`)
       .toPromise();
   }
   async remove(hash: String): Promise<any> {
     return this.http
-      .get<Array<any>>(`${this.URL}/remove/${hash}`)
+      .get<Array<any>>(`${this.END_POINT_REMOVE}/${hash}`)
       .toPromise();
   }
 }
