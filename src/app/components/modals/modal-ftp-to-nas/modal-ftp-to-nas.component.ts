@@ -25,7 +25,6 @@ export class ModalFtpToNasComponent implements OnInit {
   subFolder = '';
   torrentName: string;
   moreOptionsCollapsed = false;
-  isLoading = false;
 
   constructor(
     public modalRef: MDBModalRef,

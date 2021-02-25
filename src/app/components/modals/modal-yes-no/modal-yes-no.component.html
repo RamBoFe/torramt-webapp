@@ -30,17 +30,19 @@
       (click)="sendResponse(true)"
     >
       <app-loader
-          *ngIf="isLoading; else iconYes"
           htmlType="inline"
           color="text-white"
-      ></app-loader>
-      <ng-template #iconYes>
-        <mdb-icon
-          *ngIf="btnYes.icon"
-          fas
-          icon="{{ btnYes.icon }}"
-        ></mdb-icon>
-      </ng-template>
+          [name]="'removeTorrents'"
+          [endPoint]="{ url: transmissionService.END_POINT_REMOVE + '/' + api.hash }"
+      >
+        <span>
+          <mdb-icon
+            *ngIf="btnYes.icon"
+            fas
+            icon="{{ btnYes.icon }}"
+          ></mdb-icon>
+        </span>
+      </app-loader>
       {{ btnYes.label }}
     </button>
 

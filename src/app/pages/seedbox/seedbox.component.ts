@@ -53,7 +53,7 @@ export class SeedboxComponent implements OnInit, OnDestroy {
     }
   }
 
-  async remove(hash: string): Promise<any> {
+  async remove(hash: string): Promise<void> {
     await this.transmission.remove(hash);
     this.modalRef.hide();
     this.toastr.success('Le torrent a bien été supprimé de la seedbox.', 'Suppression d\'un torrent de la seedbox');
@@ -83,12 +83,13 @@ export class SeedboxComponent implements OnInit, OnDestroy {
           label: 'Annuler',
           color: 'danger',
           outline: true
-        }
+        },
+        api: { hash }
       }
     });
-    this.modalRef.content.response.subscribe(response => {
+    this.modalRef.content.response.subscribe(async response => {
       if (response) {
-        this.remove(hash);
+        await this.remove(hash);
       }
     });
   }
