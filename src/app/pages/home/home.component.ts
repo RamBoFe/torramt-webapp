@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
     this.toastr.success (`Le torrent "${infos.name}" a bien été ajouté au téléchargement.`, 'Torrent ajouté !');
   }
 
-  async openModalTorrentDetails(i: number): Promise<any> {
+  async openModalTorrentDetails(i: number): Promise<void> {
     this.modalService.show(ModalTorrentDetailsComponent, {
       class: 'modal-dialog-scrollable modal-lg',
       data: { torrent: this.torrents[i] }

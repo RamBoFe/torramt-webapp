@@ -13,12 +13,14 @@ export class ModalTorrentDetailsComponent implements OnInit {
   torrent: object;
 
   constructor(public modalRef: MDBModalRef,
-              private torrentsService: TorrentsService,
+              public torrentsService: TorrentsService,
               private sanitizerService: DomSanitizer
               ) {}
 
-  async ngOnInit(): Promise<any> {
-    const torrentDetailsHtml = await this.torrentsService.getTorrentDetails(this.torrent);
-    this.torrentDetailsHtml = this.sanitizerService.bypassSecurityTrustHtml(torrentDetailsHtml);
+  async ngOnInit(): Promise<void> {
+    setTimeout(async () => {
+      const torrentDetailsHtml = await this.torrentsService.getTorrentDetails(this.torrent);
+      this.torrentDetailsHtml = this.sanitizerService.bypassSecurityTrustHtml(torrentDetailsHtml);
+    });
   }
 }

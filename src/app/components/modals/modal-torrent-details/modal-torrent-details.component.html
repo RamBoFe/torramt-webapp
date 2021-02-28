@@ -14,9 +14,14 @@
       Détails du torrent
     </h4>
   </div>
-  <div
-      class="modal-body text-center"
-      [innerHTML]="torrentDetailsHtml"
-  >
+
+  <div class="modal-body text-center">
+    <app-loader
+      [align]="'center'"
+      [name]="'torrentDetails'"
+      [endPoint]="{ url: torrentsService.END_POINT_DETAILS, param: { key: 'torrent', value: torrent } }"
+    >
+      <div [innerHTML]="torrentDetailsHtml"></div>
+    </app-loader>
   </div>
 </div>
