@@ -22,7 +22,6 @@
     "@angular/service-worker": "~8.2.14",
     "@fortawesome/fontawesome-free": "^5.8.2",
     "@types/chart.js": "^2.7.53",
-    "angular-bootstrap-md": "^7.5.3",
     "chart.js": "^2.5.0",
     "core-js": "^2.5.4",
     "filesize": "^4.1.2",
