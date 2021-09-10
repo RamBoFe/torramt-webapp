@@ -2,7 +2,6 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/site/footer/footer.component';
 import { HeaderComponent } from './components/site/header/header.component';
@@ -54,7 +53,6 @@ registerLocaleData(localeFr, 'fr');
   imports: [
     BrowserModule,
     routing,
-    MDBBootstrapModule.forRoot(),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
