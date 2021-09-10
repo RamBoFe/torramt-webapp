@@ -15,7 +15,7 @@ import { TorrentsSortService } from '../../services/torrent/torrents-sort.servic
 
 export class HomeComponent implements OnInit {
 
-  @ViewChild(CollapseComponent) search: CollapseComponent;
+  @ViewChild(CollapseComponent, { static: true }) search: CollapseComponent;
 
   torrents: Array<Torrent>;
   searchForm: FormGroup;

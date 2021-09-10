@@ -17,7 +17,7 @@ interface Destination {
 
 export class ModalFtpToNasComponent implements OnInit {
 
-  @ViewChild(CollapseComponent) moreOptions: CollapseComponent;
+  @ViewChild(CollapseComponent, { static: true }) moreOptions: CollapseComponent;
 
   transfert: Subject<any> = new Subject();
   destinations: Array<Destination>;
