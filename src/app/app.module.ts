@@ -34,53 +34,47 @@ import { TransmissionService } from './services/api/torrents/management/transmis
 registerLocaleData(localeFr, 'fr');
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    HeaderComponent,
-    FooterComponent,
-    SeedboxComponent,
-    FileSizePipe,
-    FtpComponent,
-    ModalFtpToNasComponent,
-    ModalTorrentDetailsComponent,
-    ModalYesNoComponent,
-    TorrentActiveProvidersComponent,
-    PercentPipe,
-    DownloadTimePipe,
-    LoaderComponent
-  ],
-  imports: [
-    BrowserModule,
-    routing,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    ToastrModule.forRoot()
-  ],
-  providers: [
-    FormBuilder,
-    TorrentsService,
-    TransmissionService,
-    FtpService,
-    {
-      provide: LOCALE_ID,
-      useValue: 'fr-FR'
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: LoaderInterceptor,
-      multi: true
-    }
-  ],
-  bootstrap: [AppComponent],
-  entryComponents: [
-    ModalFtpToNasComponent,
-    ModalTorrentDetailsComponent,
-    ModalYesNoComponent,
-    TorrentActiveProvidersComponent
-  ]
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        HeaderComponent,
+        FooterComponent,
+        SeedboxComponent,
+        FileSizePipe,
+        FtpComponent,
+        ModalFtpToNasComponent,
+        ModalTorrentDetailsComponent,
+        ModalYesNoComponent,
+        TorrentActiveProvidersComponent,
+        PercentPipe,
+        DownloadTimePipe,
+        LoaderComponent
+    ],
+    imports: [
+        BrowserModule,
+        routing,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+        ToastrModule.forRoot()
+    ],
+    providers: [
+        FormBuilder,
+        TorrentsService,
+        TransmissionService,
+        FtpService,
+        {
+            provide: LOCALE_ID,
+            useValue: 'fr-FR'
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: LoaderInterceptor,
+            multi: true
+        }
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
