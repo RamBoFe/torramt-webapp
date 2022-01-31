@@ -6,8 +6,14 @@
     "start": "ng serve",
     "build": "ng build --configuration production=true",
     "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "lint": "gts lint",
+    "e2e": "ng e2e",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "prepare": "npm.cmd run compile",
+    "pretest": "npm.cmd run compile",
+    "posttest": "npm.cmd run lint"
   },
   "private": true,
   "dependencies": {
@@ -23,12 +29,7 @@
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
     "@angular/service-worker": "~13.2.0",
-    "@fortawesome/fontawesome-free": "^5.8.2",
-    "@types/chart.js": "^2.7.53",
-    "chart.js": "^2.5.0",
-    "core-js": "^2.5.4",
     "filesize": "^4.1.2",
-    "hammerjs": "^2.0.8",
     "ngx-toastr": "^13.2.1",
     "parse-torrent-title": "^1.2.0",
     "rxjs": "~6.6.7",
@@ -41,10 +42,8 @@
     "@angular/compiler-cli": "~13.2.0",
     "@angular/language-service": "~13.2.0",
     "@types/node": "^12.11.1",
-    "angular-tslint-rules": "^1.20.4",
-    "codelyzer": "^6.0.0",
+    "gts": "^3.1.0",
     "ts-node": "~7.0.0",
-    "tslint": "~6.1.0",
     "typescript": "~4.5.5"
   },
   "volta": {
