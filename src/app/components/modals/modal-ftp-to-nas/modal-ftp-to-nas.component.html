@@ -1,103 +1,103 @@
-<div class="modal-content">
+<!--<div class="modal-content">-->
 
-  <div class="modal-header">
-    <button
-      type="button"
-      class="close pull-right"
-      (click)="modalRef.hide()"
-    >
-      <span>×</span>
-    </button>
-    <h4 class="modal-title w-100">
-      Transfert du torrent "{{ torrentName }}" vers le Nas ?
-    </h4>
-  </div>
+<!--  <div class="modal-header">-->
+<!--    <button-->
+<!--      type="button"-->
+<!--      class="close pull-right"-->
+<!--      (click)="modalRef.hide()"-->
+<!--    >-->
+<!--      <span>×</span>-->
+<!--    </button>-->
+<!--    <h4 class="modal-title w-100">-->
+<!--      Transfert du torrent "{{ torrentName }}" vers le Nas ?-->
+<!--    </h4>-->
+<!--  </div>-->
 
-  <div class="modal-body">
-    <label for="destinationPath">
-      Répertoire de destination :
-    </label>
-    <select
-      id="destinationPath"
-      class="browser-default custom-select"
-      [(ngModel)]="selectedDest"
-    >
-      <option
-        *ngFor="let destDir of destinations"
-        value="{{ destDir.name }}"
-      >
-        {{ destDir.alias }}
-      </option>
-    </select>
+<!--  <div class="modal-body">-->
+<!--    <label for="destinationPath">-->
+<!--      Répertoire de destination :-->
+<!--    </label>-->
+<!--    <select-->
+<!--      id="destinationPath"-->
+<!--      class="browser-default custom-select"-->
+<!--      [(ngModel)]="selectedDest"-->
+<!--    >-->
+<!--      <option-->
+<!--        *ngFor="let destDir of destinations"-->
+<!--        value="{{ destDir.name }}"-->
+<!--      >-->
+<!--        {{ destDir.alias }}-->
+<!--      </option>-->
+<!--    </select>-->
 
-    <small
-      *ngIf="subFolder"
-      class="form-text text-muted">
-      Le torrent sera sauvegardé sous le répertoire suivant :<br /> {{ subFolder }}
-    </small>
+<!--    <small-->
+<!--      *ngIf="subFolder"-->
+<!--      class="form-text text-muted">-->
+<!--      Le torrent sera sauvegardé sous le répertoire suivant :<br /> {{ subFolder }}-->
+<!--    </small>-->
 
-    <div class="mt-2 text-right">
-      <mdb-icon
-        fas
-        class="blue-text"
-        [icon]="moreOptionsCollapsed ? 'chevron-down' : 'chevron-up'"
-      ></mdb-icon>
-      <a
-        class="small"
-        (click)="showMoreOptions()"
-      >
-        Plus d'options...
-      </a>
-    </div>
+<!--    <div class="mt-2 text-right">-->
+<!--      <mdb-icon-->
+<!--        fas-->
+<!--        class="blue-text"-->
+<!--        [icon]="moreOptionsCollapsed ? 'chevron-down' : 'chevron-up'"-->
+<!--      ></mdb-icon>-->
+<!--      <a-->
+<!--        class="small"-->
+<!--        (click)="showMoreOptions()"-->
+<!--      >-->
+<!--        Plus d'options...-->
+<!--      </a>-->
+<!--    </div>-->
 
-    <div mdbCollapse>
-      <label for="create-folder">
-        Création d'un sous répertoire si besoin :
-      </label>
-      <input
-        mdbInput
-        type="text"
-        class="form-control"
-        id="create-folder"
-        [(ngModel)]="subFolder"
-      >
-    </div>
-  </div>
+<!--    <div mdbCollapse>-->
+<!--      <label for="create-folder">-->
+<!--        Création d'un sous répertoire si besoin :-->
+<!--      </label>-->
+<!--      <input-->
+<!--        mdbInput-->
+<!--        type="text"-->
+<!--        class="form-control"-->
+<!--        id="create-folder"-->
+<!--        [(ngModel)]="subFolder"-->
+<!--      >-->
+<!--    </div>-->
+<!--  </div>-->
 
-  <div class="modal-footer">
-    <button
-      mdbBtn
-      type="button"
-      color="success"
-      class="waves-light"
-      (click)="onTransfertoNas()" mdbWavesEffect
-    >
-      <app-loader
-        htmlType="inline"
-        color="text-white"
-        [name]="'transfertNas'"
-        [endPoint]="{ url: nasService.END_POINT_TRANSFERT }"
-      >
-        <span>
-          <mdb-icon
-              fas
-              icon="download"
-          ></mdb-icon>
-        </span>
-      </app-loader>
-      Transférer
-    </button>
+<!--  <div class="modal-footer">-->
+<!--    <button-->
+<!--      mdbBtn-->
+<!--      type="button"-->
+<!--      color="success"-->
+<!--      class="waves-light"-->
+<!--      (click)="onTransfertoNas()" mdbWavesEffect-->
+<!--    >-->
+<!--      <app-loader-->
+<!--        htmlType="inline"-->
+<!--        color="text-white"-->
+<!--        [name]="'transfertNas'"-->
+<!--        [endPoint]="{ url: nasService.END_POINT_TRANSFERT }"-->
+<!--      >-->
+<!--        <span>-->
+<!--          <mdb-icon-->
+<!--              fas-->
+<!--              icon="download"-->
+<!--          ></mdb-icon>-->
+<!--        </span>-->
+<!--      </app-loader>-->
+<!--      Transférer-->
+<!--    </button>-->
 
-    <button
-      mdbWavesEffect mdbBtn
-      type="button"
-      color="success"
-      outline="true"
-      class="relative waves-light"
-      (click)="modalRef.hide()"
-    >
-      Annuler
-    </button>
-  </div>
+<!--    <button-->
+<!--      mdbWavesEffect mdbBtn-->
+<!--      type="button"-->
+<!--      color="success"-->
+<!--      outline="true"-->
+<!--      class="relative waves-light"-->
+<!--      (click)="modalRef.hide()"-->
+<!--    >-->
+<!--      Annuler-->
+<!--    </button>-->
+<!--  </div>-->
 
-</div>
+<!--</div>-->

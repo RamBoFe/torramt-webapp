@@ -1,10 +1,13 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from '../../../../environments/environment';
+import { Torrent } from '../../../models/torrent.models';
+import { Provider } from '../../../models/provider.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class TorrentsService {
-
   readonly END_POINT_TORRENTS = `${environment.apiUrl}/torrents`;
   readonly END_POINT_SEARCH = `${this.END_POINT_TORRENTS}/search`;
   readonly END_POINT_DL = `${this.END_POINT_TORRENTS}/dl`;
@@ -13,10 +16,14 @@ export class TorrentsService {
 
   constructor(private http: HttpClient) {}
 
-  async getSearch(search): Promise<any> {
+  async getSearch(search: {
+    search: string;
+    provider: string;
+    category: string;
+  }): Promise<Torrent[]> {
     return this.http
-      .get<Array<any>>(`${this.END_POINT_SEARCH}`, {
-        params: { search: JSON.stringify(search) }
+      .get<Torrent[]>(`${this.END_POINT_SEARCH}`, {
+        params: {search: JSON.stringify(search)},
       })
       .toPromise();
   }
@@ -24,25 +31,23 @@ export class TorrentsService {
   async addTorrentToDl(torrent: object): Promise<any> {
     return this.http
       .get<Object>(`${this.END_POINT_DL}`, {
-        params: { torrent: JSON.stringify(torrent) }
+        params: {torrent: JSON.stringify(torrent)},
       })
       .toPromise();
   }
 
   async getTorrentDetails(torrent: object): Promise<any> {
     const requestOptions: Object = {
-      params: { torrent: JSON.stringify(torrent) },
-      responseType: 'text'
+      params: {torrent: JSON.stringify(torrent)},
+      responseType: 'text',
     };
 
     return this.http
-      .get<String>(`${this.END_POINT_DETAILS}`,  requestOptions)
+      .get<String>(`${this.END_POINT_DETAILS}`, requestOptions)
       .toPromise();
   }
 
-  async getActiveProviders(): Promise<any> {
-    return this.http
-      .get<Array<any>>(`${this.END_POINT_PROVIDERS}`)
-      .toPromise();
+  async getActiveProviders(): Promise<Provider[]> {
+    return this.http.get<Provider[]>(`${this.END_POINT_PROVIDERS}`).toPromise();
   }
 }

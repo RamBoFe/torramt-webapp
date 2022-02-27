@@ -1,99 +1,99 @@
-<div class="container mt-5">
-  <h1 class="text-center">Ftp</h1>
+<!--<div class="container mt-5">-->
+<!--  <h1 class="text-center">Ftp</h1>-->
 
-  <mdb-breadcrumb>
-    <mdb-breadcrumb-item>
-      <a (click)="move('')">
-        FTP
-      </a>
-    </mdb-breadcrumb-item>
-    <mdb-breadcrumb-item
-      *ngFor="let breadcrumb of breadcrumbs; let last = last"
-      [ngClass]="{ 'active' : last }"
-    >
-      <a (click)="move(breadcrumb)">
-        {{ breadcrumb }}
-      </a>
-    </mdb-breadcrumb-item>
-  </mdb-breadcrumb>
+<!--  <mdb-breadcrumb>-->
+<!--    <mdb-breadcrumb-item>-->
+<!--      <a (click)="move('')">-->
+<!--        FTP-->
+<!--      </a>-->
+<!--    </mdb-breadcrumb-item>-->
+<!--    <mdb-breadcrumb-item-->
+<!--      *ngFor="let breadcrumb of breadcrumbs; let last = last"-->
+<!--      [ngClass]="{ 'active' : last }"-->
+<!--    >-->
+<!--      <a (click)="move(breadcrumb)">-->
+<!--        {{ breadcrumb }}-->
+<!--      </a>-->
+<!--    </mdb-breadcrumb-item>-->
+<!--  </mdb-breadcrumb>-->
 
-  <app-loader
-    [name]="'ftpList'"
-    [endPoint]="{ url: ftpService.END_POINT_FTP }"
-    [align]="'center'"
-  >
-    <ul class="list-group list-group-flush">
-      <li
-        *ngFor="let file of files; let first = first; "
-        class="list-group-item"
-      >
-        <div class="row">
-          <div class="col-2 d-flex align-self-center">
-            <mdb-icon
-              fas
-              size="2x"
-              class="cyan-text m-auto"
-              [icon]="file.type === 'd' ? 'folder' : 'file'"
-            >
-            </mdb-icon>
-          </div>
-          <div class="col-8">
-            <p>
-              <a (click)="move(file.name)">
-                {{ file.name }}
-              </a>
-            </p>
-            <mdb-badge
-              class="mr-1"
-              primary="true"
-              pill="true"
-            >
-              <mdb-icon
-                fas
-                icon="calendar-alt"
-              ></mdb-icon>
-              {{ file.modifyTime | date: 'short' }}
-            </mdb-badge>
-            <mdb-badge
-              *ngIf="file.type !== 'd'"
-              class="mr-1"
-              info="true"
-              pill="true"
-            >
-              {{ file.size | fileSize }}
-            </mdb-badge>
-          </div>
-          <div class="col-2 align-icons">
-              <button
-                mdbBtn mdbWavesEffect
-                type="button"
-                color="primary"
-                size="sm"
-                (click)="openModalTransfertToNas(file.name, file.type)"
-              >
-                <mdb-icon
-                  fas
-                  icon="download"
-                >
-                </mdb-icon>
-              </button>
-            <button
-                mdbBtn mdbWavesEffect
-                type="button"
-                color="primary"
-                size="sm"
-                outline="true"
-                (click)="openModalConfirmDel(file.name, file.type)"
-              >
-                <mdb-icon
-                  fas
-                  icon="trash-alt"
-                >
-                </mdb-icon>
-              </button>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </app-loader>
-</div>
+<!--  <app-loader-->
+<!--    [name]="'ftpList'"-->
+<!--    [endPoint]="{ url: ftpService.END_POINT_FTP }"-->
+<!--    [align]="'center'"-->
+<!--  >-->
+<!--    <ul class="list-group list-group-flush">-->
+<!--      <li-->
+<!--        *ngFor="let file of files; let first = first; "-->
+<!--        class="list-group-item"-->
+<!--      >-->
+<!--        <div class="row">-->
+<!--          <div class="col-2 d-flex align-self-center">-->
+<!--            <mdb-icon-->
+<!--              fas-->
+<!--              size="2x"-->
+<!--              class="cyan-text m-auto"-->
+<!--              [icon]="file.type === 'd' ? 'folder' : 'file'"-->
+<!--            >-->
+<!--            </mdb-icon>-->
+<!--          </div>-->
+<!--          <div class="col-8">-->
+<!--            <p>-->
+<!--              <a (click)="move(file.name)">-->
+<!--                {{ file.name }}-->
+<!--              </a>-->
+<!--            </p>-->
+<!--            <mdb-badge-->
+<!--              class="mr-1"-->
+<!--              primary="true"-->
+<!--              pill="true"-->
+<!--            >-->
+<!--              <mdb-icon-->
+<!--                fas-->
+<!--                icon="calendar-alt"-->
+<!--              ></mdb-icon>-->
+<!--              {{ file.modifyTime | date: 'short' }}-->
+<!--            </mdb-badge>-->
+<!--            <mdb-badge-->
+<!--              *ngIf="file.type !== 'd'"-->
+<!--              class="mr-1"-->
+<!--              info="true"-->
+<!--              pill="true"-->
+<!--            >-->
+<!--              {{ file.size | fileSize }}-->
+<!--            </mdb-badge>-->
+<!--          </div>-->
+<!--          <div class="col-2 align-icons">-->
+<!--              <button-->
+<!--                mdbBtn mdbWavesEffect-->
+<!--                type="button"-->
+<!--                color="primary"-->
+<!--                size="sm"-->
+<!--                (click)="openModalTransfertToNas(file.name, file.type)"-->
+<!--              >-->
+<!--                <mdb-icon-->
+<!--                  fas-->
+<!--                  icon="download"-->
+<!--                >-->
+<!--                </mdb-icon>-->
+<!--              </button>-->
+<!--            <button-->
+<!--                mdbBtn mdbWavesEffect-->
+<!--                type="button"-->
+<!--                color="primary"-->
+<!--                size="sm"-->
+<!--                outline="true"-->
+<!--                (click)="openModalConfirmDel(file.name, file.type)"-->
+<!--              >-->
+<!--                <mdb-icon-->
+<!--                  fas-->
+<!--                  icon="trash-alt"-->
+<!--                >-->
+<!--                </mdb-icon>-->
+<!--              </button>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </app-loader>-->
+<!--</div>-->

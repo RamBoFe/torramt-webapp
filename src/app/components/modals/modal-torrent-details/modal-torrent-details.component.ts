@@ -1,26 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { MDBModalRef } from 'angular-bootstrap-md';
-import { TorrentsService } from '../../../services/api/torrents/torrents.service';
+import {Component, Inject, OnInit} from '@angular/core';
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
+import {TorrentsService} from '../../../services/api/torrents/torrents.service';
+import {Torrent} from '../../../models/torrent.models';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+
+interface DialogData {
+  torrent: Torrent;
+}
 
 @Component({
   selector: 'app-modal-torrent-details',
   templateUrl: './modal-torrent-details.component.html',
-  styleUrls: ['./modal-torrent-details.component.scss']
+  styleUrls: ['./modal-torrent-details.component.scss'],
 })
-export class ModalTorrentDetailsComponent implements OnInit {
+export class DialogTorrentDetailsComponent implements OnInit {
   torrentDetailsHtml: SafeHtml;
-  torrent: object;
+  torrent: Torrent;
 
-  constructor(public modalRef: MDBModalRef,
-              public torrentsService: TorrentsService,
-              private sanitizerService: DomSanitizer
-              ) {}
+  isLoading = true;
+
+  constructor(
+    public torrentsService: TorrentsService,
+    private sanitizerService: DomSanitizer,
+    public dialogRef: MatDialogRef<DialogTorrentDetailsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
+  ) {}
 
   async ngOnInit(): Promise<void> {
-    setTimeout(async () => {
-      const torrentDetailsHtml = await this.torrentsService.getTorrentDetails(this.torrent);
-      this.torrentDetailsHtml = this.sanitizerService.bypassSecurityTrustHtml(torrentDetailsHtml);
-    });
+    const torrentDetailsHtml = await this.torrentsService.getTorrentDetails(
+      this.data.torrent
+    );
+    this.torrentDetailsHtml =
+      this.sanitizerService.bypassSecurityTrustHtml(torrentDetailsHtml);
+
+    this.isLoading = false;
   }
 }

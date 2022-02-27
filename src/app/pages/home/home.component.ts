@@ -1,82 +1,126 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { CollapseComponent, MDBModalService } from 'angular-bootstrap-md';
-import { ToastrService } from 'ngx-toastr';
-import { Torrent } from '../../common/torrent/torrent.interface';
-import { ModalTorrentDetailsComponent } from '../../components/modals/modal-torrent-details/modal-torrent-details.component';
-import { TorrentsService } from '../../services/api/torrents/torrents.service';
-import { TorrentsSortService } from '../../services/torrent/torrents-sort.service';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
+import {Torrent} from '../../models/torrent.models';
+import {TorrentsService} from '../../services/api/torrents/torrents.service';
+import {TorrentsSortService} from '../../services/torrent/torrents-sort.service';
+import {Provider} from '../../models/provider.model';
+import {transition, trigger, useAnimation} from '@angular/animations';
+import {bounceIn} from 'ng-animate';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogTorrentDetailsComponent} from '../../components/modals/modal-torrent-details/modal-torrent-details.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {SelectionModel} from '@angular/cdk/collections';
+import { SortByEnum } from '../../enums/sort-by.enum';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  animations: [
+    trigger('bounceIn', [transition(':enter', useAnimation(bounceIn))]),
+  ],
 })
+export class HomeComponent implements OnInit, OnDestroy {
+  static readonly TORRENTS_PER_PAGE = 15;
+  private static torrentsCache: Torrent[] = [];
 
-export class HomeComponent implements OnInit {
+  sortByEnum = SortByEnum;
+  sortBy = SortByEnum.BEST_MATCH;
 
-  @ViewChild(CollapseComponent, { static: true }) search: CollapseComponent;
-
-  torrents: Array<Torrent>;
+  /**
+   * Search field
+   */
+  @ViewChild('searchField') searchField: ElementRef<HTMLInputElement>;
   searchForm: FormGroup;
   searchAdvanced = false;
+  maxDisplayedItems: number;
+
+  torrents: Torrent[] = [];
+  providers: Provider[];
+  categories: string[];
+
+  isLoading = false;
+  isAddingTorrent = new SelectionModel<Torrent>(false, []);
+
+  bounceIn = 0;
 
   constructor(
     public torrentsService: TorrentsService,
     private formBuilder: FormBuilder,
-    private modalService: MDBModalService,
     private toastr: ToastrService,
-    private torrentsSortService: TorrentsSortService
-    ) {}
+    private torrentsSortService: TorrentsSortService,
+    private readonly dialogService: MatDialog,
+    private snackBarService: MatSnackBar
+  ) {}
 
-  ngOnInit(): void {
-    this.initForm();
+  ngOnDestroy(): void {
+    HomeComponent.torrentsCache = this.torrents;
   }
 
-  initForm(): void {
-    this.searchForm = this.formBuilder.group({
-      searchValue: '',
-      provider: '',
-      category: ''
+  async ngOnInit(): Promise<void> {
+    this.torrents = HomeComponent.torrentsCache;
+    await this.initForm();
+  }
+
+  async onSubmitedForm(): Promise<void> {
+    if (this.searchForm.valid) {
+      this.torrents = [];
+      this.searchAdvanced = false;
+      this.isLoading = true;
+      this.maxDisplayedItems = HomeComponent.TORRENTS_PER_PAGE;
+      this.torrents = await this.torrentsService.getSearch(
+        this.searchForm.value
+      );
+      this.onChangeSort();
+      this.isLoading = false;
+    }
+  }
+
+  async addTorrentToSeedbox(torrent: Torrent): Promise<void> {
+    this.isAddingTorrent.select(torrent);
+    await this.torrentsService.addTorrentToDl(torrent);
+    this.isAddingTorrent.deselect(torrent);
+
+    this.snackBarService.open(
+      'Le torrent a bien été ajouté à la seedbox.',
+      'FERMER',
+      {duration: 5000}
+    );
+  }
+
+  async onOpenDialogTorrentDetails(torrent: Torrent): Promise<void> {
+    this.dialogService.open(DialogTorrentDetailsComponent, {
+      data: {torrent},
+      hasBackdrop: true,
     });
   }
 
-  async onSubmitForm(): Promise<any> {
-    const torrents = await this.torrentsService.getSearch(this.searchForm.value);
-    this.torrents = this.torrentsSortService.sortByBestMatch(torrents);
-  }
-
-  async addTorrentToDl(i: number): Promise<any> {
-    const infos = await this.torrentsService.addTorrentToDl(this.torrents[i]);
-    this.toastr.success (`Le torrent "${infos.name}" a bien été ajouté au téléchargement.`, 'Torrent ajouté !');
-  }
-
-  async openModalTorrentDetails(i: number): Promise<void> {
-    this.modalService.show(ModalTorrentDetailsComponent, {
-      class: 'modal-dialog-scrollable modal-lg',
-      data: { torrent: this.torrents[i] }
-    });
-  }
-
-  onChangeSort(event: any): void {
-    switch (event.target.value) {
-      case 'asc':
+  onChangeSort(): void {
+    switch (this.sortBy) {
+      case SortByEnum.ASC:
         this.torrents = this.torrentsSortService.sortByAsc(this.torrents);
         break;
 
-      case 'desc':
-       this.torrents = this.torrentsSortService.sortByDesc(this.torrents);
-       break;
+      case SortByEnum.DESC:
+        this.torrents = this.torrentsSortService.sortByDesc(this.torrents);
+        break;
 
-      case 'seeds':
-       this.torrents = this.torrentsSortService.sortBySeeds(this.torrents);
-       break;
+      case SortByEnum.SEEDS:
+        this.torrents = this.torrentsSortService.sortBySeeds(this.torrents);
+        break;
 
-      case 'dateAsc':
-       this.torrents = this.torrentsSortService.sortByDateAsc(this.torrents);
-       break;
+      case SortByEnum.DATE_ASC:
+        this.torrents = this.torrentsSortService.sortByDateAsc(this.torrents);
+        break;
 
-      case 'dateDesc':
+      case SortByEnum.DATE_DESC:
         this.torrents = this.torrentsSortService.sortByDateDesc(this.torrents);
         break;
 
@@ -86,8 +130,31 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  showSearchAdvanced(): void {
-    this.search.toggle();
-    this.searchAdvanced = !this.searchAdvanced;
+  onClearedSearchField() {
+    this.searchForm.get('search').setValue('');
+    this.searchField.nativeElement.focus();
+  }
+
+  private async initForm(): Promise<void> {
+    this.searchForm = this.formBuilder.group({
+      search: new FormControl('', Validators.required),
+      provider: '',
+      category: '',
+    });
+
+    await this.initFormDefaultValues();
+  }
+
+  private async initFormDefaultValues(): Promise<void> {
+    this.providers = await this.torrentsService.getActiveProviders();
+    this.searchForm.get('provider').setValue(this.providers[0].name);
+    this.categories = this.providers.find(
+      p => p.name === this.searchForm.get('provider').value
+    ).categories;
+    this.searchForm.get('category').setValue(this.categories[0]);
+  }
+
+  onShowMore() {
+    this.maxDisplayedItems += HomeComponent.TORRENTS_PER_PAGE;
   }
 }

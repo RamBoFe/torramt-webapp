@@ -1,33 +1,22 @@
-.container {
-  button {
-    border-radius: 20px;
+mat-form-field,
+mat-accordion {
+  width: 100%;
+}
+
+mat-card {
+  width: 100%;
+
+  mat-card-title {
+    font-size: 20px;
+    word-wrap: break-word;
   }
-  ul {
-    li {
-      h6 {
-        word-wrap: break-word;
-      }
-      .icon-actions {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-      }
-    }
+  mat-card-subtitle mat-icon {
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
   }
 }
 
-form {
-  .md-form {
-    margin-bottom: 0;
-  }
-  i {
-    cursor: pointer;
-  }
-}
-
-.custom-notification {
-  position: fixed;
-  width: 350px;
-  top: 40px;
-  right: 40px;
+.mat-form-field-infix {
+  border-top: 0 !important;
 }
