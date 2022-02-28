@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import {TorrentsService} from '../../../services/api/torrents/torrents.service';
 import {Torrent} from '../../../models/torrent.models';
@@ -12,10 +12,11 @@ interface DialogData {
   selector: 'app-modal-torrent-details',
   templateUrl: './modal-torrent-details.component.html',
   styleUrls: ['./modal-torrent-details.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class DialogTorrentDetailsComponent implements OnInit {
-  torrentDetailsHtml: SafeHtml;
   torrent: Torrent;
+  torrentDetailsHtml: SafeHtml;
 
   isLoading = true;
 

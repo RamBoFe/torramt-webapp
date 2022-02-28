@@ -1,7 +1,7 @@
 // CORE
 import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
@@ -15,6 +15,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {FlexLayoutModule} from '@angular/flex-layout';
+
 // ROUTING
 import {routing} from './app.routing';
 
@@ -22,7 +23,8 @@ import {routing} from './app.routing';
 import {AppComponent} from './app.component';
 import {FooterComponent} from './components/site/footer/footer.component';
 import {HeaderComponent} from './components/site/header/header.component';
-import {HomeComponent} from './pages/home/home.component';
+import {SearchComponent} from './pages/search/search.component';
+import {SeedboxComponent} from './pages/seedbox/seedbox.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatListModule} from '@angular/material/list';
@@ -39,7 +41,6 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 // import { ModalYesNoComponent } from './components/modals/modal-yes-no/modal-yes-no.component';
 // import { FtpComponent } from './pages/ftp/ftp.component';
-// import { SeedboxComponent } from './pages/seedbox/seedbox.component';
 
 // PIPES
 // import { DownloadTimePipe } from './pipes/download-time.pipe';
@@ -51,10 +52,10 @@ registerLocaleData(localeFr, 'fr');
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    SearchComponent,
     HeaderComponent,
     FooterComponent,
-    // SeedboxComponent,
+    SeedboxComponent,
     // FileSizePipe,
     // FtpComponent,
     // ModalFtpToNasComponent,
