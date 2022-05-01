@@ -2,7 +2,7 @@ import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import {TorrentsService} from '../../../services/api/torrents/torrents.service';
 import {Torrent} from '../../../models/torrent.models';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 interface DialogData {
   torrent: Torrent;
@@ -15,7 +15,6 @@ interface DialogData {
   encapsulation: ViewEncapsulation.None,
 })
 export class DialogTorrentDetailsComponent implements OnInit {
-  torrent: Torrent;
   torrentDetailsHtml: SafeHtml;
 
   isLoading = true;
@@ -23,7 +22,6 @@ export class DialogTorrentDetailsComponent implements OnInit {
   constructor(
     public torrentsService: TorrentsService,
     private sanitizerService: DomSanitizer,
-    public dialogRef: MatDialogRef<DialogTorrentDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
 

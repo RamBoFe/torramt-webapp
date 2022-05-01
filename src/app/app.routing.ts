@@ -5,6 +5,7 @@ import {SeedboxComponent} from './pages/seedbox/seedbox.component';
 
 const appRoutes: Routes = [
   {path: '', component: SearchComponent},
+  {path: 'search', component: SearchComponent},
   {path: 'seedbox', component: SeedboxComponent},
   // { path: 'ftp', component: FtpComponent },
   {path: '**', redirectTo: ''},

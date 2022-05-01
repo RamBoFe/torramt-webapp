@@ -6,7 +6,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ToastrService} from 'ngx-toastr';
 import {Torrent} from '../../models/torrent.models';
 import {TorrentsService} from '../../services/api/torrents/torrents.service';
 import {TorrentsSortService} from '../../services/torrent/torrents-sort.service';
@@ -111,7 +110,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   constructor(
     public torrentsService: TorrentsService,
     private formBuilder: FormBuilder,
-    private toastr: ToastrService,
     private torrentsSortService: TorrentsSortService,
     private readonly dialogService: MatDialog,
     private snackBarService: MatSnackBar
@@ -122,7 +120,8 @@ export class SearchComponent implements OnInit, OnDestroy {
       SearchComponent.lastSearch.torrents = this.torrents;
       SearchComponent.lastSearch.sortBy = this.sortBy;
       SearchComponent.lastSearch.search = this.searchForm.get('search').value;
-      SearchComponent.lastSearch.maxDisplayedTorrents = this.maxDisplayedTorrents;
+      SearchComponent.lastSearch.maxDisplayedTorrents =
+        this.maxDisplayedTorrents;
     }
   }
 
@@ -130,7 +129,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     if (SearchComponent.lastSearch?.torrents) {
       this.torrents = SearchComponent.lastSearch.torrents;
       this.sortBy = SearchComponent.lastSearch.sortBy;
-      this.maxDisplayedTorrents = SearchComponent.lastSearch.maxDisplayedTorrents;
+      this.maxDisplayedTorrents =
+        SearchComponent.lastSearch.maxDisplayedTorrents;
     }
     await this.initForm();
   }

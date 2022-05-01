@@ -1,91 +1,90 @@
 <div fxLayout="row" fxLayoutAlign="center center">
-  <form fxFlex.xs="100" fxFlex.lt-lg="75" fxFlex="50" [formGroup]="searchForm">
-    <div fxLayout="column" fxLayoutAlign="center center">
-      <mat-form-field appearance="standard">
-        <mat-label>Recherche</mat-label>
-        <input
-          #searchField
-          matInput
-          placeholder="Tapez un nom de fichier torrent..."
-          formControlName="search"
-          (keydown.enter)="onSubmitedForm()"
-        />
-        <button
-          mat-icon-button
-          matSuffix
-          type="button"
-          color="primary"
-          title="Vider le champ de recherche"
-          (click)="onClearedSearchField()"
-        >
-          <mat-icon>clear</mat-icon>
-        </button>
-        <mat-error *ngIf="searchForm.get('search').hasError('required')">
-          Ce champ est <strong>requis</strong>.
-        </mat-error>
-      </mat-form-field>
-
-      <mat-accordion>
-        <mat-expansion-panel
-          class="mat-elevation-z0"
-          [(expanded)]="searchAdvanced"
-        >
-          <mat-expansion-panel-header>
-            <mat-panel-title>Plus d'options...</mat-panel-title>
-          </mat-expansion-panel-header>
-          <div fxFlex>
-            <mat-form-field appearance="standard" fxFlex="50" class="mr-5">
-              <mat-label>Recherche sur le site :</mat-label>
-              <mat-select formControlName="provider">
-                <mat-option
-                  *ngFor="let provider of providers"
-                  value="{{ provider.name }}"
-                >
-                  {{ provider.name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="standard" fxFlex="50">
-              <mat-label>Dans la catégorie :</mat-label>
-              <mat-select formControlName="category">
-                <mat-option
-                  *ngFor="let category of categories"
-                  value="{{ category }}"
-                >
-                  {{ category }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </mat-expansion-panel>
-      </mat-accordion>
-
-      <button
-        mat-raised-button
-        color="primary"
-        title="Lancer la recherche"
-        fxFlex="50"
-        class="mt-3"
-        (click)="onSubmitedForm()"
-        [disabled]="isLoading"
-      >
-        <mat-icon *ngIf="!isLoading">search</mat-icon>
-        <mat-icon *ngIf="isLoading">
-          <mat-spinner color="primary" diameter="20"></mat-spinner>
-        </mat-icon>
-        Rechercher
-      </button>
-    </div>
-  </form>
-</div>
-
-<div fxLayout="row" fxLayoutAlign="center center">
   <div fxFlex.xs="100" fxFlex.lt-lg="75" fxFlex="50">
+
+    <form [formGroup]="searchForm">
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <mat-form-field appearance="standard">
+          <mat-label>Recherche</mat-label>
+          <input
+            #searchField
+            matInput
+            placeholder="Tapez un nom de fichier torrent..."
+            formControlName="search"
+            (keydown.enter)="onSubmitedForm()"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            color="primary"
+            title="Vider le champ de recherche"
+            (click)="onClearedSearchField()"
+          >
+            <mat-icon>clear</mat-icon>
+          </button>
+          <mat-error *ngIf="searchForm.get('search').hasError('required')">
+            Ce champ est <strong>requis</strong>.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-accordion>
+          <mat-expansion-panel
+            class="mat-elevation-z0"
+            [(expanded)]="searchAdvanced"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title>Plus d'options...</mat-panel-title>
+            </mat-expansion-panel-header>
+            <div fxFlex>
+              <mat-form-field appearance="standard" fxFlex="50" class="mr-5">
+                <mat-label>Recherche sur le site :</mat-label>
+                <mat-select formControlName="provider">
+                  <mat-option
+                    *ngFor="let provider of providers"
+                    value="{{ provider.name }}"
+                  >
+                    {{ provider.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="standard" fxFlex="50">
+                <mat-label>Dans la catégorie :</mat-label>
+                <mat-select formControlName="category">
+                  <mat-option
+                    *ngFor="let category of categories"
+                    value="{{ category }}"
+                  >
+                    {{ category }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+
+        <button
+          mat-raised-button
+          color="primary"
+          title="Lancer la recherche"
+          fxFlex="50"
+          class="mt-3"
+          (click)="onSubmitedForm()"
+          [disabled]="isLoading"
+        >
+          <mat-icon *ngIf="!isLoading">search</mat-icon>
+          <mat-icon *ngIf="isLoading">
+            <mat-spinner color="primary" diameter="20"></mat-spinner>
+          </mat-icon>
+          Rechercher
+        </button>
+      </div>
+    </form>
+
     <div
-      *ngIf="torrents.length"
       class="my-5"
       fxLayout="row"
       fxLayoutAlign="space-between"
+      *ngIf="torrents.length"
     >
       <span fxFlexAlign="center">
         Résultats :
@@ -96,16 +95,22 @@
         }}
         / {{ torrents.length }}
       </span>
-      <span>
+      <span fxFlexAlign="center">
         <mat-form-field appearance="standard">
           <mat-label>Trier par :</mat-label>
           <mat-select [(value)]="sortBy" (selectionChange)="onChangeSort()">
-            <mat-option [value]="sortByEnum.BEST_MATCH"> Pertinence </mat-option>
+            <mat-option [value]="sortByEnum.BEST_MATCH">
+              Pertinence
+            </mat-option>
             <mat-option [value]="sortByEnum.ASC"> A-Z </mat-option>
             <mat-option [value]="sortByEnum.DESC"> Z-A </mat-option>
             <mat-option [value]="sortByEnum.SEEDS"> Popularité </mat-option>
-            <mat-option [value]="sortByEnum.DATE_DESC"> Le plus récent </mat-option>
-            <mat-option [value]="sortByEnum.DATE_ASC"> Le plus ancien </mat-option>
+            <mat-option [value]="sortByEnum.DATE_DESC">
+              Le plus récent
+            </mat-option>
+            <mat-option [value]="sortByEnum.DATE_ASC">
+              Le plus ancien
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </span>
@@ -134,7 +139,9 @@
             [disabled]="isAddingTorrent.isSelected(torrent)"
             (click)="addTorrentToSeedbox(torrent)"
           >
-            <mat-icon *ngIf="!isAddingTorrent.isSelected(torrent)">add</mat-icon>
+            <mat-icon *ngIf="!isAddingTorrent.isSelected(torrent)"
+              >add</mat-icon
+            >
             <mat-icon *ngIf="isAddingTorrent.isSelected(torrent)">
               <mat-spinner color="primary" diameter="20"></mat-spinner>
             </mat-icon>
@@ -165,5 +172,6 @@
         Afficher plus de résultats
       </button>
     </div>
+
   </div>
 </div>

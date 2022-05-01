@@ -1,23 +1,43 @@
-.container {
-  ul li {
-
-    div {
-      h6 {
-        word-wrap: break-word;
-      }
-    }
-    .icon-actions {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-    }
-
-    .custom-progress {
-      height: 5px;
-    }
-  }
-  button {
-    border-radius: 20px;
-  }
-
+h1 {
+  text-align: center;
 }
+
+mat-card {
+  width: 90%;
+
+  mat-card-title {
+    font-size: 20px;
+    word-wrap: break-word;
+  }
+  mat-card-subtitle mat-icon {
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+  }
+}
+
+
+
+//.container {
+//  ul li {
+//
+//    div {
+//      h6 {
+//        word-wrap: break-word;
+//      }
+//    }
+//    .icon-actions {
+//      display: flex;
+//      justify-content: space-around;
+//      align-items: center;
+//    }
+//
+//    .custom-progress {
+//      height: 5px;
+//    }
+//  }
+//  button {
+//    border-radius: 20px;
+//  }
+//
+//}

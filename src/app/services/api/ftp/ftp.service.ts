@@ -1,12 +1,11 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from '../../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FtpService {
-
   readonly END_POINT_FTP = `${environment.apiUrl}/ftp`;
   readonly END_POINT_SIZE = `${this.END_POINT_FTP}/size`;
   readonly END_POINT_DELETE = `${this.END_POINT_FTP}/delete`;
@@ -16,7 +15,7 @@ export class FtpService {
   async getList(path = '/'): Promise<any> {
     return this.http
       .get<Array<any>>(`${this.END_POINT_FTP}`, {
-        params: { path }
+        params: {path},
       })
       .toPromise();
   }
@@ -24,7 +23,7 @@ export class FtpService {
   async getSize(path): Promise<any> {
     return this.http
       .get<Number>(`${this.END_POINT_SIZE}`, {
-        params: { path }
+        params: {path},
       })
       .toPromise();
   }
@@ -32,7 +31,7 @@ export class FtpService {
   async delete(path, type): Promise<any> {
     return this.http
       .delete(`${this.END_POINT_DELETE}`, {
-        params: { path, type }
+        params: {path, type},
       })
       .toPromise();
   }

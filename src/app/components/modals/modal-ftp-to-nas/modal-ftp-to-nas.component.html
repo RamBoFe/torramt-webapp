@@ -1,3 +1,45 @@
+<h2 mat-dialog-title>Transfert du torrent "{{ data.torrentName }}" vers le Nas ?</h2>
+
+<mat-dialog-content>
+  <mat-form-field appearance="standard">
+    <mat-label>Répertoire de destination :</mat-label>
+    <mat-select [(value)]="selectedDest">
+      <mat-option
+          *ngFor="let destination of destinations"
+          [value]="destination.name"
+      >
+        {{ destination.alias }}
+      </mat-option>
+    </mat-select>
+    <mat-hint>Le torrent sera sauvegardé sous le répertoire suivant : {{ subFolder }}</mat-hint>
+  </mat-form-field>
+
+  <mat-accordion>
+    <mat-expansion-panel class="mt-3 mb-2">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Plus d'options...</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>Création d'un sous répertoire si besoin :</mat-label>
+          <input matInput [(ngModel)]="subFolder">
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="onTransferToNas()" [disabled]="isLoading">
+    <mat-icon *ngIf="!isLoading">forward</mat-icon>
+    <mat-icon *ngIf="isLoading">
+      <mat-spinner color="primary" diameter="20"></mat-spinner>
+    </mat-icon>
+    Transférer
+  </button>
+  <button mat-stroked-button mat-dialog-close>Annuler</button>
+</mat-dialog-actions>
+
 <!--<div class="modal-content">-->
 
 <!--  <div class="modal-header">-->

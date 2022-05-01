@@ -32,19 +32,18 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatCardModule} from '@angular/material/card';
-import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 // import { TorrentActiveProvidersComponent } from './components/forms/torrent-active-providers/torrent-active-providers.component';
-// import { ModalFtpToNasComponent } from './components/modals/modal-ftp-to-nas/modal-ftp-to-nas.component';
+import { DialogFtpToNasComponent } from './components/modals/modal-ftp-to-nas/modal-ftp-to-nas.component';
 import {DialogTorrentDetailsComponent} from './components/modals/modal-torrent-details/modal-torrent-details.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-// import { ModalYesNoComponent } from './components/modals/modal-yes-no/modal-yes-no.component';
+import { DialogYesNoComponent } from './components/modals/modal-yes-no/modal-yes-no.component';
 // import { FtpComponent } from './pages/ftp/ftp.component';
 
 // PIPES
 // import { DownloadTimePipe } from './pipes/download-time.pipe';
-// import { FileSizePipe } from './pipes/file-size.pipe';
+import { FileSizePipe } from './pipes/file-size.pipe';
 // import { PercentPipe } from './pipes/percent.pipe';
 
 registerLocaleData(localeFr, 'fr');
@@ -56,11 +55,11 @@ registerLocaleData(localeFr, 'fr');
     HeaderComponent,
     FooterComponent,
     SeedboxComponent,
-    // FileSizePipe,
+    FileSizePipe,
     // FtpComponent,
-    // ModalFtpToNasComponent,
+    DialogFtpToNasComponent,
     DialogTorrentDetailsComponent,
-    // ModalYesNoComponent,
+    DialogYesNoComponent,
     // TorrentActiveProvidersComponent,
     // PercentPipe,
     // DownloadTimePipe,
@@ -78,7 +77,6 @@ registerLocaleData(localeFr, 'fr');
     }),
     ToastrModule.forRoot(),
     FlexLayoutModule,
-    InfiniteScrollModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,

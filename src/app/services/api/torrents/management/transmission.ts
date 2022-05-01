@@ -1,10 +1,12 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from '../../../../../environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from '../../../../../environments/environment';
+import {SeedboxTorrent} from '../../../../models/seedbox-torrent.models';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class TransmissionService {
-
   readonly END_POINT_SEEDBOX = `${environment.apiUrl}/torrents/management/transmission`;
   readonly END_POINT_START = `${this.END_POINT_SEEDBOX}/start`;
   readonly END_POINT_STOP = `${this.END_POINT_SEEDBOX}/stop`;
@@ -12,9 +14,9 @@ export class TransmissionService {
 
   constructor(private http: HttpClient) {}
 
-  async getTorrents(): Promise<any> {
+  async getTorrents(): Promise<SeedboxTorrent[]> {
     return this.http
-      .get<Array<any>>(`${this.END_POINT_SEEDBOX}`)
+      .get<SeedboxTorrent[]>(`${this.END_POINT_SEEDBOX}`)
       .toPromise();
   }
 
