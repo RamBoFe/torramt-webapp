@@ -34,16 +34,19 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatCardModule} from '@angular/material/card';
 
 // import { TorrentActiveProvidersComponent } from './components/forms/torrent-active-providers/torrent-active-providers.component';
-import { DialogFtpToNasComponent } from './components/modals/modal-ftp-to-nas/modal-ftp-to-nas.component';
+import {DialogFtpToNasComponent} from './components/modals/modal-ftp-to-nas/modal-ftp-to-nas.component';
 import {DialogTorrentDetailsComponent} from './components/modals/modal-torrent-details/modal-torrent-details.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import { DialogYesNoComponent } from './components/modals/modal-yes-no/modal-yes-no.component';
+import {DialogYesNoComponent} from './components/modals/modal-yes-no/modal-yes-no.component';
 // import { FtpComponent } from './pages/ftp/ftp.component';
 
 // PIPES
 // import { DownloadTimePipe } from './pipes/download-time.pipe';
-import { FileSizePipe } from './pipes/file-size.pipe';
+import {FileSizePipe} from './pipes/file-size.pipe';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { DownloadTimePipe } from './pipes/download-time.pipe';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 // import { PercentPipe } from './pipes/percent.pipe';
 
 registerLocaleData(localeFr, 'fr');
@@ -60,6 +63,7 @@ registerLocaleData(localeFr, 'fr');
     DialogFtpToNasComponent,
     DialogTorrentDetailsComponent,
     DialogYesNoComponent,
+    DownloadTimePipe,
     // TorrentActiveProvidersComponent,
     // PercentPipe,
     // DownloadTimePipe,
@@ -91,6 +95,8 @@ registerLocaleData(localeFr, 'fr');
     MatCardModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatProgressBarModule,
+    MatSlideToggleModule,
   ],
   providers: [
     FormBuilder,

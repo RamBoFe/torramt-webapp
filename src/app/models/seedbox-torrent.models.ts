@@ -17,4 +17,5 @@ export interface SeedboxTorrent {
     length: number;
     bytesCompleted: number;
   }[];
+  isFollowed?: boolean;
 }
