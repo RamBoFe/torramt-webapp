@@ -2,7 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {environment} from '../../../../environments/environment';
 
-export const TAG_SEEDBOX = 'RamBoF';
+export const TAG_SEEDBOX = 'rambof';
 
 @Injectable({
   providedIn: 'root',
