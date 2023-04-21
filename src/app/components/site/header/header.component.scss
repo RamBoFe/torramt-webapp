@@ -1,9 +1,12 @@
-@import "../../../../assets/scss/variables";
-
-.navbar {
-  max-height: $navbar-height;
+.title {
+  display: flex;
+  flex-direction: row;
 }
 
-.navbar-nav {
-  flex-direction: row;
+.spacer {
+  flex: 1 1 auto;
+}
+
+.active {
+  background: rgba(0, 0, 0, .2);
 }

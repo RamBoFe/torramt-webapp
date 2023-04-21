@@ -1,0 +1,22 @@
+mat-form-field,
+mat-accordion {
+  width: 100%;
+}
+
+mat-card {
+  width: 90%;
+
+  mat-card-title {
+    font-size: 20px;
+    word-wrap: break-word;
+  }
+  mat-card-subtitle mat-icon {
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+  }
+}
+
+.mat-form-field-infix {
+  border-top: 0 !important;
+}

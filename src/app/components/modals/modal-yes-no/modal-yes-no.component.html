@@ -1,66 +1,92 @@
-<div class="modal-content">
+<h2 mat-dialog-title>{{ data.title }}</h2>
 
-  <div class="modal-header">
-    <button
-      type="button"
-      class="close pull-right"
-      (click)="hideModal()"
-    >
-      ×
-    </button>
-    <h4
-      class="modal-title w-100"
-      id="myModalLabel"
-    >
-      {{ title }}
-    </h4>
-  </div>
+<mat-dialog-content>
+  {{ data.body }}
+</mat-dialog-content>
 
-  <div class="modal-body">
-    {{ body }}
-  </div>
+<mat-dialog-actions align="end">
+  <button
+    mat-raised-button
+    [color]="data.btnYes.color"
+    (click)="onClickedYes()"
+  >
+    <mat-icon *ngIf="data.btnYes.icon">{{ data.btnYes.icon }}</mat-icon>
+    {{ data.btnYes.label }}
+  </button>
+  <button
+    mat-stroked-button
+    mat-dialog-close
+    [color]="data.btnNo.color"
+    (click)="onClickedNo()"
+  >
+    <mat-icon *ngIf="data.btnNo.icon">{{ data.btnNo.icon }}</mat-icon>
+    {{ data.btnNo.label }}
+  </button>
+</mat-dialog-actions>
 
-  <div class="modal-footer">
-    <button
-      mdbBtn mdbWavesEffect
-      type="button"
-      color="{{ btnYes.color }}"
-      class="waves-light"
-      [outline]="btnYes.outline"
-      (click)="sendResponse(true)"
-    >
-      <app-loader
-          htmlType="inline"
-          color="text-white"
-          [name]="'removeTorrents'"
-          [endPoint]="{ url: transmissionService.END_POINT_REMOVE + '/' + api.hash }"
-      >
-        <span>
-          <mdb-icon
-            *ngIf="btnYes.icon"
-            fas
-            icon="{{ btnYes.icon }}"
-          ></mdb-icon>
-        </span>
-      </app-loader>
-      {{ btnYes.label }}
-    </button>
+<!--<div class="modal-content">-->
 
-    <button
-      mdbBtn mdbWavesEffect
-      type="button"
-      color="{{ btnNo.color }}"
-      [outline]="btnNo.outline"
-      class="relative waves-light"
-      (click)="sendResponse(false)"
-    >
-      <mdb-icon
-          *ngIf="btnNo.icon"
-          fas
-          icon="{{ btnNo.icon }}"
-      ></mdb-icon>
-      {{ btnNo.label }}
-    </button>
+<!--  <div class="modal-header">-->
+<!--    <button-->
+<!--      type="button"-->
+<!--      class="close pull-right"-->
+<!--      (click)="hideModal()"-->
+<!--    >-->
+<!--      ×-->
+<!--    </button>-->
+<!--    <h4-->
+<!--      class="modal-title w-100"-->
+<!--      id="myModalLabel"-->
+<!--    >-->
+<!--      {{ title }}-->
+<!--    </h4>-->
+<!--  </div>-->
 
-  </div>
-</div>
+<!--  <div class="modal-body">-->
+<!--    {{ body }}-->
+<!--  </div>-->
+
+<!--  <div class="modal-footer">-->
+<!--    <button-->
+<!--      mdbBtn mdbWavesEffect-->
+<!--      type="button"-->
+<!--      color="{{ btnYes.color }}"-->
+<!--      class="waves-light"-->
+<!--      [outline]="btnYes.outline"-->
+<!--      (click)="sendResponse(true)"-->
+<!--    >-->
+<!--      <app-loader-->
+<!--          htmlType="inline"-->
+<!--          color="text-white"-->
+<!--          [name]="'removeTorrents'"-->
+<!--          [endPoint]="{ url: transmissionService.END_POINT_REMOVE + '/' + api.hash }"-->
+<!--      >-->
+<!--        <span>-->
+<!--          <mdb-icon-->
+<!--            *ngIf="btnYes.icon"-->
+<!--            fas-->
+<!--            icon="{{ btnYes.icon }}"-->
+<!--          ></mdb-icon>-->
+<!--        </span>-->
+<!--      </app-loader>-->
+<!--      {{ btnYes.label }}-->
+<!--    </button>-->
+
+<!--    <button-->
+<!--      mdbBtn mdbWavesEffect-->
+<!--      type="button"-->
+<!--      color="{{ btnNo.color }}"-->
+<!--      [outline]="btnNo.outline"-->
+<!--      class="relative waves-light"-->
+<!--      (click)="sendResponse(false)"-->
+<!--    >-->
+<!--      <mdb-icon-->
+<!--          *ngIf="btnNo.icon"-->
+<!--          fas-->
+<!--          icon="{{ btnNo.icon }}"-->
+<!--      ></mdb-icon>-->
+<!--      {{ btnNo.label }}-->
+<!--    </button>-->
+
+<!--  </div>-->
+<!--</div>-->

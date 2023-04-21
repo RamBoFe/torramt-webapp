@@ -1,4 +1,4 @@
 export interface CriterionSort {
   name: string;
-  terms: Map<string, number> ;
+  terms: Map<string, number>;
 }

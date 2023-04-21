@@ -1,27 +1,8 @@
-<div class="modal-content">
-  <div class="modal-header">
-    <button
-        type="button"
-        class="close pull-right"
-        (click)="modalRef.hide()"
-    >
-      <span>×</span>
-    </button>
-    <h4
-        class="modal-title w-100"
-        id="myModalLabel"
-    >
-      Détails du torrent
-    </h4>
-  </div>
-
-  <div class="modal-body text-center">
-    <app-loader
-      [align]="'center'"
-      [name]="'torrentDetails'"
-      [endPoint]="{ url: torrentsService.END_POINT_DETAILS, param: { key: 'torrent', value: torrent } }"
-    >
-      <div [innerHTML]="torrentDetailsHtml"></div>
-    </app-loader>
-  </div>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div *ngIf="!isLoading">
+  <h2 mat-dialog-title>Détails du torrent "{{ data.torrent.title }}"</h2>
+  <mat-dialog-content [innerHTML]="torrentDetailsHtml"></mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Fermer</button>
+  </mat-dialog-actions>
 </div>

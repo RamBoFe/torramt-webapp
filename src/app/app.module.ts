@@ -1,88 +1,110 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { AppComponent } from './app.component';
-import { FooterComponent } from './components/site/footer/footer.component';
-import { HeaderComponent } from './components/site/header/header.component';
-import { HomeComponent } from './pages/home/home.component';
-
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { routing } from './app.routing';
-import { TorrentsService } from './services/api/torrents/torrents.service';
-
-import { registerLocaleData } from '@angular/common';
+// CORE
+import {LOCALE_ID, NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
+import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { ToastrModule } from 'ngx-toastr';
-import { environment } from '../environments/environment';
-import { TorrentActiveProvidersComponent } from './components/forms/torrent-active-providers/torrent-active-providers.component';
-import { LoaderComponent } from './components/loader/loader.component';
-import { ModalFtpToNasComponent } from './components/modals/modal-ftp-to-nas/modal-ftp-to-nas.component';
-import { ModalTorrentDetailsComponent } from './components/modals/modal-torrent-details/modal-torrent-details.component';
-import { ModalYesNoComponent } from './components/modals/modal-yes-no/modal-yes-no.component';
-import { LoaderInterceptor } from './interceptors/loader.interceptor';
-import { FtpComponent } from './pages/ftp/ftp.component';
-import { SeedboxComponent } from './pages/seedbox/seedbox.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {ToastrModule} from 'ngx-toastr';
+import {environment} from '../environments/environment';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {FlexLayoutModule} from '@angular/flex-layout';
+
+// ROUTING
+import {routing} from './app.routing';
+
+// COMPONENTS
+import {AppComponent} from './app.component';
+import {FooterComponent} from './components/site/footer/footer.component';
+import {HeaderComponent} from './components/site/header/header.component';
+import {SearchComponent} from './pages/search/search.component';
+import {SeedboxComponent} from './pages/seedbox/seedbox.component';
+import {MatInputModule} from '@angular/material/input';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatListModule} from '@angular/material/list';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatCardModule} from '@angular/material/card';
+
+// import { TorrentActiveProvidersComponent } from './components/forms/torrent-active-providers/torrent-active-providers.component';
+import {DialogFtpToNasComponent} from './components/modals/modal-ftp-to-nas/modal-ftp-to-nas.component';
+import {DialogTorrentDetailsComponent} from './components/modals/modal-torrent-details/modal-torrent-details.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {DialogYesNoComponent} from './components/modals/modal-yes-no/modal-yes-no.component';
+// import { FtpComponent } from './pages/ftp/ftp.component';
+
+// PIPES
+// import { DownloadTimePipe } from './pipes/download-time.pipe';
+import {FileSizePipe} from './pipes/file-size.pipe';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { DownloadTimePipe } from './pipes/download-time.pipe';
-import { FileSizePipe } from './pipes/file-size.pipe';
-import { PercentPipe } from './pipes/percent.pipe';
-import { FtpService } from './services/api/ftp/ftp.service';
-import { TransmissionService } from './services/api/torrents/management/transmission';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+// import { PercentPipe } from './pipes/percent.pipe';
 
 registerLocaleData(localeFr, 'fr');
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    SearchComponent,
     HeaderComponent,
     FooterComponent,
     SeedboxComponent,
     FileSizePipe,
-    FtpComponent,
-    ModalFtpToNasComponent,
-    ModalTorrentDetailsComponent,
-    ModalYesNoComponent,
-    TorrentActiveProvidersComponent,
-    PercentPipe,
+    // FtpComponent,
+    DialogFtpToNasComponent,
+    DialogTorrentDetailsComponent,
+    DialogYesNoComponent,
     DownloadTimePipe,
-    LoaderComponent
+    // TorrentActiveProvidersComponent,
+    // PercentPipe,
+    // DownloadTimePipe,
+    // LoaderComponent
   ],
   imports: [
     BrowserModule,
     routing,
-    MDBBootstrapModule.forRoot(),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    ToastrModule.forRoot()
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+    }),
+    ToastrModule.forRoot(),
+    FlexLayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatExpansionModule,
+    MatListModule,
+    MatBadgeModule,
+    MatChipsModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    MatProgressBarModule,
+    MatSlideToggleModule,
   ],
   providers: [
     FormBuilder,
-    TorrentsService,
-    TransmissionService,
-    FtpService,
     {
       provide: LOCALE_ID,
-      useValue: 'fr-FR'
+      useValue: 'fr-FR',
     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: LoaderInterceptor,
-      multi: true
-    }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [
-    ModalFtpToNasComponent,
-    ModalTorrentDetailsComponent,
-    ModalYesNoComponent,
-    TorrentActiveProvidersComponent
-  ]
 })
-export class AppModule { }
+export class AppModule {}
