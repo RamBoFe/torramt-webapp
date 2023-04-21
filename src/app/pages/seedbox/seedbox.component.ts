@@ -111,6 +111,9 @@ export class SeedboxComponent implements OnInit, OnDestroy {
         this.torrents = this.torrents.filter(
           torrent => torrent.hashString !== hash
         );
+        this.torrentsMarkedToFollow = this.torrentsMarkedToFollow.filter(
+          torrent => torrent.hashString !== hash
+        );
       }
     } catch (e) {
       this.snackBarService.open(
