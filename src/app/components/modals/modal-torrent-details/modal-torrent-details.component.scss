@@ -1,8 +1,7 @@
-.modal-body::ng-deep {
+mat-dialog-content {
+  text-align: center;
   word-wrap: break-word;
-  img::ng-deep {
+  img {
     max-width : 100%;
   }
-
-
 }

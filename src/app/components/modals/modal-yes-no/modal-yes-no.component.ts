@@ -1,44 +1,36 @@
-import { Component } from '@angular/core';
-import { MDBModalRef } from 'angular-bootstrap-md';
-import { Subject } from 'rxjs';
-import { LoaderService } from '../../../services/loader.service';
-import { TransmissionService } from '../../../services/api/torrents/management/transmission';
+import {Component, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {ThemePalette} from '@angular/material/core';
+
+interface DialogData {
+  title: string;
+  body: string;
+  btnYes: ButtonAppareance;
+  btnNo: ButtonAppareance;
+}
+
+interface ButtonAppareance {
+  label: string;
+  icon: string;
+  color: ThemePalette;
+}
 
 @Component({
   selector: 'app-modal-yes-no',
   templateUrl: './modal-yes-no.component.html',
-  styleUrls: ['./modal-yes-no.component.scss']
+  styleUrls: ['./modal-yes-no.component.scss'],
 })
-
-export class ModalYesNoComponent {
-  response: Subject<any> = new Subject();
-  title: string;
-  body: string;
-  btnYes = {
-    label: 'Oui',
-    color: 'primary',
-    outline: false,
-    icon: undefined
-  };
-  btnNo = {
-    label: 'Non',
-    color: 'primary',
-    outline: true,
-    icon: undefined
-  };
-
-  api: any;
-
+export class DialogYesNoComponent {
   constructor(
-    private readonly modalRef: MDBModalRef,
-    readonly transmissionService: TransmissionService
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    public dialogRef: MatDialogRef<DialogYesNoComponent>
   ) {}
 
-  sendResponse(response: boolean): void {
-    this.response.next(response);
+  onClickedYes(): void {
+    this.dialogRef.close(true);
   }
 
-  hideModal(): void {
-    this.modalRef.hide();
+  onClickedNo(): void {
+    this.dialogRef.close(false);
   }
 }
