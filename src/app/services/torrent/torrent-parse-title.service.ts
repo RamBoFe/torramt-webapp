@@ -16,11 +16,15 @@ export class TorrentParseTitleService {
     return parse(title);
   }
 
-  formatForScrapper(title: string): string {
+  transformToPath(title: string): string {
     const parsedTitle = parse(title);
 
-    return `${parsedTitle.title}${
-      parsedTitle.year ? ` (${parsedTitle.year})` : ''
-    }`;
+    if (parsedTitle.season) {
+      return `/${parsedTitle.title}/Saison ${parsedTitle.season}`;
+    } else {
+      return `/${parsedTitle.title}${
+        parsedTitle.year ? ` (${parsedTitle.year})` : ''
+      }`;
+    }
   }
 }

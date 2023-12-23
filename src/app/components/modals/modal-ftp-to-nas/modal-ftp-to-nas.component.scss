@@ -2,6 +2,25 @@ h2 {
   word-break: break-word;
 }
 
-mat-dialog-content, mat-form-field {
+mat-dialog-content,
+mat-form-field {
   width: 100%;
+}
+
+mat-dialog-actions {
+  justify-content: space-between;
+}
+
+mat-selection-list {
+  div {
+    cursor: pointer;
+  }
+
+  .mat-list-icon {
+    color: rgba(0, 0, 0, 0.54);
+  }
+}
+
+.loading {
+  visibility: hidden;
 }
