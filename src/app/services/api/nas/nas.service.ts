@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../../../environments/environment';
 import {File} from '../../../models/nas.model';
 
-export const TAG_SEEDBOX = 'rambof';
+export const TAG_SEEDBOX = 'RamBoF';
 
 @Injectable({
   providedIn: 'root',
