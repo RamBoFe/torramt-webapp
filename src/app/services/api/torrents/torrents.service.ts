@@ -1,8 +1,8 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {environment} from '../../../../environments/environment';
-import { Torrent } from '../../../models/torrent.models';
-import { Provider } from '../../../models/provider.model';
+import {Torrent} from '../../../models/torrent.models';
+import {Provider} from '../../../models/provider.model';
 
 @Injectable({
   providedIn: 'root',

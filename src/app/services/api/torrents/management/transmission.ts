@@ -7,7 +7,7 @@ import {SeedboxTorrent} from '../../../../models/seedbox-torrent.models';
   providedIn: 'root',
 })
 export class TransmissionService {
-  readonly END_POINT_SEEDBOX = `${environment.apiUrl}/torrents/management/transmission`;
+  readonly END_POINT_SEEDBOX = `${environment.apiUrl}/transmission`;
   readonly END_POINT_START = `${this.END_POINT_SEEDBOX}/start`;
   readonly END_POINT_STOP = `${this.END_POINT_SEEDBOX}/stop`;
   readonly END_POINT_REMOVE = `${this.END_POINT_SEEDBOX}/remove`;
