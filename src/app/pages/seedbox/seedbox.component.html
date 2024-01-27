@@ -2,7 +2,9 @@
   <div fxFlex.xs="100" fxFlex.lt-lg="75" fxFlex="50">
     <h1>SEEDBOX</h1>
     <div fxLayoutAlign="end center">
-      <mat-slide-toggle (toggleChange)="onToggleChanged()">Mise à jour automatique</mat-slide-toggle>
+      <mat-slide-toggle (toggleChange)="onToggleChanged()"
+        >Mise à jour automatique</mat-slide-toggle
+      >
     </div>
     <div class="my-5" fxLayout="row" fxLayoutAlign="space-between end">
       <span fxFlexAlign="center"> Torrents : {{ torrents.length }} </span>
@@ -13,7 +15,6 @@
 
     <div fxLayout="column" fxLayoutAlign="center center">
       <ng-container *ngFor="let torrent of torrents">
-
         <mat-card class="mb-5">
           <mat-card-title>{{ torrent.name }}</mat-card-title>
 
@@ -25,7 +26,11 @@
             <mat-icon color="accent" class="mx-1">percent</mat-icon>
             {{ torrent.uploadRatio | number: '1.0-2' }}
             <mat-icon color="accent" class="mx-1">calendar_month</mat-icon>
-            {{ torrent.doneDate ? (torrent.doneDate * 1000 | date: 'dd/MM/yyyy') : '-' }}
+            {{
+              torrent.doneDate
+                ? (torrent.doneDate * 1000 | date: 'dd/MM/yyyy')
+                : '-'
+            }}
           </mat-card-subtitle>
 
           <mat-card-content
@@ -36,11 +41,10 @@
           >
             <div fxLayout="row" fxLayoutAlign="space-between center">
               <div>
-                {{ torrent.downloadedEver | fileSize }} sur {{ torrent.totalSize | fileSize }}
+                {{ torrent.downloadedEver | fileSize }} sur
+                {{ torrent.totalSize | fileSize }}
               </div>
-              <div>
-                {{ torrent.rateDownload | fileSize }}/s
-              </div>
+              <div>{{ torrent.rateDownload | fileSize }}/s</div>
             </div>
 
             <mat-progress-bar
@@ -51,7 +55,11 @@
 
             <div fxLayout="row" fxLayoutAlign="space-between center">
               <div>{{ torrent.percentDone | percent }}</div>
-              <div>{{ torrent.downloadedEver | downloadTime: torrent.rateDownload }}</div>
+              <div>
+                {{
+                  torrent.downloadedEver | downloadTime: torrent.rateDownload
+                }}
+              </div>
             </div>
           </mat-card-content>
 
@@ -76,8 +84,12 @@
               color="primary"
               [title]="
                 torrent.doneDate === 0
-                ? torrent.status === TRANSMISSION_STATUS.STOPPED ? 'Reprendre le téléchargement' : 'Suspendre le téléchargement'
-                : torrent.status !== TRANSMISSION_STATUS.STOPPED  ? 'Suspendre' : 'Diffuser'
+                  ? torrent.status === TRANSMISSION_STATUS.STOPPED
+                    ? 'Reprendre le téléchargement'
+                    : 'Suspendre le téléchargement'
+                  : torrent.status !== TRANSMISSION_STATUS.STOPPED
+                  ? 'Suspendre'
+                  : 'Diffuser'
               "
               (click)="togglePlayPause(torrent.status, torrent.hashString)"
             >
@@ -88,11 +100,14 @@
                 play_arrow
               </mat-icon>
               {{
-              torrent.doneDate === 0
-                ? torrent.status === TRANSMISSION_STATUS.STOPPED ? 'Reprendre le téléchargement' : 'Suspendre le téléchargement'
-                : torrent.status !== TRANSMISSION_STATUS.STOPPED  ? 'Suspendre' : 'Diffuser'
+                torrent.doneDate === 0
+                  ? torrent.status === TRANSMISSION_STATUS.STOPPED
+                    ? 'Reprendre le téléchargement'
+                    : 'Suspendre le téléchargement'
+                  : torrent.status !== TRANSMISSION_STATUS.STOPPED
+                  ? 'Suspendre'
+                  : 'Diffuser'
               }}
-
             </button>
             <button
               mat-stroked-button
@@ -109,220 +124,3 @@
     </div>
   </div>
 </div>
-
-<!--<div class="container mt-5">-->
-<!--  <h1 class="text-center">Seedbox</h1>-->
-
-<!--    &lt;!&ndash;-->
-<!--      Information sur les torrents-->
-<!--    &ndash;&gt;-->
-<!--    <div class="row mt-5">-->
-<!--      <div class="col-5">-->
-<!--        Torrents :-->
-<!--        <app-loader-->
-<!--            htmlType="inline"-->
-<!--            [name]="'seedboxListTorrents'"-->
-<!--            [endPoint]="{ url: transmission.END_POINT_SEEDBOX }"-->
-<!--            [once]="true"-->
-<!--        >-->
-<!--          {{ totalTorrents }}-->
-<!--        </app-loader>-->
-<!--      </div>-->
-<!--      <div class="col-7 text-right">-->
-<!--        Taille sur ftp :-->
-<!--        <app-loader-->
-<!--          htmlType="inline"-->
-<!--          [name]="'ftpSize'"-->
-<!--          [endPoint]="{ url: ftp.END_POINT_SIZE }"-->
-<!--        >-->
-<!--          {{ ftpSizeTorrents | fileSize: 0 }}-->
-<!--        </app-loader>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    &lt;!&ndash;-->
-<!--      Liste des torrents-->
-<!--    &ndash;&gt;-->
-<!--  <app-loader-->
-<!--    [name]="'seedboxListTorrents'"-->
-<!--    [endPoint]="{ url: transmission.END_POINT_SEEDBOX }"-->
-<!--    [once]="true"-->
-<!--    [align]="'center'"-->
-<!--  >-->
-<!--    <ul class="list-group list-group-flush justify-content-around">-->
-<!--      <li-->
-<!--        *ngFor="let torrent of torrents"-->
-<!--        class="list-group-item"-->
-<!--      >-->
-<!--        <div class="row">-->
-<!--          <div class="col-sm-10 col-12 d-flex flex-column">-->
-<!--            <h6>{{ torrent.name }}</h6>-->
-
-<!--            <div class="row">-->
-<!--              <div class="col-6">-->
-<!--                <mdb-badge-->
-<!--                    default="true"-->
-<!--                    pill="true"-->
-<!--                  >-->
-<!--                    <mdb-icon-->
-<!--                      fas-->
-<!--                      icon="arrow-down"-->
-<!--                    ></mdb-icon>-->
-<!--                    <ng-template-->
-<!--                      [ngIf]="torrent.percentDone === 1 && torrent.status !== 4"-->
-<!--                      [ngIfElse]="downloadedInfos"-->
-<!--                    >-->
-<!--                      {{ torrent.totalSize | fileSize }} {{  torrent.rateDownload | fileSize }}/s)-->
-<!--                    </ng-template>-->
-<!--                    <ng-template #downloadedInfos>-->
-<!--                      {{ torrent.downloadedEver | fileSize }} sur {{ torrent.totalSize | fileSize }} {{  torrent.rateDownload | fileSize }}/s)-->
-<!--                    </ng-template>-->
-<!--                  </mdb-badge>-->
-<!--              </div>-->
-<!--              <div class="col-6 text-right">-->
-<!--                <mdb-badge-->
-<!--                  danger="true"-->
-<!--                  pill="true"-->
-<!--                >-->
-<!--                  <ng-template-->
-<!--                    [ngIf]="torrent.percentDone === 1 && torrent.status !== 4"-->
-<!--                    [ngIfElse]="emptyBadge"-->
-<!--                  >-->
-<!--                    <mdb-icon-->
-<!--                      fas icon="arrow-up"-->
-<!--                    ></mdb-icon>-->
-<!--                    {{ torrent.uploadedEver | fileSize }} ({{ torrent.rateUpload |fileSize }}/s)-->
-<!--                  </ng-template>-->
-<!--                </mdb-badge>-->
-
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <div class="row">-->
-
-<!--              <div class="col">-->
-<!--                <mdb-badge-->
-<!--                  info="true"-->
-<!--                  pill="true"-->
-<!--                >-->
-<!--                  <ng-template-->
-<!--                    [ngIf]="torrent.percentDone === 1 && torrent.status !== 4"-->
-<!--                    [ngIfElse]="emptyBadge"-->
-<!--                  >-->
-<!--                    <mdb-icon-->
-<!--                      far-->
-<!--                      icon="calendar-alt"-->
-<!--                    ></mdb-icon>-->
-<!--                    {{ torrent.doneDate * 1000 | date: 'dd/MM/yyyy' }}-->
-<!--                  </ng-template>-->
-<!--                </mdb-badge>-->
-<!--              </div>-->
-
-<!--              <div class="col text-right">-->
-<!--                <mdb-badge-->
-<!--                  info="true"-->
-<!--                  pill="true"-->
-<!--                >-->
-<!--                  <ng-template-->
-<!--                    [ngIf]="torrent.percentDone === 1 && torrent.status !== 4"-->
-<!--                    [ngIfElse]="emptyBadge"-->
-<!--                  >-->
-<!--                    <mdb-icon-->
-<!--                      fas-->
-<!--                      icon="divide"-->
-<!--                    ></mdb-icon>-->
-<!--                      {{ torrent.uploadRatio | number: '1.0-2' }}-->
-<!--                  </ng-template>-->
-<!--                </mdb-badge>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <div-->
-<!--              *ngIf="torrent.percentDone < 1-->
-<!--              && (torrent.status === 4 || torrent.status === 0)"-->
-<!--              class="mt-auto pt-1"-->
-<!--            >-->
-<!--              <div class="progress custom-progress">-->
-<!--                <div-->
-<!--                  class="progress-bar"-->
-<!--                  [ngClass]="{-->
-<!--                    'bg-success': torrent.status === 6,-->
-<!--                    'bg-info': torrent.status === 4,-->
-<!--                    'bg-light': torrent.status === 0-->
-<!--                  }"-->
-<!--                  role="progressbar"-->
-<!--                  [style.width.%]="torrent.percentDone | percent"-->
-<!--                ></div>-->
-<!--              </div>-->
-
-<!--              <div class="row small">-->
-<!--                <div class="col-4">-->
-<!--                  {{ torrent.percentDone | percent }} %-->
-<!--                </div>-->
-<!--                <div class="col-8 text-right">-->
-<!--                  {{ torrent.downloadedEver | downloadTime: torrent.rateDownload }}-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-
-<!--          &lt;!&ndash;-->
-<!--            Icones d'actions-->
-<!--          &ndash;&gt;-->
-<!--          <div class="col-sm-2 col-12 flex-row flex-sm-column mt-sm-0 mt-2 icon-actions">-->
-<!--            <button-->
-<!--                mdbBtn mdbWavesEffect-->
-<!--                type="button"-->
-<!--                color="primary"-->
-<!--                size="sm"-->
-<!--                outline="true"-->
-<!--                class="order-sm-3"-->
-<!--                (click)="openModalConfirmDel(torrent.hashString, torrent.name)"-->
-<!--            >-->
-<!--              <mdb-icon-->
-<!--                  fas-->
-<!--                  icon="trash-alt"-->
-<!--              >-->
-<!--              </mdb-icon>-->
-<!--            </button>-->
-
-<!--            <button-->
-<!--              mdbBtn mdbWavesEffect-->
-<!--              type="button"-->
-<!--              color="primary"-->
-<!--              size="sm"-->
-<!--              outline="true"-->
-<!--              class="order-sm-2"-->
-<!--              (click)="togglePlayPause(torrent.status, torrent.hashString)"-->
-<!--            >-->
-<!--              <mdb-icon-->
-<!--                fas-->
-<!--                [icon]="torrent.status ? 'pause' : 'play'"-->
-<!--              >-->
-<!--              </mdb-icon>-->
-<!--            </button>-->
-
-<!--            <button-->
-<!--                *ngIf="torrent.percentDone === 1"-->
-<!--                mdbBtn mdbWavesEffect-->
-<!--                type="button"-->
-<!--                color="primary"-->
-<!--                size="sm"-->
-<!--                class="order-sm-1"-->
-<!--                (click)="openModalTransfertToNas(torrent.name, torrent.files.length > 1 ? 'd' : '-')"-->
-<!--            >-->
-<!--              <mdb-icon-->
-<!--                  fas-->
-<!--                  icon="download"-->
-<!--              >-->
-<!--              </mdb-icon>-->
-<!--            </button>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </li>-->
-<!--    </ul>-->
-<!--  </app-loader>-->
-<!--</div>-->
-
-<!--<ng-template #emptyBadge>-->
-<!--  - -->
-<!--</ng-template>-->

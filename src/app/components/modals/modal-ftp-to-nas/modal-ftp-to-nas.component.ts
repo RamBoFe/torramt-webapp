@@ -32,7 +32,7 @@ export class DialogFtpToNasComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.subFolder = this.torrentParseTittle.formatForScrapper(
+    this.subFolder = this.torrentParseTittle.transformToPath(
       this.data.torrentName
     );
     this.destinations = [

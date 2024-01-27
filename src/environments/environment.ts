@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // apiUrl: 'https://torramt.rambof.fr:2223'
-  apiUrl: 'http://localhost:2223'
+  // apiUrl: 'https://torramt.rambof.fr/backend',
+  apiUrl: 'http://localhost:2223',
   // apiUrl: 'https://rambof.synology.me:2223'
 };
 
