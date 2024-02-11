@@ -1,4 +1,6 @@
 module.exports = {
-  'endOfLine': 'auto',
-  ...require('gts/.prettierrc.json')
-}
+  ...require('gts/.prettierrc.json'),
+  endOfLine: 'auto',
+  bracketSpacing: true,
+  plugins: ['prettier-plugin-organize-imports'],
+};
