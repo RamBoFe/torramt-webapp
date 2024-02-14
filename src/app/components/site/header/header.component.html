@@ -8,54 +8,17 @@
         </span>
       </a>
 
-      <a mat-button [routerLink]="'/search'" routerLinkActive="active">Recherche</a>
-      <a mat-button [routerLink]="'/seedbox'" routerLinkActive="active">Seedbox</a>
-      <button mat-button (click)="signIn()">Connexion</button>
+      <ng-container *ngIf="storeSrv.$user | async">
 
-<!--      <span class="spacer"></span>-->
+        <a mat-button [routerLink]="'/search'" routerLinkActive="active">Recherche</a>
+        <a mat-button [routerLink]="'/seedbox'" routerLinkActive="active">Seedbox</a>
 
-<!--      <button mat-icon-button title="compte">-->
-<!--        <mat-icon>account_circle</mat-icon>-->
-<!--      </button>-->
+        <span class="spacer"></span>
+
+        <button mat-icon-button (click)="signIn()">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+      </ng-container>
     </mat-toolbar>
   </nav>
 </header>
-
-<!--  <mdb-navbar #navbar SideClass="navbar navbar-1 navbar-dark light-blue fixed-top" [containerInside]="false">-->
-<!--    <mdb-navbar-brand>-->
-<!--      <a class="navbar-brand"-->
-<!--        routerLink=""-->
-<!--      >-->
-<!--        <img src="assets/icons/torramt-32.png">-->
-<!--        Torramt-->
-<!--      </a>-->
-<!--    </mdb-navbar-brand>-->
-
-<!--    <ul class="navbar-nav ml-auto">-->
-<!--      <li class="nav-item"-->
-<!--        routerLink="/search"-->
-<!--        routerLinkActive="active"-->
-<!--      >-->
-<!--        <a class="nav-link waves-light" mdbWavesEffect>-->
-<!--          <mdb-icon fas icon="search"></mdb-icon>-->
-<!--        </a>-->
-<!--      </li>-->
-<!--      <li class="nav-item"-->
-<!--        routerLink="/seedbox"-->
-<!--        routerLinkActive="active"-->
-<!--      >-->
-<!--        <a class="nav-link waves-light" mdbWavesEffect>-->
-<!--          <mdb-icon fas icon="seedling"></mdb-icon>-->
-<!--        </a>-->
-<!--      </li>-->
-<!--      <li class="nav-item"-->
-<!--        routerLink="/ftp"-->
-<!--        routerLinkActive="active"-->
-<!--      >-->
-<!--        <a class="nav-link waves-light" mdbWavesEffect>-->
-<!--          <mdb-icon fas icon="download"></mdb-icon>-->
-<!--        </a>-->
-<!--      </li>-->
-<!--    </ul>-->
-<!--  </mdb-navbar>-->
-<!--</header>-->

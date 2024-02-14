@@ -1,11 +1,6 @@
-import {Injectable} from '@angular/core';
-import {initializeApp} from 'firebase/app';
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  User,
-} from 'firebase/auth';
+import { Injectable } from '@angular/core';
+import { initializeApp } from 'firebase/app';
+import { getAuth, GoogleAuthProvider, signInWithRedirect } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -24,13 +19,9 @@ export class FirebaseService {
   }
 
   /**
-   *
+   * Signin with Firebase.
    */
-  async signInWithPopup(): Promise<User> {
-    const userCredential = await signInWithPopup(
-      getAuth(),
-      new GoogleAuthProvider()
-    );
-    return userCredential.user;
+  async signIn(): Promise<void> {
+    await signInWithRedirect(getAuth(), new GoogleAuthProvider());
   }
 }
