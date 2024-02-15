@@ -8,4 +8,8 @@ import { StoreService } from '../../../services/store.service';
 })
 export class HeaderComponent {
   constructor(readonly storeSrv: StoreService) {}
+
+  onClickAdminButton() {
+    console.log('admin');
+  }
 }
