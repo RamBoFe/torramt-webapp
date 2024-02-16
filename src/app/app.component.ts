@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { getAuth, getRedirectResult } from 'firebase/auth';
 import { FirebaseService } from './services/firebase.service';
+import { LocalStorageService } from './services/local-storage.service';
 import { StoreService } from './services/store.service';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -13,18 +14,23 @@ export class AppComponent implements OnInit {
   constructor(
     readonly storeSrv: StoreService,
     private readonly firebaseSrv: FirebaseService,
-    private readonly snackBarService: MatSnackBar
+    private readonly snackBarService: MatSnackBar,
+    private readonly userSrv: UserService,
+    private readonly localStorageSrv: LocalStorageService
   ) {}
 
   async ngOnInit(): Promise<void> {
     try {
-      const userCredential = await getRedirectResult(getAuth());
-      if (userCredential) {
-        this.storeSrv.$user.next(userCredential);
-        this.snackBarService.open('Connexion réussie.', 'FERMER');
+      console.log(this.localStorageSrv.getFlagWaitingForAuthenticatedUser());
+      if (this.localStorageSrv.getFlagWaitingForAuthenticatedUser()) {
+        await this.userSrv.callbackSignIn();
+      } else {
+        await this.userSrv.resumeSignIn();
       }
-      console.log(userCredential);
+
+      this.snackBarService.open('Connexion réussie.', 'FERMER');
     } catch (e) {
+      console.log(e);
       this.snackBarService.open(
         'Un problème est survenu lors de la connexion.'
       );
@@ -33,7 +39,7 @@ export class AppComponent implements OnInit {
 
   async onSignIn() {
     try {
-      await this.firebaseSrv.signIn();
+      await this.userSrv.signIn();
     } catch (e) {
       this.snackBarService.open(
         'Un problème est survenu lors de la redirection vers Google.'
