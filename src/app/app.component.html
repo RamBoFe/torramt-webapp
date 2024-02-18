@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <main>
-  <router-outlet *ngIf="storeSrv.$user | async; else signIn"></router-outlet>
+  <router-outlet *ngIf="storeSrv.user$ | async; else signIn"></router-outlet>
 
   <ng-template #signIn>
     <div class="sign-in">

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FirebaseService } from './services/firebase.service';
-import { LocalStorageService } from './services/local-storage.service';
 import { StoreService } from './services/store.service';
 import { UserService } from './services/user.service';
 
@@ -14,26 +13,16 @@ export class AppComponent implements OnInit {
   constructor(
     readonly storeSrv: StoreService,
     private readonly firebaseSrv: FirebaseService,
-    private readonly snackBarService: MatSnackBar,
-    private readonly userSrv: UserService,
-    private readonly localStorageSrv: LocalStorageService
+    private readonly snackBarSrv: MatSnackBar,
+    private readonly userSrv: UserService
   ) {}
 
   async ngOnInit(): Promise<void> {
     try {
-      console.log(this.localStorageSrv.getFlagWaitingForAuthenticatedUser());
-      if (this.localStorageSrv.getFlagWaitingForAuthenticatedUser()) {
-        await this.userSrv.callbackSignIn();
-      } else {
-        await this.userSrv.resumeSignIn();
-      }
-
-      this.snackBarService.open('Connexion réussie.', 'FERMER');
+      await this.userSrv.resumeSignIn();
     } catch (e) {
       console.log(e);
-      this.snackBarService.open(
-        'Un problème est survenu lors de la connexion.'
-      );
+      this.snackBarSrv.open('Un problème est survenu lors de la connexion.');
     }
   }
 
@@ -41,7 +30,7 @@ export class AppComponent implements OnInit {
     try {
       await this.userSrv.signIn();
     } catch (e) {
-      this.snackBarService.open(
+      this.snackBarSrv.open(
         'Un problème est survenu lors de la redirection vers Google.'
       );
     }

@@ -8,7 +8,7 @@
         </span>
       </a>
 
-      <ng-container *ngIf="storeSrv.$user | async">
+      <ng-container *ngIf="storeSrv.user$ | async">
 
         <a mat-button [routerLink]="'/search'" routerLinkActive="active">Recherche</a>
         <a mat-button [routerLink]="'/seedbox'" routerLinkActive="active">Seedbox</a>

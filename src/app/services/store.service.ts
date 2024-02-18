@@ -9,5 +9,5 @@ export class StoreService {
   /**
    * User logged in.
    */
-  $user: BehaviorSubject<User> = new BehaviorSubject<User>(undefined);
+  user$: BehaviorSubject<User> = new BehaviorSubject<User>(undefined);
 }
