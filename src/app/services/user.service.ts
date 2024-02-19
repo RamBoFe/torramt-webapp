@@ -32,6 +32,7 @@ export class UserService {
         }
 
         this.storeSrv.user$.next(user ?? undefined);
+        this.storeSrv.loadingUser$.next(false);
       } catch (e) {
         this.snackBarSrv.open(
           this.firebaseSrv.getHumanReadableAuthErrorMessage(e as AuthError),

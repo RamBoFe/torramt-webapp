@@ -7,7 +7,12 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class StoreService {
   /**
-   * User logged in.
+   * User sign in.
    */
   user$: BehaviorSubject<User> = new BehaviorSubject<User>(undefined);
+
+  /**
+   * Loading signed in user.
+   */
+  loadingUser$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 }
