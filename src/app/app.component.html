@@ -1,5 +1,14 @@
 <app-header></app-header>
+
 <main>
-  <router-outlet></router-outlet>
+  <div class="spinner">
+    <mat-spinner *ngIf="storeSrv.loadingUser$.value"></mat-spinner>
+  </div>
+
+  <div class="sign-in" *ngIf="!storeSrv.user$.value && !storeSrv.loadingUser$.value">
+    <p>Cette application est privé. Veuillez vous identifier.</p>
+    <app-google-sign-in-button (click)="onSignIn()"></app-google-sign-in-button>
+  </div>
+
+  <router-outlet *ngIf="storeSrv.user$.value"></router-outlet>
 </main>
-<!--<app-footer></app-footer>-->
