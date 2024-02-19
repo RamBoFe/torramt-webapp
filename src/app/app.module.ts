@@ -1,6 +1,6 @@
 // CORE
 import { registerLocaleData } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import localeFr from '@angular/common/locales/fr';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -44,6 +44,7 @@ import { DialogYesNoComponent } from './components/modals/modal-yes-no/modal-yes
 // import { DownloadTimePipe } from './pipes/download-time.pipe';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { AuthInterceptor } from './Interceptors/auth.interceptor';
 import { GoogleSignInButtonComponent } from './components/google-sign-in-button/google-sign-in-button.component';
 import { DownloadTimePipe } from './pipes/download-time.pipe';
 import { FileSizePipe } from './pipes/file-size.pipe';
@@ -105,6 +106,7 @@ registerLocaleData(localeFr, 'fr');
       provide: LOCALE_ID,
       useValue: 'fr-FR',
     },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
