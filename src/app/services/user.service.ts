@@ -23,6 +23,7 @@ export class UserService {
   async resumeSignIn(): Promise<void> {
     await this.firebaseSrv.refreshToken(async user => {
       try {
+        // If is callback after first sign in.
         const userCredential = await this.firebaseSrv.callbackSignIn();
         if (userCredential) {
           this.snackBarSrv.open('Connexion réussie.', 'FERMER', {
