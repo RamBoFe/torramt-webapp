@@ -9,6 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class GoogleSignInButtonComponent {
   @Output() click: EventEmitter<boolean> = new EventEmitter();
+  static readonly GOOGLE_LOGO_URL = '../../assets/google-logo.svg';
 
   constructor(
     private matIconRegistry: MatIconRegistry,
@@ -17,7 +18,7 @@ export class GoogleSignInButtonComponent {
     this.matIconRegistry.addSvgIcon(
       'google-logo',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../../assets/google-logo.svg'
+        GoogleSignInButtonComponent.GOOGLE_LOGO_URL
       )
     );
   }
