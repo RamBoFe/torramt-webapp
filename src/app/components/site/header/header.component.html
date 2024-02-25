@@ -15,9 +15,16 @@
 
         <span class="spacer"></span>
 
-        <button mat-icon-button (click)="onClickAdminButton()">
+        <button mat-icon-button [matMenuTriggerFor]="menu" >
           <mat-icon>account_circle</mat-icon>
         </button>
+
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="onClickSignoutButton()">
+            <mat-icon>logout</mat-icon>
+            <span>Déconnexion</span>
+          </button>
+        </mat-menu>
       </ng-container>
     </mat-toolbar>
   </nav>

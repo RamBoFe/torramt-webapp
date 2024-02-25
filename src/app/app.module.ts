@@ -42,6 +42,7 @@ import { DialogYesNoComponent } from './components/modals/modal-yes-no/modal-yes
 
 // PIPES
 // import { DownloadTimePipe } from './pipes/download-time.pipe';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AuthInterceptor } from './Interceptors/auth.interceptor';
@@ -99,6 +100,7 @@ registerLocaleData(localeFr, 'fr');
     MatProgressBarModule,
     MatSlideToggleModule,
     HttpClientModule,
+    MatMenuModule,
   ],
   providers: [
     FormBuilder,
