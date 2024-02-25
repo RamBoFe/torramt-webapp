@@ -20,6 +20,10 @@
         </button>
 
         <mat-menu #menu="matMenu">
+          <button mat-menu-item [routerLink]="['administration', 'settings']">
+            <mat-icon>settings</mat-icon>
+            <span>Paramètres</span>
+          </button>
           <button mat-menu-item (click)="onClickSignoutButton()">
             <mat-icon>logout</mat-icon>
             <span>Déconnexion</span>
