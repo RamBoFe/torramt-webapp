@@ -44,6 +44,7 @@
     "@angular/cli": "~13.3.4",
     "@angular/compiler-cli": "~13.3.5",
     "@angular/language-service": "~13.3.5",
+    "@types/jest": "^29.5.12",
     "@types/node": "^12.11.1",
     "gts": "^3.1.0",
     "prettier-plugin-organize-imports": "^3.2.4",
