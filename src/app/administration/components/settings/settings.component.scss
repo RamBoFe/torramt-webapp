@@ -1,0 +1,26 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.url {
+  display: flex;
+  gap: 1rem;
+
+  mat-form-field:first-child,
+  mat-form-field:last-child {
+    width: 15%;
+  }
+}

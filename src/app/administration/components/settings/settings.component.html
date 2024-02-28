@@ -1,1 +1,113 @@
-<p>settings works!</p>
+<h1>PARAMETRES</h1>
+
+<div class="container">
+  <h3>Nas Synology</h3>
+  <form [formGroup]="form">
+    <div class="url">
+      <mat-form-field class="protocol">
+        <mat-label>Protocole</mat-label>
+        <mat-select formControlName="protocol">
+          <mat-option value="https">HTTPS</mat-option>
+          <mat-option value="http">HTTP</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('protocol').hasError('required')">
+          Ce champ est <strong>requis</strong>.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Hôte</mat-label>
+        <input
+          matInput
+          placeholder="monnas.synology.me"
+          formControlName="host"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          color="primary"
+          title="Vider le champ"
+        >
+          <mat-icon>clear</mat-icon>
+        </button>
+        <mat-error *ngIf="form.get('host').hasError('required')">
+          Ce champ est <strong>requis</strong>.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="port">
+        <mat-label>Port</mat-label>
+        <input matInput placeholder="5001" formControlName="port" />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          color="primary"
+          title="Vider le champ"
+        >
+          <mat-icon>clear</mat-icon>
+        </button>
+        <mat-error *ngIf="form.get('port').hasError('required')">
+          Ce champ est <strong>requis</strong>.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field>
+      <mat-label>Login</mat-label>
+      <input matInput formControlName="login" />
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        color="primary"
+        title="Vider le champ"
+      >
+        <mat-icon>clear</mat-icon>
+      </button>
+      <mat-error *ngIf="form.get('login').hasError('required')">
+        Ce champ est <strong>requis</strong>.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Mot de passe</mat-label>
+      <input matInput formControlName="password" />
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        color="primary"
+        title="Vider le champ"
+      >
+        <mat-icon>clear</mat-icon>
+      </button>
+      <mat-error *ngIf="form.get('password').hasError('required')">
+        Ce champ est <strong>requis</strong>.
+      </mat-error>
+    </mat-form-field>
+
+    <h3>Seedbox</h3>
+    <mat-form-field>
+      <mat-label>Etiquette</mat-label>
+      <input matInput formControlName="tag" />
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        color="primary"
+        title="Vider le champ"
+      >
+        <mat-icon>clear</mat-icon>
+      </button>
+      <mat-error *ngIf="form.get('tag').hasError('required')">
+        Ce champ est <strong>requis</strong>.
+      </mat-error>
+      <mat-hint
+        >L'étiquette correspond au nom du dossier qui contiendra vos
+        téléchargements sur le ftp de la seedbox.</mat-hint
+      >
+    </mat-form-field>
+  </form>
+</div>
