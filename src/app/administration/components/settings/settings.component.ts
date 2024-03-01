@@ -19,4 +19,6 @@ export class SettingsComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  onClickSaveButton() {}
 }

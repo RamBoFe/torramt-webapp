@@ -1,3 +1,5 @@
+import { transition, trigger, useAnimation } from '@angular/animations';
+import { SelectionModel } from '@angular/cdk/collections';
 import {
   Component,
   ElementRef,
@@ -5,18 +7,21 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Torrent} from '../../models/torrent.models';
-import {TorrentsService} from '../../services/api/torrents/torrents.service';
-import {TorrentsSortService} from '../../services/torrent/torrents-sort.service';
-import {Provider} from '../../models/provider.model';
-import {transition, trigger, useAnimation} from '@angular/animations';
-import {bounceIn} from 'ng-animate';
-import {MatDialog} from '@angular/material/dialog';
-import {DialogTorrentDetailsComponent} from '../../components/modals/modal-torrent-details/modal-torrent-details.component';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {SelectionModel} from '@angular/cdk/collections';
-import {SortByEnum} from '../../enums/sort-by.enum';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { bounceIn } from 'ng-animate';
+import { DialogTorrentDetailsComponent } from '../../components/modals/modal-torrent-details/modal-torrent-details.component';
+import { SortByEnum } from '../../enums/sort-by.enum';
+import { Provider } from '../../models/provider.model';
+import { Torrent } from '../../models/torrent.models';
+import { TorrentsService } from '../../services/api/torrents/torrents.service';
+import { TorrentsSortService } from '../../services/torrent/torrents-sort.service';
 
 interface LastSearch {
   torrents: Torrent[];
@@ -148,7 +153,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.snackBarService.open(
       'Le torrent a bien été ajouté à la seedbox.',
       'FERMER',
-      {duration: 5000}
+      { duration: 5000 }
     );
   }
 
@@ -159,7 +164,7 @@ export class SearchComponent implements OnInit, OnDestroy {
    */
   async onOpenDialogTorrentDetails(torrent: Torrent): Promise<void> {
     this.dialogService.open(DialogTorrentDetailsComponent, {
-      data: {torrent},
+      data: { torrent },
       hasBackdrop: true,
     });
   }

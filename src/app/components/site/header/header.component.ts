@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FirebaseService } from '../../../services/firebase.service';
 import { StoreService } from '../../../services/store.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -10,11 +10,11 @@ import { StoreService } from '../../../services/store.service';
 export class HeaderComponent {
   constructor(
     readonly storeSrv: StoreService,
-    private readonly firebaseSrv: FirebaseService
+    private readonly userSrv: UserService
   ) {}
 
   onClickSignoutButton(): void {
-    this.firebaseSrv.signOut();
+    this.userSrv.signOut();
   }
 
   onClickConfigurationButton() {}
