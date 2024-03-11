@@ -1,7 +1,7 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {environment} from '../../../../../environments/environment';
-import {SeedboxTorrent} from '../../../../models/seedbox-torrent.models';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
+import { SeedboxTorrent } from '../../models/seedbox-torrent.models';
 
 @Injectable({
   providedIn: 'root',

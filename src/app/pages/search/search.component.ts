@@ -20,7 +20,7 @@ import { DialogTorrentDetailsComponent } from '../../components/modals/modal-tor
 import { SortByEnum } from '../../enums/sort-by.enum';
 import { Provider } from '../../models/provider.model';
 import { Torrent } from '../../models/torrent.models';
-import { TorrentsService } from '../../services/api/torrents/torrents.service';
+import { TorrentsService } from '../../services/api/torrents.service';
 import { TorrentsSortService } from '../../services/torrent/torrents-sort.service';
 
 interface LastSearch {

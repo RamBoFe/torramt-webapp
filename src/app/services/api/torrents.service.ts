@@ -1,8 +1,8 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {environment} from '../../../../environments/environment';
-import { Torrent } from '../../../models/torrent.models';
-import { Provider } from '../../../models/provider.model';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
+import { Provider } from '../../models/provider.model';
+import { Torrent } from '../../models/torrent.models';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +23,7 @@ export class TorrentsService {
   }): Promise<Torrent[]> {
     return this.http
       .get<Torrent[]>(`${this.END_POINT_SEARCH}`, {
-        params: {search: JSON.stringify(search)},
+        params: { search: JSON.stringify(search) },
       })
       .toPromise();
   }
@@ -31,14 +31,14 @@ export class TorrentsService {
   async addTorrentToDl(torrent: object): Promise<any> {
     return this.http
       .get<Object>(`${this.END_POINT_DL}`, {
-        params: {torrent: JSON.stringify(torrent)},
+        params: { torrent: JSON.stringify(torrent) },
       })
       .toPromise();
   }
 
   async getTorrentDetails(torrent: object): Promise<any> {
     const requestOptions: Object = {
-      params: {torrent: JSON.stringify(torrent)},
+      params: { torrent: JSON.stringify(torrent) },
       responseType: 'text',
     };
 

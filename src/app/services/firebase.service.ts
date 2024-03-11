@@ -4,13 +4,13 @@ import {
   Auth,
   AuthError,
   AuthErrorCodes,
-  GoogleAuthProvider,
-  User,
   getAuth,
   getRedirectResult,
+  GoogleAuthProvider,
   onAuthStateChanged,
   signInWithRedirect,
   signOut,
+  User,
 } from 'firebase/auth';
 import { config } from '../../firebase.config';
 
@@ -61,9 +61,11 @@ export class FirebaseService {
       case AuthErrorCodes.USER_DISABLED:
         errorMessage = `Le compte associé à l'email ${authEmail} est désactivé.`;
         break;
+
       case AuthErrorCodes.USER_DELETED:
         errorMessage = `Le compte associé à l'email ${authEmail} est supprimé.`;
         break;
+
       default:
         errorMessage = "Une erreur inattendue s'est produite.";
     }

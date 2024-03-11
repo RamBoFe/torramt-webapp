@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FtpService} from '../../services/api/ftp/ftp.service';
-import {TAG_SEEDBOX} from '../../services/api/nas/nas.service';
-import {TransmissionService} from '../../services/api/torrents/management/transmission';
-import {SeedboxTorrent} from '../../models/seedbox-torrent.models';
-import {MatDialog} from '@angular/material/dialog';
-import {DialogFtpToNasComponent} from '../../components/modals/modal-ftp-to-nas/modal-ftp-to-nas.component';
-import {DialogYesNoComponent} from '../../components/modals/modal-yes-no/modal-yes-no.component';
-import {interval, Observable, Subscription} from 'rxjs';
-import {TRANSMISSION_STATUS} from '../../enums/transmission-status.enum';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { interval, Observable, Subscription } from 'rxjs';
+import { DialogFtpToNasComponent } from '../../components/modals/modal-ftp-to-nas/modal-ftp-to-nas.component';
+import { DialogYesNoComponent } from '../../components/modals/modal-yes-no/modal-yes-no.component';
+import { TRANSMISSION_STATUS } from '../../enums/transmission-status.enum';
+import { SeedboxTorrent } from '../../models/seedbox-torrent.models';
+import { FtpService } from '../../services/api/ftp.service';
+import { TAG_SEEDBOX } from '../../services/api/nas.service';
+import { TransmissionService } from '../../services/api/transmission';
 
 @Component({
   selector: 'app-seedbox',
@@ -104,7 +104,7 @@ export class SeedboxComponent implements OnInit, OnDestroy {
       this.snackBarService.open(
         'Le torrent a bien été supprimé de la seedbox.',
         'FERMER',
-        {duration: 5000}
+        { duration: 5000 }
       );
 
       if (!this.autoUpdate) {
@@ -119,14 +119,14 @@ export class SeedboxComponent implements OnInit, OnDestroy {
       this.snackBarService.open(
         'Impossible de supprimer le torrent de la seedbox.',
         'FERMER',
-        {duration: 5000}
+        { duration: 5000 }
       );
     }
   }
 
   openDialogTransfertToNas(path: string, type: string): void {
     const dialogRef = this.dialogService.open(DialogFtpToNasComponent, {
-      data: {torrentName: path, type},
+      data: { torrentName: path, type },
       hasBackdrop: true,
     });
 
@@ -137,13 +137,13 @@ export class SeedboxComponent implements OnInit, OnDestroy {
             this.snackBarService.open(
               'Le transfert du torrent vers le Nas a débuté.',
               'FERMER',
-              {duration: 5000}
+              { duration: 5000 }
             );
           } else {
             this.snackBarService.open(
               'Le transfert du torrent vers le Nas a échoué.',
               'FERMER',
-              {duration: 5000}
+              { duration: 5000 }
             );
           }
         }

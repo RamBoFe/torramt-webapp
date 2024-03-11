@@ -1,7 +1,7 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {NasService, TAG_SEEDBOX} from '../../../services/api/nas/nas.service';
-import {TorrentParseTitleService} from '../../../services/torrent/torrent-parse-title.service';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NasService, TAG_SEEDBOX } from '../../../services/api/nas.service';
+import { TorrentParseTitleService } from '../../../services/torrent/torrent-parse-title.service';
 
 interface Destination {
   name: string;
@@ -36,10 +36,10 @@ export class DialogFtpToNasComponent implements OnInit {
       this.data.torrentName
     );
     this.destinations = [
-      {name: 'video', alias: 'Films'},
-      {name: 'serie', alias: 'Séries'},
-      {name: 'tv', alias: 'Tv'},
-      {name: 'music', alias: 'Musiques'},
+      { name: 'video', alias: 'Films' },
+      { name: 'serie', alias: 'Séries' },
+      { name: 'tv', alias: 'Tv' },
+      { name: 'music', alias: 'Musiques' },
     ];
     this.selectedDest = this.destinations.find(d => d.name === 'video').name;
   }

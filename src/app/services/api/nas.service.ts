@@ -1,7 +1,7 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {environment} from '../../../../environments/environment';
-import {File} from '../../../models/nas.model';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
+import { File } from '../../models/nas.model';
 
 export const TAG_SEEDBOX = 'RamBoF';
 
@@ -23,7 +23,7 @@ export class NasService {
   ): Promise<any> {
     return this.http
       .get<string>(`${this.END_POINT_TRANSFERT}`, {
-        params: {path, destination, createSubFolder, type},
+        params: { path, destination, createSubFolder, type },
       })
       .toPromise();
   }
@@ -31,7 +31,7 @@ export class NasService {
   async listFiles(path: string): Promise<File[]> {
     return this.http
       .get<File[]>(this.END_POINT_LIST_FILES, {
-        params: {path},
+        params: { path },
       })
       .toPromise();
   }

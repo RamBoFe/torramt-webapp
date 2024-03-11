@@ -1,9 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({name: 'downloadTime'})
+@Pipe({ name: 'downloadTime' })
 export class DownloadTimePipe implements PipeTransform {
   transform(fileSize: number, speedConnection: number): string {
-
     if (!fileSize || !speedConnection) {
       return 'Temps restant inconnu';
     }

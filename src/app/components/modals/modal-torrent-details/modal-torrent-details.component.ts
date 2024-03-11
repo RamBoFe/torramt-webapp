@@ -1,8 +1,8 @@
-import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
-import {TorrentsService} from '../../../services/api/torrents/torrents.service';
-import {Torrent} from '../../../models/torrent.models';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Torrent } from '../../../models/torrent.models';
+import { TorrentsService } from '../../../services/api/torrents.service';
 
 interface DialogData {
   torrent: Torrent;
