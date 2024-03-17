@@ -12,17 +12,53 @@ import {
   signOut,
   User,
 } from 'firebase/auth';
+import {
+  collection,
+  CollectionReference,
+  doc,
+  DocumentData,
+  Firestore,
+  FirestoreDataConverter,
+  getDoc,
+  getFirestore,
+  QueryDocumentSnapshot,
+  SnapshotOptions,
+} from 'firebase/firestore';
 import { config } from '../../firebase.config';
+import { UserFirestore } from '../models/user-firestore.model';
+
+interface CollectionReferenceMap {
+  users: CollectionReference<UserFirestore>;
+}
+
+const converter = <T extends DocumentData>(): FirestoreDataConverter<T> => ({
+  toFirestore: (value: T) => value,
+  fromFirestore: (
+    snapshot: QueryDocumentSnapshot<T>,
+    options?: SnapshotOptions
+  ): T => snapshot.data(options),
+});
 
 @Injectable({
   providedIn: 'root',
 })
 export class FirebaseService {
   private readonly auth: Auth;
+  private readonly firestore: Firestore;
+
+  private readonly getCollection: <T>(path: string) => CollectionReference<T>;
+
+  collections: CollectionReferenceMap;
 
   constructor() {
     initializeApp(config);
     this.auth = getAuth();
+    this.firestore = getFirestore();
+
+    this.getCollection = <T>(path: string): CollectionReference<T> =>
+      collection(this.firestore, path).withConverter(converter<T>());
+
+    this.collections = { users: this.getCollection<UserFirestore>('users') };
   }
 
   /**
@@ -78,5 +114,22 @@ export class FirebaseService {
    */
   async signOut(): Promise<void> {
     await signOut(this.auth);
+  }
+
+  /**
+   * Get a document data in a collection.
+   *
+   * @param collectionRef
+   * @param docId
+   */
+  async getDoc<T>(
+    collectionRef: CollectionReference<T>,
+    docId: string
+  ): Promise<T> {
+    const docRef = doc(this.firestore, collectionRef.path, docId).withConverter(
+      converter<T>()
+    );
+
+    return (await getDoc(docRef)).data();
   }
 }

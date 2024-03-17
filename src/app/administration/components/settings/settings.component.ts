@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserFirestore } from '../../../models/user-firestore.model';
+import { FirebaseService } from '../../../services/firebase.service';
+import { StoreService } from '../../../services/store.service';
 
 @Component({
   selector: 'app-settings',
@@ -16,9 +19,32 @@ export class SettingsComponent implements OnInit {
     tag: new FormControl('', [Validators.required]),
   });
 
-  constructor() {}
+  userConfig: UserFirestore;
 
-  ngOnInit(): void {}
+  constructor(
+    private readonly firebaseSrv: FirebaseService,
+    private readonly storeSrv: StoreService
+  ) {}
+
+  async ngOnInit(): Promise<void> {
+    this.userConfig = await this.firebaseSrv.getDoc(
+      this.firebaseSrv.collections.users,
+      this.storeSrv.user$.value.uid
+    );
+    console.log(this.userConfig);
+    this.initForm();
+  }
+
+  private initForm(): void {
+    this.form.patchValue({
+      protocol: this.userConfig.config.nas.protocol,
+      host: this.userConfig.config.nas.host,
+      port: this.userConfig.config.nas.port,
+      login: this.userConfig.config.nas.user,
+      password: this.userConfig.config.nas.pwd,
+      tag: this.userConfig.config.seedbox.tag,
+    });
+  }
 
   onClickSaveButton() {}
 }

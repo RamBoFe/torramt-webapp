@@ -16,6 +16,4 @@ export class HeaderComponent {
   onClickSignoutButton(): void {
     this.userSrv.signOut();
   }
-
-  onClickConfigurationButton() {}
 }

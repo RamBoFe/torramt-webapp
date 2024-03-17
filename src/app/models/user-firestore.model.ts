@@ -8,5 +8,8 @@ export interface UserFirestore {
       user: string;
       pwd: string;
     };
+    seedbox: {
+      tag: string;
+    };
   };
 }
