@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
+import { UpdateData } from 'firebase/firestore';
 import { UserFirestore } from '../../../models/user-firestore.model';
 import { FirebaseService } from '../../../services/firebase.service';
 import { StoreService } from '../../../services/store.service';
@@ -19,32 +22,80 @@ export class SettingsComponent implements OnInit {
     tag: new FormControl('', [Validators.required]),
   });
 
-  userConfig: UserFirestore;
+  user: UserFirestore;
 
   constructor(
+    private readonly route: ActivatedRoute,
     private readonly firebaseSrv: FirebaseService,
-    private readonly storeSrv: StoreService
+    private readonly storeSrv: StoreService,
+    private readonly snackBarSrv: MatSnackBar
   ) {}
 
   async ngOnInit(): Promise<void> {
-    this.userConfig = await this.firebaseSrv.getDoc(
-      this.firebaseSrv.collections.users,
-      this.storeSrv.user$.value.uid
-    );
-    console.log(this.userConfig);
+    this.user = this.route.snapshot.data['user'];
     this.initForm();
   }
 
   private initForm(): void {
-    this.form.patchValue({
-      protocol: this.userConfig.config.nas.protocol,
-      host: this.userConfig.config.nas.host,
-      port: this.userConfig.config.nas.port,
-      login: this.userConfig.config.nas.user,
-      password: this.userConfig.config.nas.pwd,
-      tag: this.userConfig.config.seedbox.tag,
-    });
+    if (this.user) {
+      this.form.patchValue({
+        protocol: this.user.config.nas.protocol,
+        host: this.user.config.nas.host,
+        port: this.user.config.nas.port,
+        login: this.user.config.nas.login,
+        password: this.user.config.nas.password,
+        tag: this.user.config.seedbox.tag,
+      });
+    }
   }
 
-  onClickSaveButton() {}
+  async onClickSaveButton() {
+    const datas: UpdateData<UserFirestore> = {};
+
+    if (this.form.dirty) {
+      try {
+        if (this.user === undefined) {
+          const { tag, ...nas } = this.form.value;
+
+          await this.firebaseSrv.setDoc(
+            this.firebaseSrv.collections.users,
+            this.storeSrv.user$.value.uid,
+            {
+              email: this.storeSrv.user$.value.email,
+              config: {
+                nas,
+                seedbox: { tag },
+              },
+            }
+          );
+        } else if (this.form.controls['tag'].dirty) {
+          datas['config.seedbox.tag'] = this.form.value['tag'];
+        } else {
+          datas['config.nas'] = {
+            protocol: this.form.value['protocol'],
+            host: this.form.value['host'],
+            port: +this.form.value['port'],
+            login: this.form.value['login'],
+            password: this.form.value['password'],
+          };
+
+          await this.firebaseSrv.updateDoc(
+            this.firebaseSrv.collections.users,
+            this.storeSrv.user$.value.uid,
+            datas
+          );
+        }
+
+        this.snackBarSrv.open('Modifications enregistrées', 'FERMER', {
+          duration: 5000,
+        });
+      } catch (e) {
+        this.snackBarSrv.open(
+          "Impossible d'enregistrer les modifications",
+          'FERMER',
+          { duration: 5000 }
+        );
+      }
+    }
+  }
 }

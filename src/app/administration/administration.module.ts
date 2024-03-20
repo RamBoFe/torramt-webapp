@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { routes } from './administration.routing';
 import { SettingsComponent } from './components/settings/settings.component';
+import { UserResolver } from './resolvers/user.resolver';
 
 @NgModule({
   declarations: [SettingsComponent],
@@ -22,5 +23,6 @@ import { SettingsComponent } from './components/settings/settings.component';
     ReactiveFormsModule,
     MatSelectModule,
   ],
+  providers: [UserResolver],
 })
 export class AdministrationModule {}

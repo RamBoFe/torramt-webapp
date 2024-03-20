@@ -5,8 +5,8 @@ export interface UserFirestore {
       protocol: 'http' | 'https';
       host: string;
       port: number;
-      user: string;
-      pwd: string;
+      login: string;
+      password: string;
     };
     seedbox: {
       tag: string;

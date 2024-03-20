@@ -17,12 +17,17 @@ import {
   CollectionReference,
   doc,
   DocumentData,
+  DocumentReference,
   Firestore,
   FirestoreDataConverter,
   getDoc,
   getFirestore,
   QueryDocumentSnapshot,
+  setDoc,
   SnapshotOptions,
+  UpdateData,
+  updateDoc,
+  WithFieldValue,
 } from 'firebase/firestore';
 import { config } from '../../firebase.config';
 import { UserFirestore } from '../models/user-firestore.model';
@@ -31,7 +36,7 @@ interface CollectionReferenceMap {
   users: CollectionReference<UserFirestore>;
 }
 
-const converter = <T extends DocumentData>(): FirestoreDataConverter<T> => ({
+const converter = <T extends DocumentData>(): FirestoreDataConverter<T, T> => ({
   toFirestore: (value: T) => value,
   fromFirestore: (
     snapshot: QueryDocumentSnapshot<T>,
@@ -43,11 +48,30 @@ const converter = <T extends DocumentData>(): FirestoreDataConverter<T> => ({
   providedIn: 'root',
 })
 export class FirebaseService {
+  /**
+   * Auth instance.
+   *
+   * @private
+   */
   private readonly auth: Auth;
+
+  /**
+   * Firestore instance.
+   *
+   * @private
+   */
   private readonly firestore: Firestore;
 
+  /**
+   * Helper method to get a collection reference.
+   *
+   * @private
+   */
   private readonly getCollection: <T>(path: string) => CollectionReference<T>;
 
+  /**
+   * List of collections references.
+   */
   collections: CollectionReferenceMap;
 
   constructor() {
@@ -62,7 +86,7 @@ export class FirebaseService {
   }
 
   /**
-   * Signin with Firebase.
+   * Signing with Firebase.
    */
   async signIn(): Promise<void> {
     await signInWithRedirect(this.auth, new GoogleAuthProvider());
@@ -126,10 +150,52 @@ export class FirebaseService {
     collectionRef: CollectionReference<T>,
     docId: string
   ): Promise<T> {
-    const docRef = doc(this.firestore, collectionRef.path, docId).withConverter(
+    return (await getDoc(this.getDocRef(collectionRef, docId))).data();
+  }
+
+  /**
+   * Update document fields in a collection.
+   *
+   * @param collectionRef
+   * @param docId
+   * @param data
+   */
+  async updateDoc<T>(
+    collectionRef: CollectionReference<T>,
+    docId: string,
+    data: UpdateData<T>
+  ): Promise<void> {
+    return await updateDoc(this.getDocRef(collectionRef, docId), data);
+  }
+
+  /**
+   * Write a document if exist or it will be created.
+   *
+   * @param collectionRef
+   * @param docId
+   * @param data
+   */
+  async setDoc<T>(
+    collectionRef: CollectionReference<T>,
+    docId: string,
+    data: WithFieldValue<T>
+  ): Promise<void> {
+    return await setDoc(this.getDocRef(collectionRef, docId), data);
+  }
+
+  /**
+   * Get a document reference in a collection.
+   *
+   * @param collectionRef
+   * @param docId
+   * @private
+   */
+  private getDocRef<T>(
+    collectionRef: CollectionReference<T>,
+    docId: string
+  ): DocumentReference<T, T> {
+    return doc(this.firestore, collectionRef.path, docId).withConverter(
       converter<T>()
     );
-
-    return (await getDoc(docRef)).data();
   }
 }

@@ -37,7 +37,7 @@ export class UserService {
           if (!isValid) {
             this.storeSrv.user$.next(undefined);
             this.snackBarSrv.open(
-              "Connexion impossible car votre compte n'est pas autorisé ou votre compte est supprimé.",
+              "Connexion impossible car votre compte n'est pas autorisé ou votre compte est supprimé",
               'FERMER',
               {
                 duration: 5000,
@@ -45,7 +45,7 @@ export class UserService {
             );
           } else {
             if (userCredential) {
-              this.snackBarSrv.open('Connexion réussie.', 'FERMER', {
+              this.snackBarSrv.open('Connexion réussie', 'FERMER', {
                 duration: 5000,
               });
             }
@@ -57,9 +57,9 @@ export class UserService {
         let message: string;
         if (e instanceof HttpErrorResponse) {
           if (e.error.code === ApiCodeErrors.UNAUTHORIZED) {
-            message = "Vous n'êtes pas autorisé à accéder à cette application.";
+            message = "Vous n'êtes pas autorisé à accéder à cette application";
           } else {
-            message = "Une erreur inattendue s'est produite.";
+            message = "Une erreur inattendue s'est produite";
           }
         } else {
           const _e = e as AuthError;
