@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { UpdateData } from 'firebase/firestore';
 import { UserFirestore } from '../../../models/user-firestore.model';
 import { FirebaseService } from '../../../services/firebase.service';
 import { StoreService } from '../../../services/store.service';
+import { DialogNasSharedFoldersComponent } from '../../modals/modal-nas-shared-folders/modal-nas-shared-folders.component';
 
-export interface Section {
+export interface Shortcut {
   name: string;
-  updated: string;
+  path: string;
 }
 
 @Component({
@@ -28,18 +30,18 @@ export class SettingsComponent implements OnInit {
   });
 
   user: UserFirestore;
-  folders: Section[] = [
+  shortcuts: Shortcut[] = [
     {
       name: 'Vidéos',
-      updated: '/movies',
+      path: '/movies',
     },
     {
       name: 'Séries',
-      updated: '/series',
+      path: '/series',
     },
     {
       name: 'Jeux',
-      updated: '/games',
+      path: '/games',
     },
   ];
 
@@ -47,7 +49,8 @@ export class SettingsComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly firebaseSrv: FirebaseService,
     private readonly storeSrv: StoreService,
-    private readonly snackBarSrv: MatSnackBar
+    private readonly snackBarSrv: MatSnackBar,
+    private readonly dialogSrv: MatDialog
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -116,5 +119,14 @@ export class SettingsComponent implements OnInit {
         );
       }
     }
+  }
+
+  onOpenModalNasSharedFolders(shortcutName: string) {
+    const dialogRef = this.dialogSrv.open(DialogNasSharedFoldersComponent, {
+      data: { shortcutName },
+      hasBackdrop: true,
+    });
+
+    dialogRef.afterClosed().subscribe(result => console.log(result));
   }
 }

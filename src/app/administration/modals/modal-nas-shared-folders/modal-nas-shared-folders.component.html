@@ -1,0 +1,58 @@
+<h2 mat-dialog-title>
+  Choix du répertoire à associer au raccourci "{{ shortcutName }}" ?
+</h2>
+
+<mat-dialog-content>
+  <mat-list>
+    <div mat-subheader fxLayout="row" fxLayoutAlign="space-between center">
+      Répertoires
+      <div fxLayout="row" fxLayoutGap="8px">
+        <button
+          mat-stroked-button
+          (click)="onListParentFiles()"
+          [disabled]="isRoot"
+        >
+          Dossier parent
+          <mat-icon>expand_less</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <mat-selection-list
+      #file
+      (selectionChange)="
+        onSelectionChange(file.selectedOptions.selected[0].value)
+      "
+      [multiple]="false"
+    >
+      <mat-list-option
+        *ngFor="let file of files"
+        (dblclick)="onListFiles()"
+        [value]="file"
+        [disabled]="isFilesLoading"
+      >
+        <mat-icon mat-list-icon>folder</mat-icon>
+        <div mat-line>{{ file.name }}</div>
+      </mat-list-option>
+    </mat-selection-list>
+  </mat-list>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <div>Répertoire sélectionné : {{ selectedPath }}</div>
+  <div>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onTransferToNas()"
+      [disabled]="isLoading"
+    >
+      <mat-icon *ngIf="!isLoading">forward</mat-icon>
+      <mat-icon *ngIf="isLoading">
+        <mat-spinner color="primary" diameter="20"></mat-spinner>
+      </mat-icon>
+      Sélectionner
+    </button>
+    <button mat-stroked-button mat-dialog-close>Annuler</button>
+  </div>
+</mat-dialog-actions>

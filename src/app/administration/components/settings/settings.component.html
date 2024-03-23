@@ -110,12 +110,21 @@
       >
     </mat-form-field>
 
-    <h3 class="mt-4">Dossiers de téléchargement</h3>
+    <h3 class="mt-4">Raccourcis de téléchargement</h3>
     <mat-list>
-      <mat-list-item *ngFor="let folder of folders">
+      <mat-list-item *ngFor="let shortcut of shortcuts">
         <mat-icon mat-list-icon>folder</mat-icon>
-        <div mat-line>{{ folder.name }}</div>
-        <div mat-line>{{ folder.updated }}</div>
+        <div mat-line>{{ shortcut.name }}</div>
+        <div mat-line>{{ shortcut.path }}</div>
+        <div mat-line>
+          <button
+            mat-raised-button
+            color="accent"
+            (click)="onOpenModalNasSharedFolders(shortcut.name)"
+          >
+            Voir les dossiers partagés
+          </button>
+        </div>
       </mat-list-item>
     </mat-list>
   </form>
