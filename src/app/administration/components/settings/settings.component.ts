@@ -7,6 +7,11 @@ import { UserFirestore } from '../../../models/user-firestore.model';
 import { FirebaseService } from '../../../services/firebase.service';
 import { StoreService } from '../../../services/store.service';
 
+export interface Section {
+  name: string;
+  updated: string;
+}
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -23,6 +28,20 @@ export class SettingsComponent implements OnInit {
   });
 
   user: UserFirestore;
+  folders: Section[] = [
+    {
+      name: 'Vidéos',
+      updated: '/movies',
+    },
+    {
+      name: 'Séries',
+      updated: '/series',
+    },
+    {
+      name: 'Jeux',
+      updated: '/games',
+    },
+  ];
 
   constructor(
     private readonly route: ActivatedRoute,
